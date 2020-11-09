@@ -5,16 +5,20 @@ include(CTest)
 enable_testing()
 
 include_directories(include/
-                    include/gamerules)
+                    include/gamerules
+                    include/builder
+                    include/render)
 
 add_library(gamelib
     src/gamerules/BoardSpace.cpp
     src/gamerules/Property.cpp
     src/gamerules/Board.cpp
-    src/gamerules/Player.cpp)
+    src/gamerules/Player.cpp
+    src/builder/BoardBuilder.cpp)
 
 add_executable(Technopoly Technopoly.cpp)
 target_link_libraries(Technopoly gamelib)
+target_link_libraries(Technopoly GL GLU glut)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
