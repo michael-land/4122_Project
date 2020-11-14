@@ -8,6 +8,7 @@ class BoardBuilder {
     void construct();
     std::vector<Property*> props;
     std::vector<std::string> spaceNames;
+    int foo;
 
     public:
     BoardBuilder();

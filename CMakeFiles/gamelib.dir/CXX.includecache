@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/builder/BoardBuilder.cpp
+builder/BoardBuilder.h
+-
+
+include/builder/BoardBuilder.h
+gamerules/Board.h
+-
+gamerules/Property.h
+-
+
+include/gamerules/Board.h
+gamerules/BoardSpace.h
+-
+gamerules/Player.h
+-
+vector
+-
+
+include/gamerules/BoardSpace.h
+string
+-
+gamerules/Property.h
+-
+render/Colors.h
+-
+
+include/gamerules/Player.h
+gamerules/BoardSpace.h
+-
+
+include/gamerules/Property.h
+string
+-
+
+include/render/Colors.h
+
