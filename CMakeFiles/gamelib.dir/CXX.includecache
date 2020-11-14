@@ -10,6 +10,18 @@
 builder/BoardBuilder.h
 -
 
+/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Board.cpp
+gamerules/Board.h
+-
+
+/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/BoardSpace.cpp
+gamerules/BoardSpace.h
+-
+
+/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Property.cpp
+gamerules/Property.h
+-
+
 include/builder/BoardBuilder.h
 gamerules/Board.h
 -
@@ -27,17 +39,27 @@ vector
 include/gamerules/BoardSpace.h
 string
 -
-gamerules/Property.h
+vector
 -
 render/Colors.h
 -
+gamerules/Player.h
+-
 
 include/gamerules/Player.h
-gamerules/BoardSpace.h
+vector
+-
+string
 -
 
 include/gamerules/Property.h
 string
+-
+gamerules/Board.h
+-
+render/Colors.h
+-
+gamerules/Player.h
 -
 
 include/render/Colors.h

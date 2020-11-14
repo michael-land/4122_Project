@@ -11,13 +11,12 @@ class Board {
     BoardSpace* head;
     BoardSpace* tail;
     std::vector<Player*> players;
+    Player* currPlayer;
     long length;
 
     public:
     Board(std::string);
     void addSpace(BoardSpace*);
-    // void removeSpace(BoardSpace*); I don't see a need for this method
-    // but if we end up using it we can implement it.
     Board& operator<<(BoardSpace*);
     void addPlayer(Player*);
     ~Board();

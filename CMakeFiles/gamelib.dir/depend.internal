@@ -14,15 +14,18 @@ CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.o
  include/gamerules/Board.h
  include/gamerules/BoardSpace.h
  include/gamerules/Player.h
- include/gamerules/Property.h
  include/render/Colors.h
 CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.o
  /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/BoardSpace.cpp
  include/gamerules/BoardSpace.h
- include/gamerules/Property.h
+ include/gamerules/Player.h
  include/render/Colors.h
 CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o
  /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Player.cpp
 CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.o
  /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Property.cpp
+ include/gamerules/Board.h
+ include/gamerules/BoardSpace.h
+ include/gamerules/Player.h
  include/gamerules/Property.h
+ include/render/Colors.h

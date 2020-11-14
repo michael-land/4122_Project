@@ -2,15 +2,19 @@
 #define PROPERTY_H
 
 #include <string>
+#include <gamerules/Board.h>
+#include <render/Colors.h>
+#include <gamerules/Player.h>
 
-class Property {
+class Property : public BoardSpace {
     private:
     std::string name;
     long rent;
     long cost;
+    Colors color;
 
     public:
-    Property(std::string, long, long);
+    Property(std::string, long, long, Colors);
     long getRent() const;
     long getCost() const;
     void setRent(const long&);

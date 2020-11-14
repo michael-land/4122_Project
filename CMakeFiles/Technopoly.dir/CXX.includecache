@@ -9,17 +9,35 @@
 /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/Technopoly.cpp
 gamerules/BoardSpace.h
 -
+gamerules/Player.h
+-
 
 include/gamerules/BoardSpace.h
 string
 -
-gamerules/Property.h
+vector
 -
 render/Colors.h
 -
 
+include/gamerules/Player.h
+vector
+-
+string
+-
+gamerules/BoardSpace.h
+-
+gamerules/Property.h
+-
+
 include/gamerules/Property.h
 string
+-
+gamerules/BoardSpace.h
+-
+render/Colors.h
+-
+gamerules/Player.h
 -
 
 include/render/Colors.h

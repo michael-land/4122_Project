@@ -2,8 +2,9 @@
 #define BOARDSPACE_H
 
 #include <string>
-#include <gamerules/Property.h>
+#include <vector>
 #include <render/Colors.h>
+class Player;
 /*
  * This class is essentially a linked list node for
  * the 'Board' class, which contains implementation
@@ -15,25 +16,26 @@
  */
 class BoardSpace {
     private:
+    std::string spaceID;
     std::string name;
-    Property* property;
     BoardSpace* nextSpace;
     BoardSpace* prevSpace;
     Colors color;
-
+    int improvements; // this is for houses, hotels, etc.
 
     public:
-    BoardSpace(std::string, Property*, Colors);
+    BoardSpace(std::string, Colors);
     std::string getName() const;
     void setName(const std::string&);
-    const Property* getProperty() const;
-    void setProperty(Property*);
+    std::string getSpaceID() const;
+    void setSpaceID(const std::string&);
     BoardSpace* getNextSpace() const;
     BoardSpace* getPrevSpace() const;
     void setNextSpace(BoardSpace*);
     void setPrevSpace(BoardSpace*);
     void setColor(Colors color);
     Colors getColor();
+
     ~BoardSpace();   
 
 };

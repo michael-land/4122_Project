@@ -1,7 +1,7 @@
 #include <gamerules/BoardSpace.h>
+#include <gamerules/Player.h>
 
-BoardSpace::BoardSpace(std::string name, Property* property, Colors color) {
-    this->property = property;
+BoardSpace::BoardSpace(std::string name, Colors color) {
     this->name = name;
     this->color = color;
 }
@@ -12,14 +12,6 @@ std::string BoardSpace::getName() const {
 
 void BoardSpace::setName(const std::string& name) {
     this-> name = name;
-}
-
-const Property* BoardSpace::getProperty() const {
-    return property;
-}
-
-void BoardSpace::setProperty(Property* prop) {
-    this->property = prop;
 }
 
 BoardSpace* BoardSpace::getNextSpace() const {
@@ -47,7 +39,7 @@ Colors BoardSpace::getColor() {
 }
 
 BoardSpace::~BoardSpace() {
-    delete property;
+
 }
 
 

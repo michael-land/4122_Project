@@ -1,1 +1,6 @@
+#ifndef COLORS_H
+#define COLORS_H
+
 enum Colors {WHITE, BROWN, LIGHT_BLUE, BLUE, PINK, ORANGE, RED, YELLOW, GREEN};
+
+#endif
