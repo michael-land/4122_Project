@@ -19,6 +19,10 @@ class Board {
     void addSpace(BoardSpace*);
     Board& operator<<(BoardSpace*);
     void addPlayer(Player*);
+    int rollDice() const;
+    Player* getCurrentPlayer();
+    std::vector<Player*> getPlayers();
+    
     ~Board();
 
 };
