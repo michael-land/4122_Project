@@ -1,8 +1,9 @@
 #include <gamerules/BoardSpace.h>
 
-BoardSpace::BoardSpace(std::string name, Property* property) {
+BoardSpace::BoardSpace(std::string name, Property* property, Colors color) {
     this->property = property;
     this->name = name;
+    this->color = color;
 }
 
 std::string BoardSpace::getName() const {
@@ -35,6 +36,14 @@ void BoardSpace::setNextSpace(BoardSpace* nextSpace) {
 
 void BoardSpace::setPrevSpace(BoardSpace* prevSpace) {
     this->prevSpace = prevSpace;
+}
+
+void BoardSpace::setColor(Colors color) {
+    this->color = color;
+}
+
+Colors BoardSpace::getColor() {
+    return color;
 }
 
 BoardSpace::~BoardSpace() {

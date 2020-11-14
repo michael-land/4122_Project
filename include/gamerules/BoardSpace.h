@@ -3,6 +3,7 @@
 
 #include <string>
 #include <gamerules/Property.h>
+#include <render/Colors.h>
 /*
  * This class is essentially a linked list node for
  * the 'Board' class, which contains implementation
@@ -18,9 +19,11 @@ class BoardSpace {
     Property* property;
     BoardSpace* nextSpace;
     BoardSpace* prevSpace;
+    Colors color;
+
 
     public:
-    BoardSpace(std::string, Property*);
+    BoardSpace(std::string, Property*, Colors);
     std::string getName() const;
     void setName(const std::string&);
     const Property* getProperty() const;
@@ -29,6 +32,8 @@ class BoardSpace {
     BoardSpace* getPrevSpace() const;
     void setNextSpace(BoardSpace*);
     void setPrevSpace(BoardSpace*);
+    void setColor(Colors color);
+    Colors getColor();
     ~BoardSpace();   
 
 };
