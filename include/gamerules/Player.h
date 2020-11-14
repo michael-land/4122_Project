@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 class BoardSpace;
+class Property;
 
 class Player {
     private:
@@ -11,6 +12,7 @@ class Player {
     long money;
     BoardSpace* boardSpace; // this is actually a pointer to a boardSpace Object.
     public:
+    
     
 };
 

@@ -4,7 +4,6 @@
 #include <string>
 #include <gamerules/Board.h>
 #include <render/Colors.h>
-#include <gamerules/Player.h>
 
 class Property : public BoardSpace {
     private:
@@ -12,6 +11,7 @@ class Property : public BoardSpace {
     long rent;
     long cost;
     Colors color;
+    Player* owner;
 
     public:
     Property(std::string, long, long, Colors);

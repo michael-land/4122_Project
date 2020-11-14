@@ -21,6 +21,7 @@ class BoardSpace {
     BoardSpace* nextSpace;
     BoardSpace* prevSpace;
     Colors color;
+    std::vector<Player*> playersOnSpace;
     int improvements; // this is for houses, hotels, etc.
 
     public:
