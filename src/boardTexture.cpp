@@ -1,12 +1,12 @@
 /*
 Author: Ruben Quiros
 Class: ECE 4122
-Last Date Modified: 10/28/20
+Last Date Modified: 11/21/20
 
 Description:
-    This file used OpenGL and GLUT to draw a Pac Man maze along with the ghosts, drops,
-    power ups, and Pac Man. In this version, everything is stationary. However, the user
-    can rotate the scene 5 degrees by pressing "r" on their keyboard.
+    This file used OpenGL and GLUT to draw a Gorgia Tech themed "Monopoly board".
+    In this version, everything is stationary. However, the user can rotate the scene
+    5 degrees by pressing "r" on their keyboard.
 
 SPECIAL NOTE:
     Credit goes to Dr. Hurley for the following functions: init(), reshape(), keyboard(), and
@@ -25,11 +25,11 @@ SPECIAL NOTE:
 using namespace std;
 
 // Some Global Params
-float angle = 0.0;      // angle of the camera (0.0 == south of maze)
+float angle = 0.0;              // angle of the camera (0.0 == south of maze)
 float PI = 3.141592653589793;   // PI for angle calculations
 
-GLuint texture[1];      // for eyes of ghost and Pac Man
-BMP inBitmap;        // for eyes of ghost and Pac Man
+GLuint texture[1];  // for eyes of ghost and Pac Man
+BMP inBitmap;       // for eyes of ghost and Pac Man
 
 // color and material properties
 float colorWhite[4] = { 0.60, 0.60, 0.60, 1.0f };
