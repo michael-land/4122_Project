@@ -17,6 +17,12 @@ gamerules/Board.h
 /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/BoardSpace.cpp
 gamerules/BoardSpace.h
 -
+gamerules/Player.h
+-
+
+/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Player.cpp
+gamerules/BoardSpace.h
+-
 
 /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Property.cpp
 gamerules/Property.h
@@ -43,8 +49,6 @@ vector
 -
 render/Colors.h
 -
-gamerules/Player.h
--
 
 include/gamerules/Player.h
 vector
@@ -58,8 +62,6 @@ string
 gamerules/Board.h
 -
 render/Colors.h
--
-gamerules/Player.h
 -
 
 include/render/Colors.h

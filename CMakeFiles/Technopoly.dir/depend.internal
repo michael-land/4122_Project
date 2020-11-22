@@ -5,5 +5,6 @@ CMakeFiles/Technopoly.dir/Technopoly.cpp.o
  /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/Technopoly.cpp
  include/gamerules/BoardSpace.h
  include/gamerules/Player.h
- include/gamerules/Property.h
+ include/render/Bitmap.h
+ include/render/BoardRenderer.h
  include/render/Colors.h

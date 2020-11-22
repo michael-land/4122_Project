@@ -20,20 +20,14 @@ SPECIAL NOTE:
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
-#include "ECE_Bitmap.h" // for bitmaps/textures
-
-using namespace std;
+#include <render/Bitmap.h> // for bitmaps/textures
 
 // Some Global Params
-float angle = 0.0;              // angle of the camera (0.0 == south of maze)
-float PI = 3.141592653589793;   // PI for angle calculations
-
 GLuint texture[1];  // for eyes of ghost and Pac Man
 BMP inBitmap;       // for eyes of ghost and Pac Man
-
 // color and material properties
 float colorWhite[4] = { 0.60, 0.60, 0.60, 1.0f };
-
+float angle = 0.0;              // angle of the camera (0.0 == south of maze)
 float colorRed[4] = { 1.0, 0.0, 0.0, 1.0f };
 float colorCyan[4] = { 0.0, 1.0, 1.0, 1.0f };
 float colorPink[4] = { 1.0, 0.7529, 0.7861, 1.0f };
@@ -41,12 +35,15 @@ float colorOrange[4] = { 1.0, 0.4921, 0.0, 1.0f };
 float colorBlue[4] = { 0.0, 0.0, 1.0, 1.0f };
 float colorYellow[4] = { 1.0, 0.0, 0.0, 1.0f };
 
-GLfloat shininess[] = { 5 };
+GLfloat shininess[1] = { 5 };
+
+float PI = 3.141592653589793;   // PI for angle calculations
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Used to initialize the background and overall scene
 /////////////////////////////////////////////////////////////////////////////////////////////////
-void init(void){
+void init() {
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glEnable(GL_DEPTH_TEST);
     glShadeModel(GL_SMOOTH);
@@ -71,7 +68,7 @@ void init(void){
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, colorWhite);
 
     // THIS SECTION IS FOR THE BOARD TEXTURE
-    inBitmap.read("boardTexture.bmp");          // read in bmp/texture files
+    inBitmap.read("/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/boardTexture.bmp");          // read in bmp/texture files
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);      // byte alignment
     glGenTextures(1, texture);                  // initialize the texture
     glBindTexture(GL_TEXTURE_2D, texture[0]);   // bind the texture
@@ -99,7 +96,7 @@ void init(void){
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Used to draw the entire scene; this will get recalled when the scene or window changes
 /////////////////////////////////////////////////////////////////////////////////////////////////
-void display(void){
+void display() {
     // enable coloring and depth
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity(); // ???
@@ -181,7 +178,7 @@ void keyboard(unsigned char key, int x, int y){
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Main function - this is where everything is inialized/called
 /////////////////////////////////////////////////////////////////////////////////////////////////
-int main(int argc, char** argv){
+int setup(int argc, char** argv){
     glutInit(&argc, argv);
 
     // enable depth, doubles, and RGBA mode

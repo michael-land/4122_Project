@@ -16,7 +16,7 @@ class Player;
  */
 class BoardSpace {
     private:
-    std::string spaceID;
+    int spaceID;
     std::string name;
     BoardSpace* nextSpace;
     BoardSpace* prevSpace;
@@ -28,15 +28,14 @@ class BoardSpace {
     BoardSpace(std::string, Colors);
     std::string getName() const;
     void setName(const std::string&);
-    std::string getSpaceID() const;
-    void setSpaceID(const std::string&);
     BoardSpace* getNextSpace() const;
     BoardSpace* getPrevSpace() const;
     void setNextSpace(BoardSpace*);
     void setPrevSpace(BoardSpace*);
     void setColor(Colors color);
     Colors getColor();
-
+    void setSpaceID(const int&);
+    int getSpaceID() const;
     ~BoardSpace();   
 
 };
