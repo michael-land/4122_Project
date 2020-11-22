@@ -21,6 +21,8 @@ class Property : public BoardSpace {
     void setCost(const long&);
     std::string getName() const;
     void setName(const std::string&);
+    void setOwner(Player*);
+    Player* getOwner() const;
 };
 
 #endif

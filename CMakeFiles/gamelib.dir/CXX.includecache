@@ -23,6 +23,10 @@ gamerules/Player.h
 /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Player.cpp
 gamerules/BoardSpace.h
 -
+gamerules/Player.h
+-
+gamerules/Board.h
+-
 
 /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Property.cpp
 gamerules/Property.h
