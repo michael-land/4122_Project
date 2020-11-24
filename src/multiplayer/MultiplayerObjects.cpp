@@ -2,6 +2,51 @@
 
 //Implementation for Multiplayer Classes
 
+void receiveSocketServer(client *pUDpSocket)
+{
+    // Loop that waits on incoming messages
+    boardInfo inMsg;
+    sockaddr_in from;
+    socklen_t fromlen{sizeof(struct sockaddr_in)};
+    int n;
+    do
+    {
+        n = recvfrom(pUDpSocket->m_sockfd, (char *)&inMsg, sizeof(boardInfo), 0, (struct sockaddr *)&from, &fromlen);
+        if (n < 0)
+        {
+            break;
+        }
+        else
+        {
+          //Needs functional logic
+        }
+    } while (true);
+}
+
+
+
+void receiveSocketClient(server *pUDpSocket)
+{
+    // Loop that waits on incoming messages
+    playerMove inMsg;
+    sockaddr_in from;
+    socklen_t fromlen{sizeof(struct sockaddr_in)};
+    int n;
+    do
+    {
+        n = recvfrom(pUDpSocket->m_sockfd, (char *)&inMsg, sizeof(playerMove), 0, (struct sockaddr *)&from, &fromlen);
+        if (n < 0)
+        {
+            break;
+        }
+        else
+        {
+          //Needs functional logic
+        }
+    } while (true);
+}
+
+
 
 /////////////////////////////////////////////////
 // Client Implementation
@@ -10,7 +55,7 @@
 // Cross-platform socket initialize
 
 // Cross-platform socket initialize
-server::server(unsigned short usPort) : m_usPort(usPort)
+server::server(unsigned short usPort) : portNum(usPort)
 {
     sockaddr_in serv_addr;
     sockInit();
@@ -33,29 +78,9 @@ server::server(unsigned short usPort) : m_usPort(usPort)
         error("ERROR on binding");
     }
     // Start thread that waits for messages
-    m_recvThread = std::thread(receiveSocketMsgs, this);
+    recieveThread = std::thread(receiveSocketServer, this);
 };
 
-void server::receiveSocketMsgs(server *pUDpSocket)
-{
-    // Loop that waits on incoming messages
-    playerMove inMsg;
-    sockaddr_in from;
-    socklen_t fromlen{sizeof(struct sockaddr_in)};
-    int n;
-    do
-    {
-        n = recvfrom(pUDpSocket->m_sockfd, (char *)&inMsg, sizeof(playerMove), 0, (struct sockaddr *)&from, &fromlen);
-        if (n < 0)
-        {
-            break;
-        }
-        else
-        {
-          //Needs functional logic
-        }
-    } while (true);
-}
 
 int server::sockInit(void)
 {
@@ -132,7 +157,7 @@ void server::addSource(const sockaddr_in &from)
 // Client Implementation
 /////////////////////////////////////////////////
 
-client::client(unsigned short usPort) : m_usPort(usPort)
+client::client(unsigned short usPort) : portNum(usPort)
 {
     sockaddr_in serv_addr;
     sockInit();
@@ -155,29 +180,9 @@ client::client(unsigned short usPort) : m_usPort(usPort)
         error("ERROR on binding");
     }
     // Start thread that waits for messages
-    m_recvThread = std::thread(receiveSocketMsgs, this);
+    recieveThread = std::thread(receiveSocketClient, this);
 };
 
-void client::receiveSocketMsgs(client *pUDpSocket)
-{
-    // Loop that waits on incoming messages
-    boardInfo inMsg;
-    sockaddr_in from;
-    socklen_t fromlen{sizeof(struct sockaddr_in)};
-    int n;
-    do
-    {
-        n = recvfrom(pUDpSocket->m_sockfd, (char *)&inMsg, sizeof(boardInfo), 0, (struct sockaddr *)&from, &fromlen);
-        if (n < 0)
-        {
-            break;
-        }
-        else
-        {
-          //Needs functional logic
-        }
-    } while (true);
-}
 
 int client::sockInit(void)
 {
