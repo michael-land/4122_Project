@@ -38,6 +38,15 @@ Colors BoardSpace::getColor() {
     return color;
 }
 
+int BoardSpace::getSpaceID() const {
+    return spaceID;
+}
+
+void BoardSpace::setSpaceID(const int& id) {
+    spaceID = id;
+}
+
+
 BoardSpace::~BoardSpace() {
 
 }

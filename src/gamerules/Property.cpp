@@ -28,3 +28,11 @@ std::string Property::getName() const {
 void Property::setName(const std::string& newName) {
     this->name = newName;
 }
+
+void Property::setOwner(Player* player) {
+    this->owner = player;
+}
+
+Player* Property::getOwner() const {
+    return owner;
+}

@@ -4,6 +4,7 @@
 CMakeFiles/Technopoly.dir/Technopoly.cpp.o: Technopoly.cpp
 CMakeFiles/Technopoly.dir/Technopoly.cpp.o: include/gamerules/BoardSpace.h
 CMakeFiles/Technopoly.dir/Technopoly.cpp.o: include/gamerules/Player.h
-CMakeFiles/Technopoly.dir/Technopoly.cpp.o: include/gamerules/Property.h
+CMakeFiles/Technopoly.dir/Technopoly.cpp.o: include/render/Bitmap.h
+CMakeFiles/Technopoly.dir/Technopoly.cpp.o: include/render/BoardRenderer.h
 CMakeFiles/Technopoly.dir/Technopoly.cpp.o: include/render/Colors.h
 

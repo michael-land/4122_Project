@@ -22,6 +22,7 @@ class Board {
     int rollDice() const;
     Player* getCurrentPlayer();
     std::vector<Player*> getPlayers();
+    BoardSpace* getHead() const;
     
     ~Board();
 

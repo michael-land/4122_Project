@@ -5,13 +5,16 @@
 #include <string>
 class BoardSpace;
 class Property;
+class Board;
 
 class Player {
     private:
+    Board* board;
     std::string name;
     long money;
     BoardSpace* boardSpace; // this is actually a pointer to a boardSpace Object.
     public:
+    Player(std::string, Board*);
     void buy(Property*);
     void sell(Property*);
     void addMoney(long);

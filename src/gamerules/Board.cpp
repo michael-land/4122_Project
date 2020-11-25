@@ -28,6 +28,10 @@ void Board::addPlayer(Player* playa) {
     this->players.push_back(playa);
 }
 
+BoardSpace* Board::getHead() const {
+    return this->head;
+}
+
 Board::~Board() {
     if(!head) {
         return;
