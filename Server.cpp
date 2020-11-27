@@ -11,7 +11,12 @@
 #include <sys/socket.h> 
 #include <netinet/in.h> 
 #include <arpa/inet.h> 
-  
+
+#include <MultiplayerObjects.h>
+#include <Player.h>
+
+#define PORT 6500
+
 // Returns hostname for the local computer 
 void checkHostName(int hostname) 
 { 
@@ -64,9 +69,17 @@ int main()
     // address into ASCII string 
     IPbuffer = inet_ntoa(*((struct in_addr*) host_entry->h_addr_list[0]));
     cout << IPbuffer<< endl;
-
+    server GameServer(PORT);
+    
     do{ //Loop to wait for both clients to connect
-        
-
+        if(GameServer.sources.size()==2){
+            break;
+        }
     } while(true);
+    Player p1; //Instantiate Player 1
+    Player p2; //Instantiate Player 2
+    do{ //Loop that the game
+
+
+    }while(true);
 }

@@ -4,6 +4,7 @@
 #include <list>
 #include <string>
 #include <mutex>
+#include <Player.h>
 
 #ifdef _WIN32
 /* See http://stackoverflow.com/questions/12765743/getaddrinfo-on-win32 */
@@ -34,20 +35,18 @@ struct playerInfo{
 
 //Determines the move that each player makes
 struct playerMove{
+    unsigned char playerID;      //ID that tells the server which turn is which
     unsigned char moveChoice;    //Selects which move
     unsigned char moveType;      //Determines the move type
 };
 
-//Structure for verifying whether a move works or not
-struct moveComplete{
-    unsigned char status;       //If move is failed 'f' if move passed 'p'
-};
-
-
-//Message sent to 
+//Message sent to the player
 struct boardInfo{
+    unsigned char status;       //If move is failed 'f' if move passed 'p'
     unsigned char playerCount;  //Indicator as to how many players there are in the game
     char players[2*sizeof(playerInfo)]; //Array of players information
+    unsigned short p1[40];       //Array of player 1 properties
+    unsigned short p2[40];      //Array of player 2 properties
 };
 
 //Class defined for each player
@@ -58,7 +57,6 @@ public:
     ~server();
     server(unsigned short usPort);
     void updateBoard(const std::string &strTo, unsigned short usPortNum, const boardInfo &players); //Function to send player info the clients
-    void moveStatus(const std::string &strTo, unsigned short usPortNumm, const moveComplete &move); //Function to send whether a move worked or not
     void addSource(const sockaddr_in &from); 
     int sockInit(void);
     int sockQuit(void);
@@ -69,7 +67,7 @@ public:
 private:
     unsigned short portNum;
     std::thread recieveThread;  //Thread to receive board info
-    std::vector<playerInfo> players;
+    std::vector<Player> players;
     std::list<sockaddr_in> sources;
     std::mutex currTurn;
 };
