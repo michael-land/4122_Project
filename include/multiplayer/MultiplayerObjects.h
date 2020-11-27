@@ -35,7 +35,14 @@ struct playerInfo{
 //Determines the move that each player makes
 struct playerMove{
     unsigned char moveChoice;    //Selects which move
+    unsigned char moveType;      //Determines the move type
 };
+
+//Structure for verifying whether a move works or not
+struct moveComplete{
+    unsigned char status;       //If move is failed 'f' if move passed 'p'
+};
+
 
 //Message sent to 
 struct boardInfo{
@@ -51,6 +58,7 @@ public:
     ~server();
     server(unsigned short usPort);
     void updateBoard(const std::string &strTo, unsigned short usPortNum, const boardInfo &players); //Function to send player info the clients
+    void moveStatus(const std::string &strTo, unsigned short usPortNumm, const moveComplete &move); //Function to send whether a move worked or not
     void addSource(const sockaddr_in &from); 
     int sockInit(void);
     int sockQuit(void);

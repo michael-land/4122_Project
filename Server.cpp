@@ -64,8 +64,9 @@ int main()
     // address into ASCII string 
     IPbuffer = inet_ntoa(*((struct in_addr*) host_entry->h_addr_list[0]));
     cout << IPbuffer<< endl;
-    do{
 
+    do{ //Loop to wait for both clients to connect
+        
 
     } while(true);
 }
