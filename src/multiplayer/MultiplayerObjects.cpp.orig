@@ -1,5 +1,4 @@
 #include "iostream"
-#include "string.h"
 #include "MultiplayerObjects.h"
 
 //Implementation for Multiplayer Classes
@@ -9,6 +8,90 @@
 using namespace std;
 
 void serverReceive(server *socket)
+{
+    // Loop that waits on incoming messages
+    playerMove inMsg;
+    sockaddr_in from;
+    socklen_t fromlen{sizeof(struct sockaddr_in)};
+    float scaling = 0.3;  //This is the scaling factor for the property purchasing
+    int locationType[] = {0, 60, 0, 60, -200, 200, 100, 0, 100, 120, 0, 140, 150, 140, 160, 200, 180, 0, 180, 200, 0, 220, 0, 220, 240, 200, 260, 260, 150, 280, 0, 300, 300, 0, 320, 200, 0, 350, 75, 400}; //This array is used to determine the cost of property
+    int n;
+    do
+    {
+        n = recvfrom(socket->m_sockfd, (char *)&inMsg, sizeof(playerMove), 0, (struct sockaddr *)&from, &fromlen);
+        if (n < 0)
+        {
+            break;
+        }
+        else
+        {
+<<<<<<< HEAD
+          //Needs functional logic
+          pUDpSocket->
+
+=======
+            std::string id = inMsg.playerID;        //Stores the player identifier
+            Player currTurn;                        //This object is the object that will be used by the board
+            if (socket->players[0].getName() == id) //If the current message is from the first player
+            {
+                currTurn = socket->players[0];      //Define the current turn object to be equal to the first player
+            }
+            else if (socket->players[1].getName() == id) //If the current message is from the second player
+            {
+                currTurn = socket->players[1];      //Define the current turn object to be equal to the first player
+            }
+            else
+            {
+                std::cout << "Error in recieving a server message" << endl;
+            }
+            //0.33 for rent
+
+            switch (inMsg.moveType)
+            {
+            case 'b':
+            case 'B':
+
+                // buy property
+                break;
+            case 's':
+            case 'S':
+                // sell property
+                break;
+            // case 'r':
+            // case 'R':
+            //     // roll dice
+            //     break;
+            case 'h':
+            case 'H':
+                // build house
+                break;
+            case 'j':
+            case 'J':
+                // build hotel
+                break;
+            case 'n':
+            case 'N':
+                socket->
+                    // end turn
+                    break;
+            default:
+                break;
+            }
+            if (socket->players[0].getName() == id) //If the current message is from the first player
+            {
+                socket->players[0] = currTurn; //Store the results back in to the socket
+            }
+            else if (socket->players[1].getName() == id) //If the current message is from the second player
+            {
+                socket->players[1] = socket->players[0] = currTurn; //Store the results back in to the socket
+            }
+            //Needs functional logic
+>>>>>>> origin/cmkennedy20/multiplayer
+        }
+    } while (true);
+}
+//Function that recieves board info from server
+void clientReceive(client *socket)
 {
     // Loop that waits on incoming messages
     playerMove inMsg;
@@ -24,28 +107,7 @@ void serverReceive(server *socket)
         }
         else
         {
-            socket->state.input(inMsg); //Passes the message through the state machine
-        }
-    } while (true);
-}
-//Function that recieves board info from server
-void clientReceive(client *socket)
-{
-    // Loop that waits on incoming messages
-    boardInfo inMsg;
-    sockaddr_in from;
-    socklen_t fromlen{sizeof(struct sockaddr_in)};
-    int n;
-    do
-    {
-        n = recvfrom(socket->m_sockfd, (char *)&inMsg, sizeof(boardInfo), 0, (struct sockaddr *)&from, &fromlen);
-        if (n < 0)
-        {
-            break;
-        }
-        else
-        {
-            socket->
+            //Needs functional logic
         }
     } while (true);
 }
@@ -55,14 +117,12 @@ void clientReceive(client *socket)
 /////////////////////////////////////////////////
 
 // Cross-platform socket initialize
-
-// Cross-platform socket initialize
 server::server(unsigned short usPort) : portNum(usPort)
 {
     sockaddr_in serv_addr;
     sockInit();
     // Create the socket
-    m_sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    m_sockfd = socket(AF_INET, SOCK_DGRAM, 0);
     // Make sure the socket was created
     if (m_sockfd < 0)
         error("ERROR opening socket");
@@ -84,27 +144,8 @@ server::server(unsigned short usPort) : portNum(usPort)
 };
 
 //Function to send player info the clients
-void server::updateBoard(const std::string &strTo, unsigned short usPortNum, const boardInfo &players)
-{
-    struct hostent *client_entity;
-    struct sockaddr_in client_addr;
-    socklen_t fromlen;
-    struct sockaddr_in from;
-    client_entity = gethostbyname(strTo.c_str());
-    if (client_entity == NULL)
-    {
-        fprintf(stderr, "Error, no such host\n");
-    }
-    memset((char*)&client_addr, sizeof(client_addr), 0);
-    client_addr.sin_family = AF_INET;
-    memmove((char*)&client_addr.sin_addr.s_addr, (char*)client_entity->h_addr, client_entity->h_length);
-    client_addr.sin_port = htons(usPortNum);
-    fromlen = sizeof(from);
-    if (connect(m_sockfd, (struct sockaddr*) &client_addr, sizeof(client_addr)) < 0)
-        error("ERROR connecting");
-    int n = sendto(m_sockfd, (char*)&players, sizeof(boardInfo), 0, (struct sockaddr) & client_addr, sizeof(client_addr));
-    if (n < 0)
-        error("ERROR writing to socket")
+void server::updateBoard(const std::string &strTo, unsigned short usPortNum, const boardInfo &players){
+    //Needs to be implemented
 };
 
 int server::sockInit(void)
@@ -180,14 +221,12 @@ void server::addSource(const sockaddr_in &from)
 // Client Implementation
 /////////////////////////////////////////////////
 
-client::client(unsigned short usPort, char * addr) : portNum(usPort)
+client::client(unsigned short usPort) : portNum(usPort)
 {
-    //error checking for IP address length here
-    string address = addr;  //Define the 
-    sockaddr_in client_addr;
+    sockaddr_in serv_addr;
     sockInit();
     // Create the socket
-    m_sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    m_sockfd = socket(AF_INET, SOCK_DGRAM, 0);
     // Make sure the socket was created
     if (m_sockfd < 0)
         error("ERROR opening socket");
@@ -196,8 +235,7 @@ client::client(unsigned short usPort, char * addr) : portNum(usPort)
 
     // Initialize the serv_addr
     serv_addr.sin_family = AF_INET;
-    serv_addr.sin_addr.s_addr = address;  // define IP address
-
+    serv_addr.sin_addr.s_addr = INADDR_ANY;
     // Convert port number from host to network
     serv_addr.sin_port = htons(usPort);
     // Bind the socket to the port number
@@ -206,34 +244,12 @@ client::client(unsigned short usPort, char * addr) : portNum(usPort)
         error("ERROR on binding");
     }
     // Start thread that waits for messages
-
     recieveThread = std::thread(clientReceive, this);
 };
 
 //Function to send turn decisions to the server
-void client::submitTurn(const std::string &strTo, unsigned short usPortNum, const playerMove &player)
-{
-    //Send playermove to server
-    //THIS IS TCP, so in init, change SOCK_DGRAM to SOCK_STREAM
-    struct hostent *server_entity;
-    struct sockaddr_in serv_addr;
-    socklen_t fromlen;
-    struct sockaddr_in from;
-    server_entity = gethostbyname(strTo.c_str());
-    if (server_entity == NULL)
-    {
-        fprintf(stderr, "Error, no such host\n");
-    }
-    memset((char*)&serv_addr, sizeof(serv_addr), 0);
-    serv_addr.sin_family = AF_INET;
-    memmove((char*)&serv_addr.sin_addr.s_addr, (char *)server_entity->h_addr, server_entity->h_length);
-    serv_addr.sin_port = htons(usPortNum);
-    fromlen = sizeof(from);
-    if (connect(sockfd, (struct sockaddr) & serv_addr, sizeof(serv_addr)) < 0)
-        error("ERROR connecting");
-    int n = sendto(m_sockfd, (char)&player, sizeof(playerMove), 0, (struct sockaddr) & serv_addr, sizeof(serv_addr));
-    if (n < 0)
-        error("ERROR writing to socket")
+void client::submitTurn(const std::string &strTo, unsigned short usPortNum, const playerMove &player){
+
 };
 
 int client::sockInit(void)

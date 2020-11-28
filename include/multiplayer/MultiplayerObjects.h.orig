@@ -4,9 +4,12 @@
 #include <list>
 #include <string>
 #include <mutex>
+<<<<<<< HEAD
+=======
 #include <Player.h>
 #include <Board.h>
-#include <StateMachine.h>
+>>>>>>> jstanhope3/state_machine
+#include <ServerStateMachine.h>
 
 #ifdef _WIN32
 /* See http://stackoverflow.com/questions/12765743/getaddrinfo-on-win32 */
@@ -69,7 +72,10 @@ public:
     void error(const char *msg);
     int m_sockfd;
 
+<<<<<<< HEAD
+=======
     friend void serverReceive(server *socket);
+>>>>>>> jstanhope3/state_machine
 
 private:
     unsigned short portNum;
@@ -79,7 +85,7 @@ private:
     std::vector<Player> players; //A vector of the players for the game
     std::list<sockaddr_in> sources;
     std::mutex currTurn;
-    StateMachine SSM;
+    ServerStateMachine SSM;
 };
 
 //Class defined for each player

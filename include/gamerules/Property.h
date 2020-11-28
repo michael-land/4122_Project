@@ -12,6 +12,7 @@ class Property : public BoardSpace {
     long cost;
     Colors color;
     Player* owner;
+    int upgrades; // 0 is nothing, 1 - 4 is a house, 5 is a hotel.
 
     public:
     Property(std::string, long, long, Colors);
@@ -23,6 +24,9 @@ class Property : public BoardSpace {
     void setName(const std::string&);
     void setOwner(Player*);
     Player* getOwner() const;
+    void upgrade();
+    int getUpgrades() const;
+    void setUpgrades(int);
 };
 
 #endif

@@ -2,13 +2,41 @@
 #include <gamerules/Player.h>
 #include <gamerules/Board.h>
 #include <gamerules/Property.h>
+using namespace std;
+
 Player::Player(std::string name, Board *board)
 {
     this->name = name;
-    this->money = 2000;
+    this->money = 1500;
     this->board = board;
     this->boardSpace = board->getHead();
 }
+
+Player::Player(string name)
+{
+    this->name;
+    this->money = 1500;
+    this->board = NULL;
+    this->boardSpace = NULL;
+}
+
+Player::Player()
+{
+    this->name= "";
+    this->money = 1500;
+    this->board = NULL;
+    this->boardSpace = NULL;
+}
+
+Player &Player::operator=(Player const &rhs) // copy assignment
+{
+    this->name = rhs.name;
+    this->money = rhs.money;
+    this-> board = rhs.board;
+    this->boardSpace= rhs.boardSpace;
+    return *this;
+}
+
 
 void Player::addMoney(long income)
 {
@@ -40,7 +68,6 @@ void Player::buy(Property *prop)
     if (!prop->getOwner())
     {
         prop->setOwner(this);
-        this->takeMoney(prop->getCost());
     }
 }
 
@@ -49,21 +76,29 @@ void Player::sell(Property *prop)
     if (prop->getOwner() == this)
     {
         prop->setOwner(nullptr);
-        this->addMoney(prop->getCost());
     }
 }
 
-long Player::getMoney()
-{
+<<<<<<< HEAD
+long Player::getMoney() {
     return money;
 }
 
-std::string Player::getAddr() const
+BoardSpace* Player::getSpace() const {
+    return boardSpace;
+=======
+string Player::getName()
 {
-    return addr;
+    return name;
 }
 
-BoardSpace *Player::getSpace() const
+void Player::setName(string name)
 {
-    return boardSpace;
+    name = name;
+}
+
+long Player::moneyCount()
+{
+    return money;
+>>>>>>> origin/cmkennedy20/multiplayer
 }
