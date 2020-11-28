@@ -53,8 +53,6 @@ void receiveSocketClient(server *pUDpSocket)
 /////////////////////////////////////////////////
 
 // Cross-platform socket initialize
-
-// Cross-platform socket initialize
 server::server(unsigned short usPort) : portNum(usPort)
 {
     sockaddr_in serv_addr;
