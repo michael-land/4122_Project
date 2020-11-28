@@ -4,6 +4,7 @@
 #include <list>
 #include <string>
 #include <mutex>
+#include <ServerStateMachine.h>
 
 #ifdef _WIN32
 /* See http://stackoverflow.com/questions/12765743/getaddrinfo-on-win32 */
@@ -66,12 +67,14 @@ public:
     void error(const char *msg);
     int m_sockfd;
 
+
 private:
     unsigned short portNum;
     std::thread recieveThread;  //Thread to receive board info
     std::vector<playerInfo> players;
     std::list<sockaddr_in> sources;
     std::mutex currTurn;
+    ServerStateMachine SSM;
 };
 
 //Class defined for each player
