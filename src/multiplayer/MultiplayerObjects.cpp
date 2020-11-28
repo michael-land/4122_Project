@@ -182,6 +182,7 @@ void server::addSource(const sockaddr_in &from)
 client::client(unsigned short usPort, char * addr) : portNum(usPort)
 {
     //error checking for IP address length here
+    this->server_address = addr;
     string address = addr;  //Define the 
     sockaddr_in client_addr;
     sockInit();
@@ -191,16 +192,14 @@ client::client(unsigned short usPort, char * addr) : portNum(usPort)
     if (m_sockfd < 0)
         error("ERROR opening socket");
     // Zero out the variable serv_addr
-    memset((char *)&serv_addr, sizeof(serv_addr), 0);
-
-    // Initialize the serv_addr
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_addr.s_addr = address;  // define IP address
-
+    memset((char *)&client_addr, sizeof(client_addr), 0);
+    //Initialize client address
+    client_addr.sin_family = AF_INET;
+    client_addr.sin_addr.s_addr = INADDR_ANY;
     // Convert port number from host to network
-    serv_addr.sin_port = htons(usPort);
+    client_addr.sin_port = htons(usPort);
     // Bind the socket to the port number
-    if (bind(m_sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
+    if (bind(m_sockfd, (struct sockaddr *)&client_addr, sizeof(client_addr)) < 0)
     {
         error("ERROR on binding");
     }

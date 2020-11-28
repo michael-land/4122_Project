@@ -96,6 +96,7 @@ public:
     int sockClose();
     void error(const char *msg);
     int m_sockfd;
+    char* server_address;
 
 private:
     unsigned short portNum;
