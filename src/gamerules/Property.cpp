@@ -36,3 +36,15 @@ void Property::setOwner(Player* player) {
 Player* Property::getOwner() const {
     return owner;
 }
+
+void Property::upgrade() {
+    this->upgrades += 1;
+}
+
+int Property::getUpgrades() const {
+    return upgrades;
+}
+
+void Property::setUpgrades(int up) {
+    this->upgrades = up;
+}

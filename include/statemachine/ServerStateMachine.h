@@ -1,5 +1,5 @@
 #include <statemachine/States.h>
-
+#include <statemachine/Decision.h>
 #ifndef SSM_H
 #define SSM_H
 
@@ -8,8 +8,10 @@ class ServerStateMachine {
     States state;
 
     public:
-    States getCurrentState();
-    void input(int);
+    ServerStateMachine();
+    States getCurrentState() const;
+    Decision input(unsigned char);
+    void processDecision(Decision);
     void execOutputs();
 };
 

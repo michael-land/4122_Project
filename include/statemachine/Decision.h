@@ -1,0 +1,6 @@
+#ifndef DECISION_H
+#define DECISION_H
+
+enum Decision {GAME_JOIN, ROLL_DICE, BUY, SELL, UPGRADE, END_TURN, NUM_DECISIONS};
+
+#endif
