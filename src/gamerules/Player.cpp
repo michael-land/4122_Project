@@ -40,3 +40,11 @@ void Player::sell(Property* prop) {
         prop->setOwner(nullptr);
     }
 }
+
+long Player::getMoney() {
+    return money;
+}
+
+BoardSpace* Player::getSpace() const {
+    return boardSpace;
+}

@@ -1,5 +1,6 @@
 #include <statemachine/ServerStateMachine.h>
-
+#include <gamerules/Board.h>
+#include <gamerules/Property.h>
 ServerStateMachine::ServerStateMachine() {
     this->state = States::GAME_SETUP;
 }
@@ -8,7 +9,7 @@ States ServerStateMachine::getCurrentState() const {
     return this->state;
 }
 
-Decision ServerStateMachine::input(unsigned char in) {
+bool ServerStateMachine::input(unsigned char in) {
     switch(in) {
         case 'b':
         case 'B':
@@ -39,6 +40,15 @@ Decision ServerStateMachine::input(unsigned char in) {
     }
 }
 
-void ServerStateMachine::processDecision(Decision dec) {
-    
+bool ServerStateMachine::processBuy() {
+    Player* currPlayer = board->getCurrentPlayer();
+    BoardSpace* space = currPlayer->getSpace();
+    Property* prop;
+    if (state == States::USER_INPUT) {
+        if (dynamic_cast<Property*>(space) != nullptr) {
+            prop = space;
+        }
+        
+        if (currPlayer->getMoney() > 
+    }
 }

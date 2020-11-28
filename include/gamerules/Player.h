@@ -21,6 +21,8 @@ class Player {
     void takeMoney(long);
     void movePlayer(int); // moves it a certain number of spaces on the board
     void movePlayer(BoardSpace*); // moves a player directly to a space.
+    long getMoney();
+    BoardSpace* getSpace() const;
     
 };
 
