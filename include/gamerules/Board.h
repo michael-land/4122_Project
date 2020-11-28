@@ -3,8 +3,10 @@
 
 #include <gamerules/BoardSpace.h>
 #include <gamerules/Player.h>
-
 #include <vector>
+
+class ServerStateMachine;
+
 class Board {
     private:
     std::string name;
@@ -13,6 +15,7 @@ class Board {
     std::vector<Player*> players;
     Player* currPlayer;
     long length;
+    ServerStateMachine* ssm;
 
     public:
     Board(std::string);
@@ -23,7 +26,7 @@ class Board {
     Player* getCurrentPlayer();
     std::vector<Player*> getPlayers();
     BoardSpace* getHead() const;
-    
+    ServerStateMachine* getSSM();
     ~Board();
 
 };

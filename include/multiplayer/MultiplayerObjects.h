@@ -5,6 +5,8 @@
 #include <string>
 #include <mutex>
 #include <Player.h>
+#include <Board.h>
+#include <ServerStateMachine.h>
 
 #ifdef _WIN32
 /* See http://stackoverflow.com/questions/12765743/getaddrinfo-on-win32 */
@@ -28,28 +30,31 @@ typedef int SOCKET;
 struct playerInfo
 {
     unsigned char playerNum[15]; //defines which player is which
-    int money;               //Changes in money
-    int boardNum;            //Space indicator
-    int turnCounter;        //Indicates how many turns have been completed for each player
-    bool isTurn;            //Indicates whether it is this persons turn or not
+    int money;                   //Changes in money
+    int boardNum;                //Space indicator
+    int turnCounter;             //Indicates how many turns have been completed for each player
+    bool isTurn;                 //Indicates whether it is this persons turn or not
 };
 
 //Determines the move that each player makes
-struct playerMove
+struct playerMove //CLIENT TO SERVER
 {
     char playerID[INET_ADDRSTRLEN]; //ID that tells the server which turn is which
     // unsigned char moveChoice;    //Selects which move
-    unsigned char moveType; //Determines the move type
+    unsigned char moveType;  //Determines the move type
+    unsigned int playerRoll; // the number that the player rolled
 };
 
 //Message sent to the player
-struct boardInfo
+struct boardInfo //SERVER TO CLIENT
 {
-    unsigned char status;                 //If move is failed 'f' if move passed 'p'
-    unsigned char playerCount;            //Indicator as to how many players there are in the game
-    char players[2 * sizeof(playerInfo)]; //Array of players information
-    unsigned short p1[40];                //Array of player 1 properties(used for letting the clients know which positions to draw)
-    unsigned short p2[40];                //Array of player 2 properties(used for letting the clients know which positions to draw)
+    char playerID[INET_ADDRSTRLEN]; //Identifier for the player IP
+    unsigned char moveStatus;       //If move is feasible or not
+    unsigned char movePosition;     //Identifer for where this player moved to
+    unsigned char moveType;         //The type of move that was selected
+    // char players[2 * sizeof(playerInfo)]; //Array of players information
+    // unsigned short p1[40];                //Array of player 1 properties(used for letting the clients know which positions to draw)
+    // unsigned short p2[40];                //Array of player 2 properties(used for letting the clients know which positions to draw)
 };
 
 //Class defined for each player
@@ -66,10 +71,13 @@ public:
     int sockClose();
     void error(const char *msg);
     int m_sockfd;
-    std::vector<Player> players;    //A vector of the players for the game
+    std::vector<Player> players; //A vector of the players for the game
+    friend void serverReceive(server *socket);
 
 private:
     unsigned short portNum;
+    ServerStateMachine state;
+    Board playingBoard;
     std::thread recieveThread; //Thread to receive board info
     std::list<sockaddr_in> sources;
     std::mutex currTurn;

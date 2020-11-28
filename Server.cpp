@@ -11,7 +11,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-
+#include <iostream>
 #include <MultiplayerObjects.h>
 #include <Player.h>
 
@@ -68,7 +68,7 @@ int main()
     // To convert an Internet network
     // address into ASCII string
     IPbuffer = inet_ntoa(*((struct in_addr *)host_entry->h_addr_list[0]));
-    cout << IPbuffer << endl;
+    std::cout << IPbuffer << std::endl;
     server GameServer(PORT);
     char player1_IP[INET_ADDRSTRLEN];
     char player2_IP[INET_ADDRSTRLEN];

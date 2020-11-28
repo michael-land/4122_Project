@@ -5,6 +5,7 @@ Board::Board(std::string name) {
     this->head = nullptr;
     this->tail = nullptr;
     this->length = 0;
+    this->ssm = new ServerStateMachine();
 }
 
 void Board::addSpace(BoardSpace* boardSpace) {
@@ -43,4 +44,8 @@ Board::~Board() {
     }
     delete tmp;
     return;
+}
+
+ServerStateMachine* getSSM() {
+    return ssm;
 }

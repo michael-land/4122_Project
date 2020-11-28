@@ -13,8 +13,6 @@ void serverReceive(server *socket)
     playerMove inMsg;
     sockaddr_in from;
     socklen_t fromlen{sizeof(struct sockaddr_in)};
-    float scaling = 0.3;  //This is the scaling factor for the property purchasing
-    int locationType[] = {0, 60, 0, 60, -200, 200, 100, 0, 100, 120, 0, 140, 150, 140, 160, 200, 180, 0, 180, 200, 0, 220, 0, 220, 240, 200, 260, 260, 150, 280, 0, 300, 300, 0, 320, 200, 0, 350, 75, 400}; //This array is used to determine the cost of property
     int n;
     do
     {
@@ -25,62 +23,7 @@ void serverReceive(server *socket)
         }
         else
         {
-            std::string id = inMsg.playerID;        //Stores the player identifier
-            Player currTurn;                        //This object is the object that will be used by the board
-            if (socket->players[0].getName() == id) //If the current message is from the first player
-            {
-                currTurn = socket->players[0];      //Define the current turn object to be equal to the first player
-            }
-            else if (socket->players[1].getName() == id) //If the current message is from the second player
-            {
-                currTurn = socket->players[1];      //Define the current turn object to be equal to the first player
-            }
-            else
-            {
-                std::cout << "Error in recieving a server message" << endl;
-            }
-            //0.33 for rent
-
-            switch (inMsg.moveType)
-            {
-            case 'b':
-            case 'B':
-
-                // buy property
-                break;
-            case 's':
-            case 'S':
-                // sell property
-                break;
-            // case 'r':
-            // case 'R':
-            //     // roll dice
-            //     break;
-            case 'h':
-            case 'H':
-                // build house
-                break;
-            case 'j':
-            case 'J':
-                // build hotel
-                break;
-            case 'n':
-            case 'N':
-                socket->
-                    // end turn
-                    break;
-            default:
-                break;
-            }
-            if (socket->players[0].getName() == id) //If the current message is from the first player
-            {
-                socket->players[0] = currTurn; //Store the results back in to the socket
-            }
-            else if (socket->players[1].getName() == id) //If the current message is from the second player
-            {
-                socket->players[1] = socket->players[0] = currTurn; //Store the results back in to the socket
-            }
-            //Needs functional logic
+            socket->state.input(inMsg); //Passes the message through the state machine 
         }
     } while (true);
 }

@@ -36,7 +36,8 @@ class BoardSpace {
     Colors getColor();
     void setSpaceID(const int&);
     int getSpaceID() const;
-    ~BoardSpace();   
+    ~BoardSpace();
+    virtual void placeholder();
 
 };
 

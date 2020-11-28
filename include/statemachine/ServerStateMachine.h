@@ -1,5 +1,6 @@
 #include <statemachine/States.h>
 #include <statemachine/Decision.h>
+#include <gamerules/Player.h>
 class Board;
 #ifndef SSM_H
 #define SSM_H
@@ -11,11 +12,11 @@ class ServerStateMachine {
     public:
     ServerStateMachine();
     States getCurrentState() const;
-    bool input(unsigned char);
+    bool input(playerMove inMsg);
     bool processBuy();
     bool processSell();
     bool processUpgrade();
-    bool processRollDice();
+    bool processRollDice(int numSpaces);
     bool processEndTurn();
     void execOutputs();
 };
