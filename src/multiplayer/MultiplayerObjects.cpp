@@ -19,6 +19,8 @@ void receiveSocketServer(client *pUDpSocket)
         else
         {
           //Needs functional logic
+          pUDpSocket->
+
         }
     } while (true);
 }
