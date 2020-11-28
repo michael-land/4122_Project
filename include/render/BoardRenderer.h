@@ -1,8 +1,7 @@
 /*
-Author: Ruben Quiros
-Additional Author: Zhou Lu
+Authors: Ruben Quiros and Michael Lu
 Class: ECE 4122
-Last Date Modified: 11/21/20
+Last Date Modified: 11/2/20
 
 Description:
     This file used OpenGL and GLUT to draw a Georgia Tech themed "Monopoly board".
@@ -28,27 +27,32 @@ SPECIAL NOTE:
 #include <string>
 
 // Some Global Params
+float angle = 0.0;              // angle of the camera (0.0 == south of maze)
+float PI = 3.141592653589793;   // PI for angle calculations
+int screenWidth = 500;
+int screenHeight = 500;
+
 GLuint texture[1];  // for eyes of ghost and Pac Man
 BMP inBitmap;       // for eyes of ghost and Pac Man
+
 // color and material properties
 float colorWhite[4] = { 0.60, 0.60, 0.60, 1.0f };
-float angle = 0.0;              // angle of the camera (0.0 == south of maze)
 float colorRed[4] = { 1.0, 0.0, 0.0, 1.0f };
 float colorCyan[4] = { 0.0, 1.0, 1.0, 1.0f };
 float colorPink[4] = { 1.0, 0.7529, 0.7861, 1.0f };
 float colorOrange[4] = { 1.0, 0.4921, 0.0, 1.0f };
 float colorBlue[4] = { 0.0, 0.0, 1.0, 1.0f };
 float colorYellow[4] = { 1.0, 0.0, 0.0, 1.0f };
+float colorGreen[4] = { 0.0, 1.0, 0.0, 1.0f };
 
-GLfloat shininess[1] = { 5 };
+GLfloat shininess[] = { 5 };
 
-float PI = 3.141592653589793;   // PI for angle calculations
-
+string screenMsg = "You have $1,500\0";
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Used to initialize the background and overall scene
 /////////////////////////////////////////////////////////////////////////////////////////////////
-void init() {
+void init(void){
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glEnable(GL_DEPTH_TEST);
     glShadeModel(GL_SMOOTH);
@@ -62,7 +66,7 @@ void init() {
     GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 1.0 };
     GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
     GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-    GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
+    GLfloat light_position[] = { 0.65, 0.65, 0.65, 0.0 };
 
     glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
@@ -73,7 +77,7 @@ void init() {
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, colorWhite);
 
     // THIS SECTION IS FOR THE BOARD TEXTURE
-    inBitmap.read("/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/boardTexture.bmp");          // read in bmp/texture files
+    inBitmap.read("boardTexture.bmp");          // read in bmp/texture files
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);      // byte alignment
     glGenTextures(1, texture);                  // initialize the texture
     glBindTexture(GL_TEXTURE_2D, texture[0]);   // bind the texture
@@ -87,8 +91,6 @@ void init() {
 
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 
-    glEnable(GL_TEXTURE_2D);    // enable the texture
-
     // SET UP PROPERTIES FOR 3D OBJECTS
     GLUquadricObj *quadObj;
     quadObj = gluNewQuadric();
@@ -97,7 +99,6 @@ void init() {
     gluQuadricNormals(quadObj, GLU_SMOOTH);
 
 }
-
 
 //////////////////////////
 // Used to store Models
@@ -140,28 +141,58 @@ void displayModels()
     glPopMatrix();
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+// Used to display the current message on the screen
+/////////////////////////////////////////////////////////////////////////////////////////////////
+void displayMsg(string& message){
+    screenMsg = message;    // update the global message
+    glMatrixMode(GL_PROJECTION);
+
+    glPushMatrix();
+        glLoadIdentity();
+        glOrtho(0, screenWidth, 0, screenHeight, 0, 10);    // display in ortho/flat 2D space
+        glMatrixMode(GL_MODELVIEW);
+
+        glPushMatrix();
+            glLoadIdentity();
+            glColor3f(1.0, 1.0, 1.0);   // white text
+            glRasterPos2i(0.45*screenWidth, 0.85*screenHeight); // this is approximately top/center of the screen
+
+            for(const char character : message){
+                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, character);   // loop through all chars in message
+            }
+        glPopMatrix();
+
+        glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+
+    glMatrixMode(GL_MODELVIEW);
+}   // end of displayMsg()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Used to draw the entire scene; this will get recalled when the scene or window changes
 /////////////////////////////////////////////////////////////////////////////////////////////////
-void display() {
+void display(void){
     // enable coloring and depth
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glLoadIdentity(); // ???
+    glLoadIdentity();
 
     glPushMatrix(); // just double check that we start at the origin
 
         // for consistency of the view type
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
+
+        displayMsg(screenMsg);  // display the current message on the screen
         
         // set the camera position, where it is looking, and its up vector
         // Note: the angle is incremented by 5 degrees to rotate the camera
         // around the center of the maze
         gluLookAt(1.25*sin(angle*PI / 180.0) + 0.65, 1.25, 1.25*cos(angle*PI / 180.0) + 0.65,
-                0.65, 0.0, 0.65,      // where the camera is looking (center of maze)
+                0.65, 0.0, 0.65,    // where the camera is looking (center of maze)
                 0.0, 1.0, 0.0);     // up vector
 
+        glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, texture[0]);
 
         glBegin(GL_QUADS);
@@ -175,8 +206,10 @@ void display() {
             glVertex3f(0.0f, 0.0f, 1.3f);
         glEnd();
 
+        glDisable(GL_TEXTURE_2D);
+
     glPopMatrix();
-    displayModels(); //displays the models
+
     glutSwapBuffers();
 }
 
@@ -184,6 +217,10 @@ void display() {
 // Used when the window is reshaped
 /////////////////////////////////////////////////////////////////////////////////////////////////
 void reshape(int w, int h){
+    // first update the screen width and height variables
+    screenWidth = w;
+    screenHeight = h;
+
     glViewport(0, 0, (GLsizei)w, (GLsizei)h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -201,25 +238,79 @@ void reshape(int w, int h){
 // Used to detect keyboard inputs; used here to rotate the camera around the maze
 /////////////////////////////////////////////////////////////////////////////////////////////////
 void keyboard(unsigned char key, int x, int y){
+    bool success = true;
     switch (key) {
-    case 'r':
-        // change camera angle
-        angle += 5;
-        if(angle == 360){
-            angle = 0;          // reset to zero after complete circle
-        }
-        glutPostRedisplay();    // redraw scene after angle change and/or window resize
-        break;
-    case 'R':
-        // change camera angle
-        angle += 5;
-        if(angle == 360){
-            angle = 0;          // reset to zero after complete circle
-        }
-        glutPostRedisplay();    // redraw scene after angle change and/or window resize
-        break;
-    default:
-        break;
+        case 'b':
+        case 'B':
+            // send message that you want to buy a property
+            // insert function sending 'b' to server
+            // server should return success or fail
+            if(success){
+                // print success of purchase to the screen
+            }
+            else{
+                // print failure of purchase to the screen
+            }
+            break;
+        case 's':
+        case 'S':
+            // send message that you want to sell a property to the bank
+            // insert function sending 's' to server
+            // print success of sale to the screen
+
+            // if there are any hotels/houses, they should recieve their worth back
+            // also, houses and hotels should disappear
+
+            // board object should be updated here before being redrawn
+            // because houses/hotels might disappear
+            glutPostRedisplay();
+            break;
+        case 'h':
+        case 'H':
+            // send message that you want to buy a house
+            // technically a player can buy multiple houses in a row
+
+            // insert function sending 'h' to server
+            // server should return success or fail
+            if(success){
+                // print success of purchase to the screen
+            }
+            else{
+                // print failure of purchase to the screen
+            }        // board object should be updated here before being redrawn
+            glutPostRedisplay();
+            break;
+        case 'j':
+        case 'J':
+            // send message that you want to buy a hotel
+            // insert function sending 'j' to server
+            // server should return success or fail
+            if(success){            // success if they have enough money AND they have 4 houses
+                // print success of purchase to the screen
+            }
+            else{
+                // print failure of purchase to the screen
+            }        // board object should be updated here before being redrawn
+            glutPostRedisplay();
+            break;
+        case 'n':
+        case 'N':
+            // send message that your turn is over
+            // insert function sending n'' to server
+            // board object should be updated here before being redrawn
+            glutPostRedisplay();
+            break;
+        case 'r':
+        case 'R':
+            // change camera angle
+            angle += 5;
+            if(angle == 360){
+                angle = 0;          // reset to zero after complete circle
+            }
+            glutPostRedisplay();    // redraw scene after angle change and/or window resize
+            break;
+        default:
+            break;
     }
 }
 
