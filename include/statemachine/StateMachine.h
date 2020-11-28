@@ -9,6 +9,7 @@ class ServerStateMachine {
     private:
     States state;
     Board* board;
+    bool isClient;
     public:
     ServerStateMachine();
     States getCurrentState() const;
@@ -18,9 +19,9 @@ class ServerStateMachine {
     bool processUpgrade();
     bool processRollDice(int numSpaces);
     bool processEndTurn();
-    void execOutputs();
+    void execOutputs(playerMove inMsg);
 	void processJoin();
-    
+
 };
 
 #endif

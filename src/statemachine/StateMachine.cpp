@@ -1,48 +1,53 @@
-#include <statemachine/ServerStateMachine.h>
+#include <statemachine/StateMachine.h>
 #include <gamerules/Board.h>
 #include <gamerules/Property.h>
 #include <multiplayer/MultiplayerObjects.h>
 
-ServerStateMachine::ServerStateMachine() {
+StateMachine::StateMachine() {
     this->state = States::GAME_SETUP;
 }
 
-States ServerStateMachine::getCurrentState() const {
+States StateMachine::getCurrentState() const {
     return this->state;
 }
 
-bool ServerStateMachine::input(playerMove inMsg) { // pass message in here
+bool StateMachine::input(playerMove inMsg) { // pass message in here
+    bool flag;
     switch(inMsg.moveType) {
         case 'b':
         case 'B':
-        return processBuy();
+        flag = processBuy();
         break;
 
         case 's':
         case 'S':
-        return processSell();
+        flag = processSell();
         break;
 
         case 'r':
         case 'R':
-        return processRollDice(inMsg.playerRoll);
+        flag = processRollDice(inMsg.playerRoll);
         break;
 
         case 'h':
         case 'H':
-        return processUpgrade();
+        flag = processUpgrade();
         break;
 
         case 'n':
         case 'N':
-        return processEndTurn();
+        flag = processEndTurn();
         break;
         default:
         break;
     }
+    if (flag) {
+        execOutputs(inMsg);
+    }
+    return flag;
 }
 
-bool ServerStateMachine::processBuy() {
+bool StateMachine::processBuy() {
     Player* currPlayer = board->getCurrentPlayer();
     BoardSpace* space = currPlayer->getSpace();
     Property* prop;
@@ -59,7 +64,7 @@ bool ServerStateMachine::processBuy() {
     return false;
 }
 
-bool ServerStateMachine::processSell() {
+bool StateMachine::processSell() {
     Player* currPlayer = board->getCurrentPlayer();
     BoardSpace* space = currPlayer->getSpace();
     Property* prop;
@@ -76,7 +81,7 @@ bool ServerStateMachine::processSell() {
     return false;
 }
 
-bool ServerStateMachine::processRollDice(int numSpaces) {
+bool StateMachine::processRollDice(int numSpaces) {
     if (numSpaces > 12) {
         return false;
     }
@@ -85,17 +90,18 @@ bool ServerStateMachine::processRollDice(int numSpaces) {
 	return true;
 }
 
-bool ServerStateMachine::processEndTurn() {
+bool StateMachine::processEndTurn() {
     
-    // send update message to all clients w/ state of the game
+    // if able to set current player to next player
+    // return true;
 }
 
-void ServerStateMachine::processJoin() {
-    
-    // receive message from client, add player to game if player does not exist
+void StateMachine::processJoin() {
+    // receive join message from client, add player to game if player does not exist (based on IP address)
+    // all clients will have to create this player as well    
 }
 
-bool ServerStateMachine::processUpgrade() {
+bool StateMachine::processUpgrade() {
     Player* currPlayer = board->getCurrentPlayer();
     BoardSpace* space = currPlayer->getSpace();
     Property* prop = dynamic_cast<Property*>(space);
@@ -108,4 +114,18 @@ bool ServerStateMachine::processUpgrade() {
             return true;
         }
     }
+}
+
+bool StateMachine::execOutputs(playerMove inMsg) {
+    if (state == States::USER_INPUT) {
+        state = States::UPDATE_BOARD;
+    } else {
+        return false;
+    }
+    boardInfo outMsg;
+    // build the outMsg
+
+    // call some function like
+    // server.sendMessageToClients(outMsg);
+
 }

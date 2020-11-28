@@ -1,4 +1,5 @@
 #include "iostream"
+#include "string.h"
 #include "MultiplayerObjects.h"
 
 //Implementation for Multiplayer Classes
@@ -94,14 +95,14 @@ void server::updateBoard(const std::string &strTo, unsigned short usPortNum, con
     {
         fprintf(stderr, "Error, no such host\n");
     }
-    memset((char)client_addr, sizeof(client_addr), 0);
-    serv_addr.sin_family = AF_INET;
-    memmove((char)&client_addr.sin_addr.s_addr, (char)client_entity->h_addr, client_entity->h_length);
+    memset((char*)&client_addr, sizeof(client_addr), 0);
+    client_addr.sin_family = AF_INET;
+    memmove((char*)&client_addr.sin_addr.s_addr, (char*)client_entity->h_addr, client_entity->h_length);
     client_addr.sin_port = htons(usPortNum);
     fromlen = sizeof(from);
-    if (connect(sockfd, (struct sockaddr) & client_addr, sizeof(client_addr)) < 0)
+    if (connect(m_sockfd, (struct sockaddr*) &client_addr, sizeof(client_addr)) < 0)
         error("ERROR connecting");
-    int n = sendto(m_sockfd, (char)&players, sizeof(boardInfo), 0, (struct sockaddr) & client_addr, sizeof(client_addr));
+    int n = sendto(m_sockfd, (char*)&players, sizeof(boardInfo), 0, (struct sockaddr) & client_addr, sizeof(client_addr));
     if (n < 0)
         error("ERROR writing to socket")
 };
@@ -183,7 +184,7 @@ client::client(unsigned short usPort, char * addr) : portNum(usPort)
 {
     //error checking for IP address length here
     string address = addr;  //Define the 
-    sockaddr_in serv_addr;
+    sockaddr_in client_addr;
     sockInit();
     // Create the socket
     m_sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -223,9 +224,9 @@ void client::submitTurn(const std::string &strTo, unsigned short usPortNum, cons
     {
         fprintf(stderr, "Error, no such host\n");
     }
-    memset((*char)serv_addr, sizeof(serv_addr), 0);
+    memset((char*)&serv_addr, sizeof(serv_addr), 0);
     serv_addr.sin_family = AF_INET;
-    memmove((*char)&serv_addr.sin_addr.s_addr, (char)server_entity->h_addr, server_entity->h_length);
+    memmove((char*)&serv_addr.sin_addr.s_addr, (char *)server_entity->h_addr, server_entity->h_length);
     serv_addr.sin_port = htons(usPortNum);
     fromlen = sizeof(from);
     if (connect(sockfd, (struct sockaddr) & serv_addr, sizeof(serv_addr)) < 0)

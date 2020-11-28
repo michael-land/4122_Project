@@ -5,7 +5,7 @@
 #include <gamerules/Player.h>
 #include <vector>
 
-class ServerStateMachine;
+class StateMachine;
 
 class Board {
     private:
@@ -15,7 +15,7 @@ class Board {
     std::vector<Player*> players;
     Player* currPlayer;
     long length;
-    ServerStateMachine* ssm;
+    StateMachine* ssm;
 
     public:
     Board(std::string);
@@ -26,7 +26,7 @@ class Board {
     Player* getCurrentPlayer();
     std::vector<Player*> getPlayers();
     BoardSpace* getHead() const;
-    ServerStateMachine* getSSM();
+    StateMachine* getSSM();
     ~Board();
 
 };

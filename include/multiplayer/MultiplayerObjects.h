@@ -51,10 +51,7 @@ struct boardInfo //SERVER TO CLIENT
     char playerID[INET_ADDRSTRLEN]; //Identifier for the player IP
     unsigned char moveStatus;       //If move is feasible or not
     unsigned char movePosition;     //Identifer for where this player moved to
-    unsigned char moveType;         //The type of move that was selected(ex.)
-    // char players[2 * sizeof(playerInfo)]; //Array of players information
-    // unsigned short p1[40];                //Array of player 1 properties(used for letting the clients know which positions to draw)
-    // unsigned short p2[40];                //Array of player 2 properties(used for letting the clients know which positions to draw)
+    unsigned char moveType;         //The type of move that was selected(ex: Buy, Next turn, etc.)
 };
 
 //Class defined for each player
@@ -71,14 +68,15 @@ public:
     int sockClose();
     void error(const char *msg);
     int m_sockfd;
-    std::vector<Player> players; //A vector of the players for the game
+
     friend void serverReceive(server *socket);
 
 private:
     unsigned short portNum;
     ServerStateMachine state;
     Board playingBoard;
-    std::thread recieveThread; //Thread to receive board info
+    std::thread recieveThread;   //Thread to receive board info
+    std::vector<Player> players; //A vector of the players for the game
     std::list<sockaddr_in> sources;
     std::mutex currTurn;
 };
@@ -100,6 +98,7 @@ public:
 
 private:
     unsigned short portNum;
+    Board playingBoard;
     std::thread recieveThread;
     std::vector<playerInfo> players;
     sockaddr_in sources;
