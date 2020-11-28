@@ -19,6 +19,8 @@ class ServerStateMachine {
     bool processRollDice(int numSpaces);
     bool processEndTurn();
     void execOutputs();
+	void processJoin();
+    
 };
 
 #endif

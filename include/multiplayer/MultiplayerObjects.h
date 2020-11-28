@@ -51,7 +51,7 @@ struct boardInfo //SERVER TO CLIENT
     char playerID[INET_ADDRSTRLEN]; //Identifier for the player IP
     unsigned char moveStatus;       //If move is feasible or not
     unsigned char movePosition;     //Identifer for where this player moved to
-    unsigned char moveType;         //The type of move that was selected
+    unsigned char moveType;         //The type of move that was selected(ex.)
     // char players[2 * sizeof(playerInfo)]; //Array of players information
     // unsigned short p1[40];                //Array of player 1 properties(used for letting the clients know which positions to draw)
     // unsigned short p2[40];                //Array of player 2 properties(used for letting the clients know which positions to draw)

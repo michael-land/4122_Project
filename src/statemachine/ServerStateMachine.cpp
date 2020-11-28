@@ -90,6 +90,11 @@ bool ServerStateMachine::processEndTurn() {
     // send update message to all clients w/ state of the game
 }
 
+void ServerStateMachine::processJoin() {
+    
+    // receive message from client, add player to game if player does not exist
+}
+
 bool ServerStateMachine::processUpgrade() {
     Player* currPlayer = board->getCurrentPlayer();
     BoardSpace* space = currPlayer->getSpace();
