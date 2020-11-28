@@ -24,6 +24,7 @@ CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o: src/gamerules/Player.cpp
 CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o: include/gamerules/Board.h
 CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o: include/gamerules/BoardSpace.h
 CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o: include/gamerules/Player.h
+CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o: include/gamerules/Property.h
 CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o: include/render/Colors.h
 
 CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.o: src/gamerules/Property.cpp

@@ -68,7 +68,7 @@ void init() {
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, colorWhite);
 
     // THIS SECTION IS FOR THE BOARD TEXTURE
-    inBitmap.read("/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/boardTexture.bmp");          // read in bmp/texture files
+    inBitmap.read("/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/textures/boardTexture.bmp");          // read in bmp/texture files
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);      // byte alignment
     glGenTextures(1, texture);                  // initialize the texture
     glBindTexture(GL_TEXTURE_2D, texture[0]);   // bind the texture

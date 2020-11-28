@@ -1,0 +1,6 @@
+#ifndef STATES_H
+#define STATES_H
+
+enum States {GAME_SETUP, UPDATE_BOARD, USER_INPUT, GAME_EXIT, NUM_STATES};
+
+#endif
