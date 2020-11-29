@@ -128,4 +128,6 @@ bool StateMachine::execOutputs(playerMove inMsg) {
     // call some function like
     // server.sendMessageToClients(outMsg);
 
+    // server.updateBoard()
+
 }

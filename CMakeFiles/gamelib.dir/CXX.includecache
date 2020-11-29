@@ -14,11 +14,13 @@ statemachine/StateMachine.h
 
 /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/multiplayer/MultiplayerObjects.cpp
 iostream
-/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/multiplayer/iostream
+-
 string.h
-/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/multiplayer/string.h
-MultiplayerObjects.h
-/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/multiplayer/MultiplayerObjects.h
+-
+multiplayer/MultiplayerObjects.h
+-
+statemachine/StateMachine.h
+-
 
 /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/statemachine/StateMachine.cpp
 statemachine/StateMachine.h
@@ -72,8 +74,6 @@ mutex
 Player.h
 -
 Board.h
--
-StateMachine.h
 -
 winsock2.h
 -

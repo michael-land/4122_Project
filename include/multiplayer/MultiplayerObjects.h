@@ -1,13 +1,14 @@
 #ifndef MULTIPLAYER_OBJ_H
 #define MULTIPLAYER_OBJ_H
 
-#include <thread> 
+#include <thread>
 #include <list>
 #include <string>
 #include <mutex>
 #include <Player.h>
 #include <Board.h>
-#include <StateMachine.h>
+ 
+class StateMachine;
 
 #ifdef _WIN32
 /* See http://stackoverflow.com/questions/12765743/getaddrinfo-on-win32 */
@@ -79,7 +80,7 @@ private:
     std::vector<Player> players; //A vector of the players for the game
     std::list<sockaddr_in> sources;
     std::mutex currTurn;
-    StateMachine ssm;
+    StateMachine *ssm;
 };
 
 //Class defined for each player

@@ -1,6 +1,7 @@
-#include "iostream"
-#include "string.h"
-#include "MultiplayerObjects.h"
+#include <iostream>
+#include <string.h>
+#include <multiplayer/MultiplayerObjects.h>
+#include <statemachine/StateMachine.h>
 
 //Implementation for Multiplayer Classes
 
@@ -231,7 +232,7 @@ void client::submitTurn(const std::string &strTo, unsigned short usPortNum, cons
         error("ERROR connecting");
     int n = sendto(m_sockfd, (char)&player, sizeof(playerMove), 0, (struct sockaddr) & serv_addr, sizeof(serv_addr));
     if (n < 0)
-        error("ERROR writing to socket")
+        error("ERROR writing to socket");
 };
 
 int client::sockInit(void)
