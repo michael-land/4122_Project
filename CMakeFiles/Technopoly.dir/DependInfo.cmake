@@ -14,6 +14,8 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "include/gamerules"
   "include/builder"
   "include/render"
+  "include/multiplayer"
+  "include/statemachine"
   )
 
 # Targets to which this target links.
