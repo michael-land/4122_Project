@@ -1,10 +1,11 @@
 /*
 Author: Ruben Quiros
+Additional Author: Zhou Lu
 Class: ECE 4122
 Last Date Modified: 11/21/20
 
 Description:
-    This file used OpenGL and GLUT to draw a Gorgia Tech themed "Monopoly board".
+    This file used OpenGL and GLUT to draw a Georgia Tech themed "Monopoly board".
     In this version, everything is stationary. However, the user can rotate the scene
     5 degrees by pressing "r" on their keyboard.
 
@@ -13,6 +14,7 @@ SPECIAL NOTE:
     main(). These functions were inspired by his in-class examples. There are other snippets
     of code for coloring, lighting, buffering, and depth perception that were also taken from
     his examples from lectures. Thank you!
+    Credit goes to Anton Gerdelan of antongerdelan.net for the code to parse .obj files
 */
 
 #include <GL/glut.h>
@@ -21,6 +23,9 @@ SPECIAL NOTE:
 #include <stdlib.h>
 #include <iostream>
 #include <render/Bitmap.h> // for bitmaps/textures
+#include <render/obj_parser.h> //for models
+#include <vector>
+#include <string>
 
 // Some Global Params
 GLuint texture[1];  // for eyes of ghost and Pac Man
@@ -93,6 +98,49 @@ void init() {
 
 }
 
+
+//////////////////////////
+// Used to store Models
+//////////////////////////
+struct ModelStorage()
+{
+    GLfloat* vp = NULL; // array of vertex points
+	GLfloat* vn = NULL; // array of vertex normals (we haven't used these yet)
+	GLfloat* vt = NULL; // array of texture coordinates (or these)
+	
+	ModelStorage(std::string modelFileName)
+	{
+	    char* filename = modelFileName.c_str();
+	}
+	
+	~ModelStorage()
+	{
+	    free (vp);
+		free (vn);
+		free (vt);
+	}
+};
+
+//////////////////////////
+// Used to load Models
+//////////////////////////
+void loadModels()
+{
+    std::vector<std::string> fileNames;
+    fileNames.append("cube.obj");
+    
+}
+
+//////////////////////////
+// Used to draw Models
+//////////////////////////
+void displayModels()
+{
+    glPushMatrix();
+    glPopMatrix();
+}
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Used to draw the entire scene; this will get recalled when the scene or window changes
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -128,7 +176,7 @@ void display() {
         glEnd();
 
     glPopMatrix();
-
+    displayModels(); //displays the models
     glutSwapBuffers();
 }
 
