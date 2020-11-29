@@ -1,11 +1,11 @@
 #include <gamerules/Board.h>
-#include <statemachine/ServerStateMachine.h>
+#include <statemachine/StateMachine.h>
 Board::Board(std::string name) {
     this->name;
     this->head = nullptr;
     this->tail = nullptr;
     this->length = 0;
-    this->ssm = new ServerStateMachine();
+    this->ssm = new StateMachine();
 }
 
 void Board::addSpace(BoardSpace* boardSpace) {
