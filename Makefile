@@ -695,6 +695,60 @@ src/gamerules/Property.cpp.s:
 	$(MAKE) -f CMakeFiles/gamelib.dir/build.make CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.s
 .PHONY : src/gamerules/Property.cpp.s
 
+src/multiplayer/MultiplayerObjects.o: src/multiplayer/MultiplayerObjects.cpp.o
+
+.PHONY : src/multiplayer/MultiplayerObjects.o
+
+# target to build an object file
+src/multiplayer/MultiplayerObjects.cpp.o:
+	$(MAKE) -f CMakeFiles/gamelib.dir/build.make CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.o
+.PHONY : src/multiplayer/MultiplayerObjects.cpp.o
+
+src/multiplayer/MultiplayerObjects.i: src/multiplayer/MultiplayerObjects.cpp.i
+
+.PHONY : src/multiplayer/MultiplayerObjects.i
+
+# target to preprocess a source file
+src/multiplayer/MultiplayerObjects.cpp.i:
+	$(MAKE) -f CMakeFiles/gamelib.dir/build.make CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.i
+.PHONY : src/multiplayer/MultiplayerObjects.cpp.i
+
+src/multiplayer/MultiplayerObjects.s: src/multiplayer/MultiplayerObjects.cpp.s
+
+.PHONY : src/multiplayer/MultiplayerObjects.s
+
+# target to generate assembly for a file
+src/multiplayer/MultiplayerObjects.cpp.s:
+	$(MAKE) -f CMakeFiles/gamelib.dir/build.make CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.s
+.PHONY : src/multiplayer/MultiplayerObjects.cpp.s
+
+src/statemachine/StateMachine.o: src/statemachine/StateMachine.cpp.o
+
+.PHONY : src/statemachine/StateMachine.o
+
+# target to build an object file
+src/statemachine/StateMachine.cpp.o:
+	$(MAKE) -f CMakeFiles/gamelib.dir/build.make CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.o
+.PHONY : src/statemachine/StateMachine.cpp.o
+
+src/statemachine/StateMachine.i: src/statemachine/StateMachine.cpp.i
+
+.PHONY : src/statemachine/StateMachine.i
+
+# target to preprocess a source file
+src/statemachine/StateMachine.cpp.i:
+	$(MAKE) -f CMakeFiles/gamelib.dir/build.make CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.i
+.PHONY : src/statemachine/StateMachine.cpp.i
+
+src/statemachine/StateMachine.s: src/statemachine/StateMachine.cpp.s
+
+.PHONY : src/statemachine/StateMachine.s
+
+# target to generate assembly for a file
+src/statemachine/StateMachine.cpp.s:
+	$(MAKE) -f CMakeFiles/gamelib.dir/build.make CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.s
+.PHONY : src/statemachine/StateMachine.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -754,6 +808,12 @@ help:
 	@echo "... src/gamerules/Property.o"
 	@echo "... src/gamerules/Property.i"
 	@echo "... src/gamerules/Property.s"
+	@echo "... src/multiplayer/MultiplayerObjects.o"
+	@echo "... src/multiplayer/MultiplayerObjects.i"
+	@echo "... src/multiplayer/MultiplayerObjects.s"
+	@echo "... src/statemachine/StateMachine.o"
+	@echo "... src/statemachine/StateMachine.i"
+	@echo "... src/statemachine/StateMachine.s"
 .PHONY : help
 
 

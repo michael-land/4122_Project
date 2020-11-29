@@ -4,6 +4,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.o"
   "CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o"
   "CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.o"
+  "CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.o"
+  "CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.o"
   "libgamelib.a"
   "libgamelib.pdb"
 )

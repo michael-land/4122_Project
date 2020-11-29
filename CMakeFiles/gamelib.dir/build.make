@@ -122,13 +122,41 @@ CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/builder/BoardBuilder.cpp -o CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.s
 
+CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.o: CMakeFiles/gamelib.dir/flags.make
+CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.o: src/multiplayer/MultiplayerObjects.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.o -c /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/multiplayer/MultiplayerObjects.cpp
+
+CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/multiplayer/MultiplayerObjects.cpp > CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.i
+
+CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/multiplayer/MultiplayerObjects.cpp -o CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.s
+
+CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.o: CMakeFiles/gamelib.dir/flags.make
+CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.o: src/statemachine/StateMachine.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.o -c /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/statemachine/StateMachine.cpp
+
+CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/statemachine/StateMachine.cpp > CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.i
+
+CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/statemachine/StateMachine.cpp -o CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.s
+
 # Object files for target gamelib
 gamelib_OBJECTS = \
 "CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.o" \
 "CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.o" \
 "CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.o" \
 "CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o" \
-"CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.o"
+"CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.o" \
+"CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.o" \
+"CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.o"
 
 # External object files for target gamelib
 gamelib_EXTERNAL_OBJECTS =
@@ -138,9 +166,11 @@ libgamelib.a: CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.o
 libgamelib.a: CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.o
 libgamelib.a: CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o
 libgamelib.a: CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.o
+libgamelib.a: CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.o
+libgamelib.a: CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.o
 libgamelib.a: CMakeFiles/gamelib.dir/build.make
 libgamelib.a: CMakeFiles/gamelib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX static library libgamelib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX static library libgamelib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/gamelib.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gamelib.dir/link.txt --verbose=$(VERBOSE)
 
