@@ -1,6 +1,7 @@
-#pragma once
+#ifndef MULTIPLAYER_OBJ_H
+#define MULTIPLAYER_OBJ_H
 
-#include <thread>
+#include <thread> 
 #include <list>
 #include <string>
 #include <mutex>
@@ -73,13 +74,12 @@ public:
 
 private:
     unsigned short portNum;
-    ServerStateMachine state;
     Board playingBoard;
     std::thread recieveThread;   //Thread to receive board info
     std::vector<Player> players; //A vector of the players for the game
     std::list<sockaddr_in> sources;
     std::mutex currTurn;
-    StateMachine SSM;
+    StateMachine ssm;
 };
 
 //Class defined for each player
@@ -106,3 +106,5 @@ private:
     sockaddr_in sources;
     std::mutex currTurn;
 };
+
+#endif

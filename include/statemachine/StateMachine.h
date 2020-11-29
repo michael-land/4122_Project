@@ -2,6 +2,7 @@
 #include <statemachine/Decision.h>
 #include <gamerules/Player.h>
 #include <multiplayer/MultiplayerObjects.h>
+
 class Board;
 #ifndef SSM_H
 #define SSM_H

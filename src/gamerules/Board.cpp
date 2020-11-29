@@ -45,7 +45,7 @@ Board::~Board() {
     delete tmp;
     return;
 }
-
-ServerStateMachine* getSSM() {
+StateMachine* Board::getSSM() {
     return ssm;
 }
+ 
