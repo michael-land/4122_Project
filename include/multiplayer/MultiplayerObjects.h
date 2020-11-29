@@ -63,6 +63,7 @@ public:
     server() = delete;
     ~server();
     server(unsigned short usPort);
+    void sendToClient(const boardInfo& players);
     void updateBoard(const std::string &strTo, unsigned short usPortNum, const boardInfo &players); //Function to send player info the clients
     void addSource(const sockaddr_in &from);
     int sockInit(void);
