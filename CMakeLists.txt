@@ -7,14 +7,18 @@ enable_testing()
 include_directories(include/
                     include/gamerules
                     include/builder
-                    include/render)
+                    include/render
+                    include/multiplayer
+                    include/statemachine)
 
 add_library(gamelib
     src/gamerules/BoardSpace.cpp
     src/gamerules/Property.cpp
     src/gamerules/Board.cpp
     src/gamerules/Player.cpp
-    src/builder/BoardBuilder.cpp)
+    src/builder/BoardBuilder.cpp
+    src/multiplayer/MultiplayerObjects.cpp
+    src/statemachine/StateMachine.cpp)
 
 add_executable(Technopoly Technopoly.cpp)
 target_link_libraries(Technopoly gamelib)
