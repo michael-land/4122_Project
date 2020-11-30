@@ -101,14 +101,15 @@ public:
     void error(const char *msg);
     int m_sockfd;
     char* server_address;
+    StateMachine* getSSM();
 
 private:
     unsigned short portNum;
     Board* playingBoard;
     std::thread recieveThread;
-    std::vector<playerInfo> players;
     sockaddr_in sources;
     std::mutex currTurn;
+    StateMachine *ssm;
 };
 
 #endif

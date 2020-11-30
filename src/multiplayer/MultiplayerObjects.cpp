@@ -197,6 +197,8 @@ client::client(unsigned short usPort, char *addr)
     portNum = usPort;
     playingBoard = new Board("client_board");
     this->server_address = addr;
+    this->ssm = playingBoard->getSSM();
+    this->ssm->setIsClient(true);
     string address = addr;  //Define the 
     sockaddr_in client_addr;
     sockInit();
@@ -317,5 +319,9 @@ void client::addSource(const sockaddr_in &from)
 }
 
 StateMachine* server::getSSM() {
+    return ssm;
+}
+
+StateMachine* client::getSSM() {
     return ssm;
 }
