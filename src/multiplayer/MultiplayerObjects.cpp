@@ -45,7 +45,7 @@ void clientReceive(client *socket)
         }
         else
         {
-            socket->
+            //socket->
         }
     } while (true);
 }
@@ -58,6 +58,8 @@ void clientReceive(client *socket)
 
 server::server(unsigned short usPort) {
     playingBoard = new Board("server_board");
+    this->ssm = playingBoard->getSSM();
+    this->ssm->setIsClient(false);
     portNum = usPort;
     sockaddr_in serv_addr;
     sockInit();
@@ -83,15 +85,16 @@ server::server(unsigned short usPort) {
     recieveThread = std::thread(serverReceive, this);
 };
 
-//Function called to send info to all clients
+// Function called to send info to all clients
 void server::sendToClient(const boardInfo& players)
 {
     char buf[INET_ADDRSTRLEN];
-    for (list<sockadd_in>::iterator lst = sources.begin(); list != sources.end(); lst++)
+    for (list<sockaddr_in>::iterator lst = sources.begin(); lst != sources.end(); lst++)
     {
         updateBoard(inet_ntop(AF_INET, &lst->sin_addr, buf, sizeof(buf)), htons(lst->sin_port), players);
     }
-}
+} 
+
 //Function to send player info the clients
 void server::updateBoard(const std::string &strTo, unsigned short usPortNum, const boardInfo &players)
 {
@@ -109,7 +112,7 @@ void server::updateBoard(const std::string &strTo, unsigned short usPortNum, con
     client_addr.sin_port = htons(usPortNum);
     if (connect(m_sockfd, (struct sockaddr*) &client_addr, sizeof(client_addr)) < 0)
         error("ERROR connecting");
-    int n = sendto(m_sockfd, (char*)&players, sizeof(boardInfo), 0, (struct sockaddr) & client_addr, sizeof(client_addr));
+    int n = sendto(m_sockfd, (char*)&players, sizeof(boardInfo), 0, (struct sockaddr*) & client_addr, sizeof(client_addr));
     if (n < 0)
         error("ERROR writing to socket");
 };
@@ -187,13 +190,16 @@ void server::addSource(const sockaddr_in &from)
 // Client Implementation
 /////////////////////////////////////////////////
 
-client::client(unsigned short usPort, char * addr) : portNum(usPort)
+client::client(unsigned short usPort, char *addr)
 {
     //error checking for IP address length here
+    portNum = usPort;
+    playingBoard = new Board("client_board");
     this->server_address = addr;
     string address = addr;  //Define the 
     sockaddr_in client_addr;
     sockInit();
+    //playingBoard = Board("Client_Board");
     // Create the socket
     m_sockfd = socket(AF_INET, SOCK_STREAM, 0);
     // Make sure the socket was created
@@ -216,6 +222,10 @@ client::client(unsigned short usPort, char * addr) : portNum(usPort)
     recieveThread = std::thread(clientReceive, this);
 };
 
+void client::sendToServer(const playerMove &player)
+{
+    submitTurn(server_address, portNum, player);
+}
 //Function to send turn decisions to the server
 void client::submitTurn(const std::string &strTo, unsigned short usPortNum, const playerMove &player)
 {
@@ -235,9 +245,9 @@ void client::submitTurn(const std::string &strTo, unsigned short usPortNum, cons
     memmove((char*)&serv_addr.sin_addr.s_addr, (char *)server_entity->h_addr, server_entity->h_length);
     serv_addr.sin_port = htons(usPortNum);
     fromlen = sizeof(from);
-    if (connect(sockfd, (struct sockaddr) & serv_addr, sizeof(serv_addr)) < 0)
+    if (connect(m_sockfd, (struct sockaddr*) & serv_addr, sizeof(serv_addr)) < 0)
         error("ERROR connecting");
-    int n = sendto(m_sockfd, (char)&player, sizeof(playerMove), 0, (struct sockaddr) & serv_addr, sizeof(serv_addr));
+    int n = sendto(m_sockfd, (char *)&player, sizeof(playerMove), 0, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
     if (n < 0)
         error("ERROR writing to socket");
 };
@@ -303,4 +313,8 @@ void client::addSource(const sockaddr_in &from)
     bool bIsPresent = false;
     sources = from;
     // Iterate through list check is already present
+}
+
+StateMachine* server::getSSM() {
+    return ssm;
 }

@@ -11,6 +11,10 @@ States StateMachine::getCurrentState() const {
     return this->state;
 }
 
+void StateMachine::setIsClient(bool isClient) {
+    this->isClient = isClient;
+}
+
 bool StateMachine::input(playerMove inMsg) { // pass message in here
     bool flag;
     switch(inMsg.moveType) {
@@ -41,10 +45,9 @@ bool StateMachine::input(playerMove inMsg) { // pass message in here
         default:
         break;
     }
-    if (flag) {
-        execOutputs(inMsg);
-    }
-    return flag;
+	execOutputs(inMsg, flag);
+
+	return flag;
 }
 
 bool StateMachine::processBuy() {
@@ -102,7 +105,7 @@ bool StateMachine::processJoin(playerMove inMsg) { // a join is represented by t
         return false;
     }
     auto playerVec = board->getPlayers();
-    std::string str(inMsg.playerID);;
+    std::string str(inMsg.playerID);
     bool exists;
     for (std::vector<Player*>::iterator it = playerVec.begin(); it < playerVec.end(); it++) {        
         if ((*it)->getName() == str){
@@ -113,7 +116,7 @@ bool StateMachine::processJoin(playerMove inMsg) { // a join is represented by t
         Player* newPlayer = new Player(str, this->board);
         this->board->addPlayer(newPlayer);
         return true;
-    } 
+    }
     return false;
 }
 
@@ -133,18 +136,47 @@ bool StateMachine::processUpgrade() {
     return false;
 }
 
-bool StateMachine::execOutputs(playerMove inMsg) {
+bool StateMachine::execOutputs(playerMove inMsg, bool flag) {
     if (state == States::USER_INPUT) {
         state = States::UPDATE_BOARD;
     } else {
         return false;
     }
+
+	Player *currPlayer = board->getCurrentPlayer();
     boardInfo outMsg;
-    // build the outMsg
+	if (flag) // if flag is true, valid move.  process based on client or server
+	{
+		if (isClient) { // if client, redraw frames
+            // redisplay frames (openGL)
+        }
+        else { // if server, send message back to clients		    
+		    outMsg.moveStatus = true;
+		    outMsg.movePosition = currPlayer->getSpace()->getSpaceID();  // currPlayer->getSpace should return a boardspace object, then call getSpaceID() for that boardspace object to get int ID
+			outMsg.moveType = inMsg.moveType;
+            outMsg.playerID = currPlayer->getName();
+			sendToClient(outMsg);
+		}
+	}
+	else
+	{ // if flag is false, invalid move; send invalid move update to client
+		outMsg.moveStatus = false;
+		outMsg.movePosition = NULL;
+		outMsg.moveType = NULL;
+		outMsg.playerID = currPlayer->getName();
+		sendToClient(outMsg);
+	}
 
-    // call some function like
-    // server.sendMessageToClients(outMsg);
+		/*
+    struct boardInfo // SERVER TO CLIENT
+{
+    bool moveStatus;                // If move is feasible or not
+    char playerID[INET_ADDRSTRLEN]; // Identifier for the player IP
+    unsigned char movePosition;     // Identifer for where this player moved to
+    unsigned char moveType;         // The type of move that was selected(ex: Buy, Next turn, etc.)
+};
+    */
 
-    // server.updateBoard()
+		// server.updateBoard()
 
 }

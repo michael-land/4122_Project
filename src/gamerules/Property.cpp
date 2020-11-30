@@ -1,6 +1,6 @@
 #include <gamerules/Property.h>
 
-Property::Property(std::string name, long cost, long rent, Colors color) : BoardSpace(name, color) { 
+Property::Property(std::string name, long cost, long rent) : BoardSpace(name) { 
     this->name = name;
     this->cost = cost;
     this->rent = rent;

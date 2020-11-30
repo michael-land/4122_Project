@@ -10,12 +10,11 @@ class Property : public BoardSpace {
     std::string name;
     long rent;
     long cost;
-    Colors color;
     Player* owner;
     int upgrades; // 0 is nothing, 1 - 4 is a house, 5 is a hotel.
 
     public:
-    Property(std::string, long, long, Colors);
+    Property(std::string, long, long);
     long getRent() const;
     long getCost() const;
     void setRent(const long&);

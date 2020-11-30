@@ -12,8 +12,10 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <iostream>
-#include <MultiplayerObjects.h>
-#include <Player.h>`
+#include <multiplayer/MultiplayerObjects.h>
+#include <statemachine/States.h>
+#include <Player.h>
+#include <statemachine/StateMachine.h>
 
 #define PORT 6500
 
@@ -70,5 +72,5 @@ int main()
     IPbuffer = inet_ntoa(*((struct in_addr *)host_entry->h_addr_list[0]));
     std::cout << IPbuffer << std::endl;
     server GameServer(PORT);
-    while(true);
+    while( GameServer.getSSM()->getCurrentState() != States::GAME_EXIT );
 }

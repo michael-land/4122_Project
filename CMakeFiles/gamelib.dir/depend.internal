@@ -3,7 +3,7 @@
 
 CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.o
  /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/builder/BoardBuilder.cpp
- include/builder/BoardBuilder.h
+ include/builder/BoardFactory.h
  include/gamerules/Board.h
  include/gamerules/BoardSpace.h
  include/gamerules/Player.h

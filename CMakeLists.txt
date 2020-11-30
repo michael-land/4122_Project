@@ -16,12 +16,12 @@ add_library(gamelib
     src/gamerules/Property.cpp
     src/gamerules/Board.cpp
     src/gamerules/Player.cpp
-    src/builder/BoardBuilder.cpp
+    src/builder/BoardFactory.cpp
     src/multiplayer/MultiplayerObjects.cpp
     src/statemachine/StateMachine.cpp)
 
 add_executable(server Server.cpp)
-target_link_libraries(server gamelib)
+target_link_libraries(server gamelib pthread)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

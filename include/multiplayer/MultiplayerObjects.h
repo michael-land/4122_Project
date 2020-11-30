@@ -39,7 +39,7 @@ struct playerInfo
 };
 
 //Determines the move that each player makes
-struct playerMove //CLIENT TO SERVER
+struct playerMove // CLIENT TO SERVER
 {
     char playerID[INET_ADDRSTRLEN]; //ID that tells the server which turn is which
     // unsigned char moveChoice;    //Selects which move
@@ -48,11 +48,11 @@ struct playerMove //CLIENT TO SERVER
 };
 
 //Message sent to the player
-struct boardInfo //SERVER TO CLIENT
+struct boardInfo // SERVER TO CLIENT
 {
+    bool moveStatus;       //If move is feasible or not  (true or false)
     char playerID[INET_ADDRSTRLEN]; //Identifier for the player IP
-    unsigned char moveStatus;       //If move is feasible or not
-    unsigned char movePosition;     //Identifer for where this player moved to
+    int movePosition;     //Identifer for where this player moved to
     unsigned char moveType;         //The type of move that was selected(ex: Buy, Next turn, etc.)
 };
 
@@ -70,6 +70,7 @@ public:
     int sockClose();
     void error(const char *msg);
     int m_sockfd;
+    StateMachine* getSSM();
 
     friend void serverReceive(server *socket);
 
@@ -88,9 +89,10 @@ class client
 public:
     client() = delete;
     ~client();
-    client(unsigned short usPort);
+    client(unsigned short usPort, char *addr);
     void submitTurn(const std::string &strTo, unsigned short usPortNum, const playerMove &player); //Function to send turn decisions to the server
     void addSource(const sockaddr_in &from);
+    void sendToServer(const playerMove &player);
     int sockInit(void);
     int sockQuit(void);
     int sockClose();
@@ -100,7 +102,7 @@ public:
 
 private:
     unsigned short portNum;
-    Board playingBoard;
+    Board* playingBoard;
     std::thread recieveThread;
     std::vector<playerInfo> players;
     sockaddr_in sources;

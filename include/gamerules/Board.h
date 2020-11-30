@@ -27,8 +27,10 @@ class Board {
     std::vector<Player*> getPlayers();
     BoardSpace* getHead() const;
     StateMachine* getSSM();
+    BoardSpace* getTail() const;
     ~Board();
-
+    BoardSpace* findSpace(int);
+    BoardSpace* findSpace(std::string);
 };
 
 #endif

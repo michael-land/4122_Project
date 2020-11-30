@@ -3,7 +3,6 @@
 
 #include <string>
 #include <vector>
-#include <render/Colors.h>
 class Player;
 /*
  * This class is essentially a linked list node for
@@ -20,20 +19,17 @@ class BoardSpace {
     std::string name;
     BoardSpace* nextSpace;
     BoardSpace* prevSpace;
-    Colors color;
     std::vector<Player*> playersOnSpace;
     int improvements; // this is for houses, hotels, etc.
 
     public:
-    BoardSpace(std::string, Colors);
+    BoardSpace(std::string);
     std::string getName() const;
     void setName(const std::string&);
     BoardSpace* getNextSpace() const;
     BoardSpace* getPrevSpace() const;
     void setNextSpace(BoardSpace*);
     void setPrevSpace(BoardSpace*);
-    void setColor(Colors color);
-    Colors getColor();
     void setSpaceID(const int&);
     int getSpaceID() const;
     ~BoardSpace();

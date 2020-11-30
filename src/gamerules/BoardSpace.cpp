@@ -1,9 +1,8 @@
 #include <gamerules/BoardSpace.h>
 #include <gamerules/Player.h>
 
-BoardSpace::BoardSpace(std::string name, Colors color) {
+BoardSpace::BoardSpace(std::string name) {
     this->name = name;
-    this->color = color;
 }
 
 std::string BoardSpace::getName() const {
@@ -28,14 +27,6 @@ void BoardSpace::setNextSpace(BoardSpace* nextSpace) {
 
 void BoardSpace::setPrevSpace(BoardSpace* prevSpace) {
     this->prevSpace = prevSpace;
-}
-
-void BoardSpace::setColor(Colors color) {
-    this->color = color;
-}
-
-Colors BoardSpace::getColor() {
-    return color;
 }
 
 int BoardSpace::getSpaceID() const {

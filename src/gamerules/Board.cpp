@@ -45,7 +45,35 @@ Board::~Board() {
     delete tmp;
     return;
 }
+
 StateMachine* Board::getSSM() {
     return ssm;
+}
+
+BoardSpace* Board::getTail() const {
+    return tail;
+}
+
+BoardSpace* Board::findSpace(int spaceID) {
+    BoardSpace* tmp = head;
+    while (tmp != tail) {
+        if (tmp->getSpaceID() == spaceID) {
+            return tmp;
+        }
+        tmp = tmp->getNextSpace();
+    }
+    return nullptr;
+}
+
+
+BoardSpace* Board::findSpace(std::string name) {
+    BoardSpace* tmp = head;
+    while (tmp != tail) {
+        if (tmp->getName() == name) {
+            return tmp;
+        }
+        tmp = tmp->getNextSpace();
+    }
+    return nullptr;
 }
  

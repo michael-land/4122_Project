@@ -24,8 +24,9 @@ class StateMachine {
     bool processUpgrade();
     bool processRollDice(int numSpaces);
     bool processEndTurn();
-    bool execOutputs(playerMove);
+    bool execOutputs(playerMove inMsg, bool flag);
 	bool processJoin(playerMove);
+    void setIsClient(bool);
 
 };
 
