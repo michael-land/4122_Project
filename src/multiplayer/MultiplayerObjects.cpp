@@ -83,6 +83,15 @@ server::server(unsigned short usPort) : portNum(usPort)
     recieveThread = std::thread(serverReceive, this);
 };
 
+//Function called to send info to all clients
+void server::sendToClient(const boardInfo& players)
+{
+    char buf[INET_ADDRSTRLEN];
+    for (list<sockadd_in>::iterator lst = sources.begin(); list != sources.end(); lst++)
+    {
+        updateBoard(inet_ntop(AF_INET, &lst->sin_addr, buf, sizeof(buf)), htons(lst->sin_port), players);
+    }
+}
 //Function to send player info the clients
 void server::updateBoard(const std::string &strTo, unsigned short usPortNum, const boardInfo &players)
 {
