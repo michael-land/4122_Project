@@ -144,17 +144,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Technopoly
+# Target rules for targets named server
 
 # Build rule for target.
-Technopoly: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Technopoly
-.PHONY : Technopoly
+server: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 server
+.PHONY : server
 
 # fast build rule for target.
-Technopoly/fast:
-	$(MAKE) -f CMakeFiles/Technopoly.dir/build.make CMakeFiles/Technopoly.dir/build
-.PHONY : Technopoly/fast
+server/fast:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
+.PHONY : server/fast
 
 #=============================================================================
 # Target rules for targets named NightlyMemCheck
@@ -533,32 +533,32 @@ ContinuousSubmit/fast:
 	$(MAKE) -f CMakeFiles/ContinuousSubmit.dir/build.make CMakeFiles/ContinuousSubmit.dir/build
 .PHONY : ContinuousSubmit/fast
 
-Technopoly.o: Technopoly.cpp.o
+Server.o: Server.cpp.o
 
-.PHONY : Technopoly.o
+.PHONY : Server.o
 
 # target to build an object file
-Technopoly.cpp.o:
-	$(MAKE) -f CMakeFiles/Technopoly.dir/build.make CMakeFiles/Technopoly.dir/Technopoly.cpp.o
-.PHONY : Technopoly.cpp.o
+Server.cpp.o:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Server.cpp.o
+.PHONY : Server.cpp.o
 
-Technopoly.i: Technopoly.cpp.i
+Server.i: Server.cpp.i
 
-.PHONY : Technopoly.i
+.PHONY : Server.i
 
 # target to preprocess a source file
-Technopoly.cpp.i:
-	$(MAKE) -f CMakeFiles/Technopoly.dir/build.make CMakeFiles/Technopoly.dir/Technopoly.cpp.i
-.PHONY : Technopoly.cpp.i
+Server.cpp.i:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Server.cpp.i
+.PHONY : Server.cpp.i
 
-Technopoly.s: Technopoly.cpp.s
+Server.s: Server.cpp.s
 
-.PHONY : Technopoly.s
+.PHONY : Server.s
 
 # target to generate assembly for a file
-Technopoly.cpp.s:
-	$(MAKE) -f CMakeFiles/Technopoly.dir/build.make CMakeFiles/Technopoly.dir/Technopoly.cpp.s
-.PHONY : Technopoly.cpp.s
+Server.cpp.s:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Server.cpp.s
+.PHONY : Server.cpp.s
 
 src/builder/BoardBuilder.o: src/builder/BoardBuilder.cpp.o
 
@@ -758,7 +758,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... package_source"
-	@echo "... Technopoly"
+	@echo "... server"
 	@echo "... edit_cache"
 	@echo "... NightlyMemCheck"
 	@echo "... NightlyTest"
@@ -790,9 +790,9 @@ help:
 	@echo "... ContinuousMemCheck"
 	@echo "... ContinuousTest"
 	@echo "... ContinuousSubmit"
-	@echo "... Technopoly.o"
-	@echo "... Technopoly.i"
-	@echo "... Technopoly.s"
+	@echo "... Server.o"
+	@echo "... Server.i"
+	@echo "... Server.s"
 	@echo "... src/builder/BoardBuilder.o"
 	@echo "... src/builder/BoardBuilder.i"
 	@echo "... src/builder/BoardBuilder.s"

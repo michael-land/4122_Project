@@ -1,14 +1,17 @@
 #include <statemachine/States.h>
 #include <statemachine/Decision.h>
 #include <gamerules/Player.h>
-#include <multiplayer/MultiplayerObjects.h>
 
 class Board;
+class server;
+struct playerMove;
+struct playerMove;
 #ifndef SSM_H
 #define SSM_H
 
 class StateMachine {
     private:
+    server *serv;
     States state;
     Board* board;
     bool isClient;
@@ -22,7 +25,7 @@ class StateMachine {
     bool processRollDice(int numSpaces);
     bool processEndTurn();
     bool execOutputs(playerMove);
-	void processJoin();
+	bool processJoin(playerMove);
 
 };
 

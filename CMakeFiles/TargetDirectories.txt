@@ -1,7 +1,7 @@
 /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles/rebuild_cache.dir
 /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles/test.dir
 /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles/package_source.dir
-/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles/Technopoly.dir
+/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles/server.dir
 /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles/edit_cache.dir
 /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles/NightlyMemCheck.dir
 /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles/NightlyTest.dir

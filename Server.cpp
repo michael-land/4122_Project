@@ -70,26 +70,5 @@ int main()
     IPbuffer = inet_ntoa(*((struct in_addr *)host_entry->h_addr_list[0]));
     std::cout << IPbuffer << std::endl;
     server GameServer(PORT);
-    char player1_IP[INET_ADDRSTRLEN];
-    char player2_IP[INET_ADDRSTRLEN];
-    do
-    { //Loop to wait for both clients to connect
-        if (GameServer.sources.size() == 2)
-        {
-            break;
-        }
-    } while (true);
-    
-    inet_ntop(AF_INET, &(GameServer.sources.at(0).sin_addr), player1_IP, INET_ADDRSTRLEN);  //Gets IP of the first player
-    inet_ntop(AF_INET, &(GameServer.sources.at(1).sin_addr), player2_IP, INET_ADDRSTRLEN);  //Gets IP of the second player
-    string name1= player1_IP;           //Define the name for player 1 based on the IP address
-    string name2= player2_IP;           //Define the name for player 2 based on the IP address
-    Player p1(name1);                     //Instantiate Player 1
-    Player p2(name2);                     //Instantiate Player 2
-    GameServer.players[0] = p1;    //Define player 1 object based on the IP address
-    GameServer.players[1] = p2;    //Define player 2 object based on the IP address
-    do
-    { //Loop that the game
-
-    } while (true);
+    while(true);
 }

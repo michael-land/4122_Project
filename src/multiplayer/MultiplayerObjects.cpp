@@ -19,14 +19,13 @@ void serverReceive(server *socket)
     do
     {
         n = recvfrom(socket->m_sockfd, (char *)&inMsg, sizeof(playerMove), 0, (struct sockaddr *)&from, &fromlen);
-        if (n < 0)
-        {
+        if (n < 0) {
             break;
         }
-        else
-        {
-            socket->state.input(inMsg); //Passes the message through the state machine
-        }
+        else {
+            socket->addSource(from);
+            socket->ssm->input(inMsg); //Passes the message through the state machine
+        } 
     } while (true);
 }
 //Function that recieves board info from server
@@ -57,8 +56,9 @@ void clientReceive(client *socket)
 
 // Cross-platform socket initialize
 
-server::server(unsigned short usPort) : portNum(usPort)
-{
+server::server(unsigned short usPort) {
+    playingBoard = new Board("server_board");
+    portNum = usPort;
     sockaddr_in serv_addr;
     sockInit();
     // Create the socket
@@ -97,23 +97,21 @@ void server::updateBoard(const std::string &strTo, unsigned short usPortNum, con
 {
     struct hostent *client_entity;
     struct sockaddr_in client_addr;
-    socklen_t fromlen;
-    struct sockaddr_in from;
     client_entity = gethostbyname(strTo.c_str());
     if (client_entity == NULL)
     {
-        fprintf(stderr, "Error, no such host\n");
+        cout << "Error, no such host";
+        exit(0);
     }
     memset((char*)&client_addr, sizeof(client_addr), 0);
     client_addr.sin_family = AF_INET;
     memmove((char*)&client_addr.sin_addr.s_addr, (char*)client_entity->h_addr, client_entity->h_length);
     client_addr.sin_port = htons(usPortNum);
-    fromlen = sizeof(from);
     if (connect(m_sockfd, (struct sockaddr*) &client_addr, sizeof(client_addr)) < 0)
         error("ERROR connecting");
     int n = sendto(m_sockfd, (char*)&players, sizeof(boardInfo), 0, (struct sockaddr) & client_addr, sizeof(client_addr));
     if (n < 0)
-        error("ERROR writing to socket")
+        error("ERROR writing to socket");
 };
 
 int server::sockInit(void)

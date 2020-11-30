@@ -20,9 +20,8 @@ add_library(gamelib
     src/multiplayer/MultiplayerObjects.cpp
     src/statemachine/StateMachine.cpp)
 
-add_executable(Technopoly Technopoly.cpp)
-target_link_libraries(Technopoly gamelib)
-target_link_libraries(Technopoly GL GLU glut)
+add_executable(server Server.cpp)
+target_link_libraries(server gamelib)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

@@ -53,7 +53,7 @@ CMAKE_BINARY_DIR = /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/Technopoly.dir/all
+all: CMakeFiles/server.dir/all
 all: CMakeFiles/gamelib.dir/all
 
 .PHONY : all
@@ -64,7 +64,7 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/Technopoly.dir/clean
+clean: CMakeFiles/server.dir/clean
 clean: CMakeFiles/NightlyMemCheck.dir/clean
 clean: CMakeFiles/NightlyTest.dir/clean
 clean: CMakeFiles/ContinuousConfigure.dir/clean
@@ -98,31 +98,31 @@ clean: CMakeFiles/ContinuousSubmit.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/Technopoly.dir
+# Target rules for target CMakeFiles/server.dir
 
 # All Build rule for target.
-CMakeFiles/Technopoly.dir/all: CMakeFiles/gamelib.dir/all
-	$(MAKE) -f CMakeFiles/Technopoly.dir/build.make CMakeFiles/Technopoly.dir/depend
-	$(MAKE) -f CMakeFiles/Technopoly.dir/build.make CMakeFiles/Technopoly.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles --progress-num=1,2 "Built target Technopoly"
-.PHONY : CMakeFiles/Technopoly.dir/all
+CMakeFiles/server.dir/all: CMakeFiles/gamelib.dir/all
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/depend
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles --progress-num=9,10 "Built target server"
+.PHONY : CMakeFiles/server.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/Technopoly.dir/rule: cmake_check_build_system
+CMakeFiles/server.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles 10
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Technopoly.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/server.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles 0
-.PHONY : CMakeFiles/Technopoly.dir/rule
+.PHONY : CMakeFiles/server.dir/rule
 
 # Convenience name for target.
-Technopoly: CMakeFiles/Technopoly.dir/rule
+server: CMakeFiles/server.dir/rule
 
-.PHONY : Technopoly
+.PHONY : server
 
 # clean rule for target.
-CMakeFiles/Technopoly.dir/clean:
-	$(MAKE) -f CMakeFiles/Technopoly.dir/build.make CMakeFiles/Technopoly.dir/clean
-.PHONY : CMakeFiles/Technopoly.dir/clean
+CMakeFiles/server.dir/clean:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/clean
+.PHONY : CMakeFiles/server.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/NightlyMemCheck.dir
@@ -644,7 +644,7 @@ CMakeFiles/ExperimentalCoverage.dir/clean:
 CMakeFiles/gamelib.dir/all:
 	$(MAKE) -f CMakeFiles/gamelib.dir/build.make CMakeFiles/gamelib.dir/depend
 	$(MAKE) -f CMakeFiles/gamelib.dir/build.make CMakeFiles/gamelib.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles --progress-num=3,4,5,6,7,8,9,10 "Built target gamelib"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target gamelib"
 .PHONY : CMakeFiles/gamelib.dir/all
 
 # Build rule for subdir invocation for target.

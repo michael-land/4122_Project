@@ -57,8 +57,7 @@ struct boardInfo //SERVER TO CLIENT
 };
 
 //Class defined for each player
-class server
-{
+class server {
 public:
     server() = delete;
     ~server();
@@ -76,9 +75,8 @@ public:
 
 private:
     unsigned short portNum;
-    Board playingBoard;
+    Board* playingBoard;
     std::thread recieveThread;   //Thread to receive board info
-    std::vector<Player> players; //A vector of the players for the game
     std::list<sockaddr_in> sources;
     std::mutex currTurn;
     StateMachine *ssm;
