@@ -114,6 +114,7 @@ bool StateMachine::processUpgrade() {
             return true;
         }
     }
+    return false;
 }
 
 bool StateMachine::execOutputs(playerMove inMsg) {
