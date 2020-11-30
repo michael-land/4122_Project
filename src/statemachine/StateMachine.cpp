@@ -97,8 +97,7 @@ bool StateMachine::processEndTurn() {
     return false;
 }
 
-bool StateMachine::processJoin(playerMove inMsg) { // a join is represented by the "J" character, although that isn't necessarily a keyboard option.
-    
+bool StateMachine::processJoin(playerMove inMsg) { // a join is represented by the "J" character, although that isn't necessarily a keyboard option.    
     if (state != States::GAME_SETUP) {
         return false;
     }
@@ -109,14 +108,12 @@ bool StateMachine::processJoin(playerMove inMsg) { // a join is represented by t
         if ((*it)->getName() == str){
             exists = true;
         }
-    }
-    
+    }    
     if (!exists) {
         Player* newPlayer = new Player(str, this->board);
         this->board->addPlayer(newPlayer);
         return true;
-    }   
-
+    } 
     return false;
 }
 

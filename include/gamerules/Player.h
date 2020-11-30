@@ -28,7 +28,8 @@ class Player {
     std::string getAddr() const;
     void setAddr(std::string);
     BoardSpace* getSpace() const;
-    
+    std::string getName() const;
+    void setName(std::string);
 };
 
 #endif

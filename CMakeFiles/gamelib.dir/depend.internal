@@ -14,7 +14,6 @@ CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.o
  include/gamerules/Board.h
  include/gamerules/BoardSpace.h
  include/gamerules/Player.h
- include/multiplayer/MultiplayerObjects.h
  include/render/Colors.h
  include/statemachine/Decision.h
  include/statemachine/StateMachine.h

@@ -6,10 +6,34 @@
 
 #IncludeRegexTransform: 
 
+/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/builder/BoardBuilder.cpp
+builder/BoardBuilder.h
+-
+
 /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Board.cpp
 gamerules/Board.h
 -
 statemachine/StateMachine.h
+-
+
+/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/BoardSpace.cpp
+gamerules/BoardSpace.h
+-
+gamerules/Player.h
+-
+
+/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Player.cpp
+gamerules/BoardSpace.h
+-
+gamerules/Player.h
+-
+gamerules/Board.h
+-
+gamerules/Property.h
+-
+
+/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Property.cpp
+gamerules/Property.h
 -
 
 /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/multiplayer/MultiplayerObjects.cpp
@@ -30,6 +54,12 @@ gamerules/Board.h
 gamerules/Property.h
 -
 multiplayer/MultiplayerObjects.h
+-
+
+include/builder/BoardBuilder.h
+gamerules/Board.h
+-
+gamerules/Property.h
 -
 
 include/gamerules/Board.h
@@ -98,8 +128,6 @@ statemachine/States.h
 statemachine/Decision.h
 -
 gamerules/Player.h
--
-multiplayer/MultiplayerObjects.h
 -
 
 include/statemachine/States.h

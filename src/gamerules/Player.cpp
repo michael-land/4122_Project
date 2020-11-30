@@ -67,3 +67,11 @@ BoardSpace *Player::getSpace() const
 {
     return boardSpace;
 }
+
+std::string Player::getName() const {
+    return name;
+}
+
+void Player::setName(std::string name) {
+    this->name = name;
+}
