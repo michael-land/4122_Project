@@ -61,6 +61,7 @@ bool StateMachine::processBuy() {
         }        
         if (currPlayer->getMoney() > prop->getCost()) {
             currPlayer->buy(prop);
+            state = States::UPDATE_BOARD;
             return true;
         }
     }
@@ -78,6 +79,7 @@ bool StateMachine::processSell() {
         }        
         if (prop->getOwner() == currPlayer) {
             currPlayer->sell(prop);
+            state = States::UPDATE_BOARD;
             return true;
         }
     }
@@ -85,11 +87,15 @@ bool StateMachine::processSell() {
 }
 
 bool StateMachine::processRollDice(int numSpaces) {
+    if (state != States::USER_INPUT) {
+        return false;
+    }
     if (numSpaces > 12) {
         return false;
     }
 	Player* currPlayer = board->getCurrentPlayer();
 	currPlayer->movePlayer(numSpaces);
+    state = States::UPDATE_BOARD;
 	return true;
 }
 
@@ -121,6 +127,9 @@ bool StateMachine::processJoin(playerMove inMsg) { // a join is represented by t
 }
 
 bool StateMachine::processUpgrade() {
+    if (state != States::USER_INPUT) {
+        return false;
+    }
     Player* currPlayer = board->getCurrentPlayer();
     BoardSpace* space = currPlayer->getSpace();
     Property* prop = dynamic_cast<Property*>(space);
@@ -130,6 +139,7 @@ bool StateMachine::processUpgrade() {
     if (prop->getOwner() == currPlayer && currPlayer->getMoney() > prop->getCost()) {
         if (prop->getUpgrades() < 5 ) {
             prop->upgrade();
+            state = States::UPDATE_BOARD;
             return true;
         }
     }
@@ -137,46 +147,58 @@ bool StateMachine::processUpgrade() {
 }
 
 bool StateMachine::execOutputs(playerMove inMsg, bool flag) {
-    if (state == States::USER_INPUT) {
-        state = States::UPDATE_BOARD;
-    } else {
-        return false;
-    }
-
-	Player *currPlayer = board->getCurrentPlayer();
     boardInfo outMsg;
-	if (flag) // if flag is true, valid move.  process based on client or server
-	{
-		if (isClient) { // if client, redraw frames
-            // redisplay frames (openGL)
+    if (state == States::UPDATE_BOARD) {
+        Player *currPlayer = board->getCurrentPlayer();        
+        if (flag) // if flag is true, valid move.  process based on client or server
+        {
+            if (isClient) { // if client, redraw frames
+                // redisplay frames (openGL)
+            }
+            else { // if server, send message back to clients		    
+                outMsg.moveStatus = true;
+                outMsg.movePosition = currPlayer->getSpace()->getSpaceID();  // currPlayer->getSpace should return a boardspace object, then call getSpaceID() for that boardspace object to get int ID
+                outMsg.moveType = inMsg.moveType;
+                outMsg.playerID = currPlayer->getName();
+                this->serv->sendToClient(outMsg);
+            }
         }
-        else { // if server, send message back to clients		    
-		    outMsg.moveStatus = true;
-		    outMsg.movePosition = currPlayer->getSpace()->getSpaceID();  // currPlayer->getSpace should return a boardspace object, then call getSpaceID() for that boardspace object to get int ID
-			outMsg.moveType = inMsg.moveType;
+        else
+        { // if flag is false, invalid move; send invalid move update to client
+            outMsg.moveStatus = false;
+            outMsg.movePosition = NULL;
+            outMsg.moveType = NULL;
             outMsg.playerID = currPlayer->getName();
-			sendToClient(outMsg);
-		}
-	}
-	else
-	{ // if flag is false, invalid move; send invalid move update to client
-		outMsg.moveStatus = false;
-		outMsg.movePosition = NULL;
-		outMsg.moveType = NULL;
-		outMsg.playerID = currPlayer->getName();
-		sendToClient(outMsg);
-	}
+            this->serv->sendToClient(outMsg);
+        }
 
-		/*
+            /*
     struct boardInfo // SERVER TO CLIENT
-{
-    bool moveStatus;                // If move is feasible or not
-    char playerID[INET_ADDRSTRLEN]; // Identifier for the player IP
-    unsigned char movePosition;     // Identifer for where this player moved to
-    unsigned char moveType;         // The type of move that was selected(ex: Buy, Next turn, etc.)
-};
-    */
+    {
+        bool moveStatus;       //If move is feasible or not  (true or false)
+        std::string playerID; //Identifier for the player IP
+        int movePosition;     //Identifer for where this player moved to
+        unsigned char moveType;         //The type of move that was selected(ex: Buy, Next turn, etc.)
+    };
+        */
 
-		// server.updateBoard()
-
+            // server.updateBoard()
+        if (board->checkForEndCond()) {
+            state = States::GAME_EXIT;
+        } else {
+            state = States::USER_INPUT
+        }
+    } else if (state == States::GAME_SETUP) {
+        if (board->checkForStartCond()) {
+            state = States::USER_INPUT;
+        } else {
+            state = States::GAME_SETUP;
+        }
+        outMsg.moveStatus = true;
+        outMsg.movePosition = NULL;  // currPlayer->getSpace should return a boardspace object, then call getSpaceID() for that boardspace object to get int ID
+        outMsg.moveType = inMsg.moveType;
+        outMsg.playerID = inMsg.playerID;
+        this->serv->sendToClient(outMsg);
+    }
+    return true;
 }

@@ -86,6 +86,7 @@ server::server(unsigned short usPort) {
 };
 
 // Function called to send info to all clients
+
 void server::sendToClient(const boardInfo& players)
 {
     char buf[INET_ADDRSTRLEN];

@@ -29,6 +29,7 @@ typedef int SOCKET;
 #endif
 
 //Structure that is used to define player attributes
+/* unsure if being used.
 struct playerInfo
 {
     unsigned char playerNum[15]; //defines which player is which
@@ -37,11 +38,12 @@ struct playerInfo
     int turnCounter;             //Indicates how many turns have been completed for each player
     bool isTurn;                 //Indicates whether it is this persons turn or not
 };
+*/ 
 
 //Determines the move that each player makes
 struct playerMove // CLIENT TO SERVER
 {
-    char playerID[INET_ADDRSTRLEN]; //ID that tells the server which turn is which
+    std::string playerID; //ID that tells the server which turn is which
     // unsigned char moveChoice;    //Selects which move
     unsigned char moveType;  //Determines the move type
     unsigned int playerRoll; // the number that the player rolled
@@ -51,7 +53,7 @@ struct playerMove // CLIENT TO SERVER
 struct boardInfo // SERVER TO CLIENT
 {
     bool moveStatus;       //If move is feasible or not  (true or false)
-    char playerID[INET_ADDRSTRLEN]; //Identifier for the player IP
+    std::string playerID; //Identifier for the player IP
     int movePosition;     //Identifer for where this player moved to
     unsigned char moveType;         //The type of move that was selected(ex: Buy, Next turn, etc.)
 };

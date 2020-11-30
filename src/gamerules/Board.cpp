@@ -20,11 +20,6 @@ void Board::addSpace(BoardSpace* boardSpace) {
     this->tail->setPrevSpace(tmpPtr);
 }
 
-Board& Board::operator<<(BoardSpace* boardSpace) {
-    addSpace(boardSpace);
-    return *this;
-}
-
 void Board::addPlayer(Player* playa) {
     this->players.push_back(playa);
 }

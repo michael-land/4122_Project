@@ -14,7 +14,7 @@ class Property : public BoardSpace {
     int upgrades; // 0 is nothing, 1 - 4 is a house, 5 is a hotel.
 
     public:
-    Property(std::string, long, long);
+    Property(std::string, long);
     long getRent() const;
     long getCost() const;
     void setRent(const long&);

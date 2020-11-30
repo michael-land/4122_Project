@@ -13,9 +13,9 @@ BoardFactory& BoardFactory::operator<<(std::string spaceName) {
     board->addSpace(bs);
 }
 
-void BoardFactory::makeProperty(std::string propName, long rent, long cost) {
+void BoardFactory::makeProperty(std::string propName, long cost) {
     BoardSpace* bs = board->findSpace(propName);
-    Property* prop = new Property(propName, cost, rent);
+    Property* prop = new Property(propName, cost);
     delete bs;
     bs = prop;
 }

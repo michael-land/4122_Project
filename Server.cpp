@@ -72,5 +72,6 @@ int main()
     IPbuffer = inet_ntoa(*((struct in_addr *)host_entry->h_addr_list[0]));
     std::cout << IPbuffer << std::endl;
     server GameServer(PORT);
+
     while( GameServer.getSSM()->getCurrentState() != States::GAME_EXIT );
 }

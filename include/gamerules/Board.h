@@ -20,7 +20,6 @@ class Board {
     public:
     Board(std::string);
     void addSpace(BoardSpace*);
-    Board& operator<<(BoardSpace*);
     void addPlayer(Player*);
     int rollDice() const;
     Player* getCurrentPlayer();

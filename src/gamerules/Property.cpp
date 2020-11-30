@@ -1,9 +1,9 @@
 #include <gamerules/Property.h>
 
-Property::Property(std::string name, long cost, long rent) : BoardSpace(name) { 
+Property::Property(std::string name, long cost) : BoardSpace(name) { 
     this->name = name;
     this->cost = cost;
-    this->rent = rent;
+    this->rent = 0.05 * cost;
 }
 
 long Property::getRent() const {
