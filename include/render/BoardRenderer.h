@@ -1,10 +1,10 @@
 /*
-Authors: Ruben Quiros and Michael Lu
+Author: Ruben Quiros
 Class: ECE 4122
-Last Date Modified: 11/2/20
+Last Date Modified: 11/28/20
 
 Description:
-    This file used OpenGL and GLUT to draw a Georgia Tech themed "Monopoly board".
+    This file used OpenGL and GLUT to draw a Gorgia Tech themed "Monopoly board".
     In this version, everything is stationary. However, the user can rotate the scene
     5 degrees by pressing "r" on their keyboard.
 
@@ -13,7 +13,6 @@ SPECIAL NOTE:
     main(). These functions were inspired by his in-class examples. There are other snippets
     of code for coloring, lighting, buffering, and depth perception that were also taken from
     his examples from lectures. Thank you!
-    Credit goes to Anton Gerdelan of antongerdelan.net for the code to parse .obj files
 */
 
 #include <GL/glut.h>
@@ -21,10 +20,10 @@ SPECIAL NOTE:
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
-#include <render/Bitmap.h> // for bitmaps/textures
-#include <render/obj_parser.h> //for models
-#include <vector>
+#include "ECE_Bitmap.h" // for bitmaps/textures
 #include <string>
+
+using namespace std;
 
 // Some Global Params
 float angle = 0.0;              // angle of the camera (0.0 == south of maze)
@@ -54,24 +53,30 @@ string screenMsg = "You have $1,500\0";
 /////////////////////////////////////////////////////////////////////////////////////////////////
 void init(void){
     glClearColor(0.0, 0.0, 0.0, 1.0);
-    glEnable(GL_DEPTH_TEST);
     glShadeModel(GL_SMOOTH);
+    glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
+
+    // glColor3f(0.0,1.0,0.0);
+    // glutSolidSphere(0.5,20,20);
 
     // THIS SECTION IS FOR THE LIGHTING AND MATERIAL PROPERTIES
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_LIGHT0);
 
-    GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 1.0 };
+    GLfloat lightPosition[] = {0.65, 0.65, 0.3, 0.0};
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+
+    GLfloat light_ambient[] = { 0.6, 0.6, 0.6, 1.0 };
     GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
     GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-    GLfloat light_position[] = { 0.65, 0.65, 0.65, 0.0 };
+    // GLfloat light_position[] = { 0.65, 0.65, 0.65, 0.0 };
 
     glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
     glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+    // glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, colorWhite);
@@ -91,55 +96,192 @@ void init(void){
 
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 
-    // SET UP PROPERTIES FOR 3D OBJECTS
+    glBindTexture(GL_TEXTURE_2D, 0);   // unbind the texture
+
+    // glEnable(GL_TEXTURE_2D);
+    //     glBindTexture(GL_TEXTURE_2D, texture[0]);
+
+    //     glBegin(GL_QUADS);
+    //         glTexCoord2f(1, 0);
+    //         glVertex3f(0.0f, 0.0f, 0.0f);
+    //         glTexCoord2f(0, 0);
+    //         glVertex3f(1.3f, 0.0f, 0.0f);
+    //         glTexCoord2f(0, 1);
+    //         glVertex3f(1.3f, 0.0f, 1.3f);
+    //         glTexCoord2f(1, 1);
+    //         glVertex3f(0.0f, 0.0f, 1.3f);
+    //     glEnd();
+
+    // glDisable(GL_TEXTURE_2D);
+
+    // // SET UP PROPERTIES FOR 3D OBJECTS
+    // GLUquadricObj *quadObj;
+    // quadObj = gluNewQuadric();
+    // gluQuadricDrawStyle(quadObj, GLU_FILL);
+    // gluQuadricTexture(quadObj, GL_TRUE);
+    // gluQuadricNormals(quadObj, GLU_SMOOTH);
+
+}   // end of init()
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+// Used to draw a green house on a property
+/////////////////////////////////////////////////////////////////////////////////////////////////
+void drawHouse(float xx, float zz){ // instead it will pass the board position (0-39)
+    glColor3f(0.0, 1.0, 0.0);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, colorGreen);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, colorGreen);
+
     GLUquadricObj *quadObj;
     quadObj = gluNewQuadric();
-    gluQuadricDrawStyle(quadObj, GLU_FILL);
-    gluQuadricTexture(quadObj, GL_TRUE);
-    gluQuadricNormals(quadObj, GLU_SMOOTH);
 
-}
-
-//////////////////////////
-// Used to store Models
-//////////////////////////
-struct ModelStorage()
-{
-    GLfloat* vp = NULL; // array of vertex points
-	GLfloat* vn = NULL; // array of vertex normals (we haven't used these yet)
-	GLfloat* vt = NULL; // array of texture coordinates (or these)
-	
-	ModelStorage(std::string modelFileName)
-	{
-	    char* filename = modelFileName.c_str();
-	}
-	
-	~ModelStorage()
-	{
-	    free (vp);
-		free (vn);
-		free (vt);
-	}
-};
-
-//////////////////////////
-// Used to load Models
-//////////////////////////
-void loadModels()
-{
-    std::vector<std::string> fileNames;
-    fileNames.append("cube.obj");
-    
-}
-
-//////////////////////////
-// Used to draw Models
-//////////////////////////
-void displayModels()
-{
     glPushMatrix();
+    // glLoadIdentity(); /////////////////////////////// THIS IS THE PROBLEM
+    // glTranslatef(0.65,0.0,0.65);
+    // glutSolidSphere(0.5, 20, 20);
+    // gluCylinder(quadObj, 0.5, 0.5, 0.5, 20, 20);
+    glTranslatef(xx,0.0,zz);
+
+    // glScalef(1.0, 1.0, 3000.0);
+    // glTranslatef(xx,0.0,zz);
+
+    // front and back face
+    glBegin(GL_POLYGON);
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(0.0, 0.03, 0.0);
+        glVertex3f(-0.005, 0.03, 0.0);
+        glVertex3f(0.015, 0.045, 0.0);
+        glVertex3f(0.035, 0.03, 0.0);
+        glVertex3f(0.03, 0.03, 0.0);
+        glVertex3f(0.03, 0.0, 0.0);
+    glEnd();
+    glBegin(GL_POLYGON);
+        glVertex3f(0.0, 0.0, 0.03);
+        glVertex3f(0.0, 0.03, 0.03);
+        glVertex3f(-0.005, 0.03, 0.03);
+        glVertex3f(0.015, 0.045, 0.03);
+        glVertex3f(0.035, 0.03, 0.03);
+        glVertex3f(0.03, 0.03, 0.03);
+        glVertex3f(0.03, 0.0, 0.03);
+    glEnd();
+
+    // floor
+    glBegin(GL_QUADS);
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(0.03, 0.0, 0.0);
+        glVertex3f(0.03, 0.0, 0.03);
+        glVertex3f(0.0, 0.0, 0.03);
+    glEnd();
+
+    // walls
+    glBegin(GL_QUADS);
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(0.0, 0.03, 0.0);
+        glVertex3f(0.0, 0.03, 0.03);
+        glVertex3f(0.0, 0.0, 0.03);
+    glEnd();
+    glBegin(GL_QUADS);
+        glVertex3f(0.03, 0.0, 0.0);
+        glVertex3f(0.03, 0.03, 0.0);
+        glVertex3f(0.03, 0.03, 0.03);
+        glVertex3f(0.03, 0.0, 0.03);
+    glEnd();
+
+    // roof
+    glBegin(GL_QUADS);
+        glVertex3f(-0.005, 0.03, 0.0);
+        glVertex3f(-0.005, 0.03, 0.03);
+        glVertex3f(0.015, 0.045, 0.03);
+        glVertex3f(0.015, 0.045, 0.0);
+    glEnd();
+    glBegin(GL_QUADS);
+        glVertex3f(0.035, 0.03, 0.0);
+        glVertex3f(0.035, 0.03, 0.03);
+        glVertex3f(0.015, 0.045, 0.03);
+        glVertex3f(0.015, 0.045, 0.0);
+    glEnd();
+
     glPopMatrix();
-}
+}   // end of drawHouse()
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+// Used to draw a red hotel on a property
+/////////////////////////////////////////////////////////////////////////////////////////////////
+void drawHotel(float xx, float zz){ // instead it will pass the board position (0-39)
+    glColor3f(1.0, 0.0, 0.0);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, colorRed);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, colorRed);
+
+    GLUquadricObj *quadObj;
+    quadObj = gluNewQuadric();
+
+    glPushMatrix();
+    // glLoadIdentity(); /////////////////////////////// THIS IS THE PROBLEM
+    // glTranslatef(0.65,0.0,0.65);
+    // glutSolidSphere(0.5, 20, 20);
+    // gluCylinder(quadObj, 0.5, 0.5, 0.5, 20, 20);
+    glTranslatef(xx,0.0,zz);
+
+    // glScalef(1.0, 1.0, 3000.0);
+    // glTranslatef(xx,0.0,zz);
+
+    // front and back face
+    glBegin(GL_POLYGON);
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(0.0, 0.03, 0.0);
+        glVertex3f(-0.005, 0.03, 0.0);
+        glVertex3f(0.015, 0.045, 0.0);
+        glVertex3f(0.035, 0.03, 0.0);
+        glVertex3f(0.03, 0.03, 0.0);
+        glVertex3f(0.03, 0.0, 0.0);
+    glEnd();
+    glBegin(GL_POLYGON);
+        glVertex3f(0.0, 0.0, 0.06);
+        glVertex3f(0.0, 0.03, 0.06);
+        glVertex3f(-0.005, 0.03, 0.06);
+        glVertex3f(0.015, 0.045, 0.06);
+        glVertex3f(0.035, 0.03, 0.06);
+        glVertex3f(0.03, 0.03, 0.06);
+        glVertex3f(0.03, 0.0, 0.06);
+    glEnd();
+
+    // floor
+    glBegin(GL_QUADS);
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(0.03, 0.0, 0.0);
+        glVertex3f(0.03, 0.0, 0.06);
+        glVertex3f(0.0, 0.0, 0.06);
+    glEnd();
+
+    // walls
+    glBegin(GL_QUADS);
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(0.0, 0.03, 0.0);
+        glVertex3f(0.0, 0.03, 0.06);
+        glVertex3f(0.0, 0.0, 0.06);
+    glEnd();
+    glBegin(GL_QUADS);
+        glVertex3f(0.03, 0.0, 0.0);
+        glVertex3f(0.03, 0.03, 0.0);
+        glVertex3f(0.03, 0.03, 0.06);
+        glVertex3f(0.03, 0.0, 0.06);
+    glEnd();
+
+    // roof
+    glBegin(GL_QUADS);
+        glVertex3f(-0.005, 0.03, 0.0);
+        glVertex3f(-0.005, 0.03, 0.06);
+        glVertex3f(0.015, 0.045, 0.06);
+        glVertex3f(0.015, 0.045, 0.0);
+    glEnd();
+    glBegin(GL_QUADS);
+        glVertex3f(0.035, 0.03, 0.0);
+        glVertex3f(0.035, 0.03, 0.06);
+        glVertex3f(0.015, 0.045, 0.06);
+        glVertex3f(0.015, 0.045, 0.0);
+    glEnd();
+
+    glPopMatrix();
+}   // end of drawHouse()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Used to display the current message on the screen
@@ -170,13 +312,26 @@ void displayMsg(string& message){
 }   // end of displayMsg()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
+// Used to set up the lighting and material properties
+/////////////////////////////////////////////////////////////////////////////////////////////////
+void lightAndMaterials(void){
+    //
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
 // Used to draw the entire scene; this will get recalled when the scene or window changes
 /////////////////////////////////////////////////////////////////////////////////////////////////
 void display(void){
     // enable coloring and depth
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glLoadIdentity();
+    glEnable(GL_DEPTH_TEST);
 
+    // enable default lighting and material properties
+    glEnable(GL_LIGHTING);
+    glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_LIGHT0);
+
+    // glLoadIdentity();
     glPushMatrix(); // just double check that we start at the origin
 
         // for consistency of the view type
@@ -184,7 +339,7 @@ void display(void){
         glLoadIdentity();
 
         displayMsg(screenMsg);  // display the current message on the screen
-        
+ 
         // set the camera position, where it is looking, and its up vector
         // Note: the angle is incremented by 5 degrees to rotate the camera
         // around the center of the maze
@@ -194,7 +349,6 @@ void display(void){
 
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, texture[0]);
-
         glBegin(GL_QUADS);
             glTexCoord2f(1, 0);
             glVertex3f(0.0f, 0.0f, 0.0f);
@@ -205,8 +359,11 @@ void display(void){
             glTexCoord2f(1, 1);
             glVertex3f(0.0f, 0.0f, 1.3f);
         glEnd();
-
+        // glBindTexture(GL_TEXTURE_2D, 0);
         glDisable(GL_TEXTURE_2D);
+
+        // drawHouse(0.17,0.17);   // the corner spaces are 0.17 by 0.17 units
+        drawHotel(0.17,0.17);
 
     glPopMatrix();
 
@@ -228,9 +385,11 @@ void reshape(int w, int h){
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    // used to set the position, where the camera is looking, and its up vector
-    gluLookAt(4.0*sin(angle*PI / 180.0) + 0.65, 2.5, 4.0*cos(angle*PI / 180.0) + 0.65,
-            0.65, 0.0, 0.65,      // where the camera is looking (center of maze)
+    // set the camera position, where it is looking, and its up vector
+    // Note: the angle is incremented by 5 degrees to rotate the camera
+    // around the center of the maze
+    gluLookAt(1.25*sin(angle*PI / 180.0) + 0.65, 1.25, 1.25*cos(angle*PI / 180.0) + 0.65,
+            0.65, 0.0, 0.65,    // where the camera is looking (center of maze)
             0.0, 1.0, 0.0);     // up vector
 }
 
@@ -242,7 +401,7 @@ void keyboard(unsigned char key, int x, int y){
     switch (key) {
         case 'b':
         case 'B':
-            // send message that you want to buy a property
+            // attempt to buy a property
             // insert function sending 'b' to server
             // server should return success or fail
             if(success){
@@ -317,13 +476,13 @@ void keyboard(unsigned char key, int x, int y){
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Main function - this is where everything is inialized/called
 /////////////////////////////////////////////////////////////////////////////////////////////////
-int setup(int argc, char** argv){
+int main(int argc, char** argv){
     glutInit(&argc, argv);
 
     // enable depth, doubles, and RGBA mode
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
     glutInitWindowPosition(0, 0);   // top left
-    glutInitWindowSize(500, 500);   // initial window dimensions
+    glutInitWindowSize(screenWidth, screenHeight);   // initial window dimensions
     glutCreateWindow("Buzzopoly - ECE 4122 Final Project"); // name of window
 
     init();                     // initialize scene properties
