@@ -171,25 +171,15 @@ bool StateMachine::execOutputs(playerMove inMsg, bool flag) {
             outMsg.playerID = currPlayer->getName();
             this->serv->sendToClient(outMsg);
         }
-
-            /*
-    struct boardInfo // SERVER TO CLIENT
-    {
-        bool moveStatus;       //If move is feasible or not  (true or false)
-        std::string playerID; //Identifier for the player IP
-        int movePosition;     //Identifer for where this player moved to
-        unsigned char moveType;         //The type of move that was selected(ex: Buy, Next turn, etc.)
-    };
-        */
-
-            // server.updateBoard()
-        if (board->checkForEndCond()) {
+           
+        if (board->checkForEndCond()) { // need to write check for end conditions function
             state = States::GAME_EXIT;
         } else {
             state = States::USER_INPUT
         }
-    } else if (state == States::GAME_SETUP) {
-        if (board->checkForStartCond()) {
+
+        } else if (state == States::GAME_SETUP) {
+        if (board->checkForStartCond()) {  // need to write check for start conditions function
             state = States::USER_INPUT;
         } else {
             state = States::GAME_SETUP;
