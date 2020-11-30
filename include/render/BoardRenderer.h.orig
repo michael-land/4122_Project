@@ -1,6 +1,5 @@
 /*
 Author: Ruben Quiros
-Additional Author: Zhou Lu
 Class: ECE 4122
 Last Date Modified: 11/28/20
 
@@ -14,7 +13,6 @@ SPECIAL NOTE:
     main(). These functions were inspired by his in-class examples. There are other snippets
     of code for coloring, lighting, buffering, and depth perception that were also taken from
     his examples from lectures. Thank you!
-    Credit goes to Anton Gerdelan of antongerdelan.net for the code to parse .obj files
 */
 
 #include <GL/glut.h>
@@ -38,7 +36,6 @@ BMP inBitmap;       // for eyes of ghost and Pac Man
 
 // color and material properties
 float colorWhite[4] = { 0.60, 0.60, 0.60, 1.0f };
-float angle = 0.0;              // angle of the camera (0.0 == south of maze)
 float colorRed[4] = { 1.0, 0.0, 0.0, 1.0f };
 float colorCyan[4] = { 0.0, 1.0, 1.0, 1.0f };
 float colorPink[4] = { 1.0, 0.7529, 0.7861, 1.0f };
@@ -58,7 +55,6 @@ void init(void){
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glShadeModel(GL_SMOOTH);
     glEnable(GL_DEPTH_TEST);
-    glShadeModel(GL_SMOOTH);
     glDepthFunc(GL_LESS);
 
     // glColor3f(0.0,1.0,0.0);
@@ -86,7 +82,11 @@ void init(void){
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, colorWhite);
 
     // THIS SECTION IS FOR THE BOARD TEXTURE
+<<<<<<< HEAD
+    inBitmap.read("/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/textures/boardTexture.bmp");          // read in bmp/texture files
+=======
     inBitmap.read("boardTexture.bmp");          // read in bmp/texture files
+>>>>>>> Michael
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);      // byte alignment
     glGenTextures(1, texture);                  // initialize the texture
     glBindTexture(GL_TEXTURE_2D, texture[0]);   // bind the texture
@@ -137,9 +137,6 @@ void drawHouse(float xx, float zz){ // instead it will pass the board position (
 
     GLUquadricObj *quadObj;
     quadObj = gluNewQuadric();
-    gluQuadricDrawStyle(quadObj, GLU_FILL);
-    gluQuadricTexture(quadObj, GL_TRUE);
-    gluQuadricNormals(quadObj, GLU_SMOOTH);
 
     glPushMatrix();
     // glLoadIdentity(); /////////////////////////////// THIS IS THE PROBLEM
@@ -356,7 +353,6 @@ void display(void){
 
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, texture[0]);
-
         glBegin(GL_QUADS);
             glTexCoord2f(1, 0);
             glVertex3f(0.0f, 0.0f, 0.0f);
@@ -484,7 +480,11 @@ void keyboard(unsigned char key, int x, int y){
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Main function - this is where everything is inialized/called
 /////////////////////////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
+int setup(int argc, char** argv) {
+=======
 int main(int argc, char** argv){
+>>>>>>> Michael
     glutInit(&argc, argv);
 
     // enable depth, doubles, and RGBA mode
