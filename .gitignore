@@ -1,4 +1,7 @@
 .vscode/
 build/
 CMakeFiles/
-*.CMakeFiles*.tcl
+*.cmake
+*.tcl
+CMakeCache.txt
+Makefile
