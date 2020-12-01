@@ -32,7 +32,7 @@ void serverReceive(server *socket)
 void clientReceive(client* socket)
 {
     // Loop that waits on incoming messages
-    boardInfo inMsg;
+    playerMove inMsg;
     sockaddr_in from;
     socklen_t fromlen{sizeof(struct sockaddr_in)};
     int n;
@@ -88,7 +88,7 @@ server::server(unsigned short usPort) {
 
 // Function called to send info to all clients
 
-void server::sendToClient(const boardInfo& players)
+void server::sendToClient(const playerMove& players)
 {
     char buf[INET_ADDRSTRLEN];
     for (list<sockaddr_in>::iterator lst = sources.begin(); lst != sources.end(); lst++)
@@ -98,7 +98,7 @@ void server::sendToClient(const boardInfo& players)
 } 
 
 //Function to send player info the clients
-void server::updateBoard(const std::string &strTo, unsigned short usPortNum, const boardInfo &players)
+void server::updateBoard(const std::string &strTo, unsigned short usPortNum, const playerMove &players)
 {
     struct hostent *client_entity;
     struct sockaddr_in client_addr;
@@ -114,7 +114,7 @@ void server::updateBoard(const std::string &strTo, unsigned short usPortNum, con
     client_addr.sin_port = htons(usPortNum);
     if (connect(m_sockfd, (struct sockaddr*) &client_addr, sizeof(client_addr)) < 0)
         error("ERROR connecting");
-    int n = sendto(m_sockfd, (char*)&players, sizeof(boardInfo), 0, (struct sockaddr*) & client_addr, sizeof(client_addr));
+    int n = sendto(m_sockfd, (char*)&players, sizeof(playerMove), 0, (struct sockaddr*) & client_addr, sizeof(client_addr));
     if (n < 0)
         error("ERROR writing to socket");
 };
