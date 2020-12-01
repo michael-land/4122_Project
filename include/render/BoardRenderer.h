@@ -44,7 +44,7 @@ float colorCyan[4] = { 0.0, 1.0, 1.0, 1.0f };
 float colorPink[4] = { 1.0, 0.7529, 0.7861, 1.0f };
 float colorOrange[4] = { 1.0, 0.4921, 0.0, 1.0f };
 float colorBlue[4] = { 0.0, 0.0, 1.0, 1.0f };
-float colorYellow[4] = { 1.0, 0.0, 0.0, 1.0f };
+float colorYellow[4] = { 1.0, 1.0, 0.0, 1.0f };
 float colorGreen[4] = { 0.0, 1.0, 0.0, 1.0f };
 
 GLfloat shininess[] = { 5 };
@@ -298,7 +298,8 @@ void drawHotel(float xx, float zz){ // instead it will pass the board position (
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Used to draw a red hotel on a property
 /////////////////////////////////////////////////////////////////////////////////////////////////
-void drawHotel(int boardSpace){ // instead it will pass the board position (0-39)
+void drawHotel(int boardSpace)
+{
     unsigned int rotations = boardSpace / 10;   // int will truncate
     unsigned int sideSpace = boardSpace % 10;   // offset for the space on the side
 
@@ -316,7 +317,7 @@ void drawHotel(int boardSpace){ // instead it will pass the board position (0-39
             }
         }
 
-        // this larger section draws the house
+        // this larger section draws the hotel
         glPushMatrix();
 
         glTranslatef(((float)(sideSpace - 1))*0.083 + 0.144 + 0.0115, 0.0, 0.144);
@@ -381,6 +382,98 @@ void drawHotel(int boardSpace){ // instead it will pass the board position (0-39
         glPopMatrix();
     glPopMatrix();
 }   // end of drawHotel()
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+// Used to draw a green house on a property
+/////////////////////////////////////////////////////////////////////////////////////////////////
+void drawHouse(int boardSpace, int numHouses){
+    unsigned int rotations = boardSpace / 10;   // int will truncate
+    unsigned int sideSpace = boardSpace % 10;   // offset for the space on the side
+
+    glColor3f(0.0, 1.0, 0.0);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, colorGreen);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, colorGreen);
+
+    glPushMatrix();
+
+        // this section rotates the required amount of times
+        if(rotations > 0){
+            for(int ii = 0; ii < rotations; ++ii){
+                glTranslatef(1.04, 0.0, 0.0);
+                glRotatef(-90, 0.0, 1.0, 0.0);
+            }
+        }
+
+        //this section draws the required number of houses, 1 - 4
+        for(int offset = 0; offset < numHouses; ++offset){
+
+            glPushMatrix();
+
+            glTranslatef(((float)(sideSpace - 1))*0.083 + 0.144 + (((float)offset)*0.022), 0.0, 0.144 - 0.03);
+
+            // front and back face
+            glBegin(GL_POLYGON);
+                glVertex3f(0.0, 0.0, 0.0);
+                glVertex3f(0.0, 0.02, 0.0);
+                glVertex3f(-0.0025, 0.02, 0.0);
+                glVertex3f(0.0075, 0.03, 0.0);
+                glVertex3f(0.0175, 0.02, 0.0);
+                glVertex3f(0.015, 0.02, 0.0);
+                glVertex3f(0.015, 0.0, 0.0);
+            glEnd();
+            glBegin(GL_POLYGON);
+                glVertex3f(0.0, 0.0, 0.03);
+                glVertex3f(0.0, 0.02, 0.03);
+                glVertex3f(-0.0025, 0.02, 0.03);
+                glVertex3f(0.0075, 0.03, 0.03);
+                glVertex3f(0.0175, 0.02, 0.03);
+                glVertex3f(0.015, 0.02, 0.03);
+                glVertex3f(0.015, 0.0, 0.03);
+            glEnd();
+
+            // floor
+            glBegin(GL_QUADS);
+                glVertex3f(0.0, 0.0, 0.0);
+                glVertex3f(0.015, 0.0, 0.0);
+                glVertex3f(0.015, 0.0, 0.03);
+                glVertex3f(0.0, 0.0, 0.03);
+            glEnd();
+
+            // walls
+            glBegin(GL_QUADS);
+                glVertex3f(0.0, 0.0, 0.0);
+                glVertex3f(0.0, 0.02, 0.0);
+                glVertex3f(0.0, 0.02, 0.03);
+                glVertex3f(0.0, 0.0, 0.03);
+            glEnd();
+            glBegin(GL_QUADS);
+                glVertex3f(0.015, 0.0, 0.0);
+                glVertex3f(0.015, 0.02, 0.0);
+                glVertex3f(0.015, 0.02, 0.03);
+                glVertex3f(0.015, 0.0, 0.03);
+            glEnd();
+
+            // roof
+            glBegin(GL_QUADS);
+                glVertex3f(-0.0025, 0.02, 0.0);
+                glVertex3f(-0.0025, 0.02, 0.03);
+                glVertex3f(0.0075, 0.03, 0.03);
+                glVertex3f(0.0075, 0.03, 0.0);
+            glEnd();
+            glBegin(GL_QUADS);
+                glVertex3f(0.0175, 0.02, 0.0);
+                glVertex3f(0.0175, 0.02, 0.03);
+                glVertex3f(0.0075, 0.03, 0.03);
+                glVertex3f(0.0075, 0.03, 0.0);
+            glEnd();
+
+            glPopMatrix();
+        }   // end of for loop
+
+    glPopMatrix();
+}   // end of drawHouse()
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Used to display the current message on the screen
@@ -473,18 +566,29 @@ void drawPlayerCylinder(float x, float z)
     GLUquadricObj *quadObj;
     quadObj = gluNewQuadric();
 
+    glColor3f(colorCyan[0], colorCyan[1], colorCyan[2]);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, colorCyan);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, colorCyan);
 
     //glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, colorPink);
-    glMaterialfv(GL_FRONT, GL_AMBIENT, colorPink);
+    //glMaterialfv(GL_FRONT, GL_DIFFUSE, colorPink);
+    //glMaterialfv(GL_FRONT, GL_AMBIENT, colorPink);
     //glMaterialfv(GL_FRONT, GL_SPECULAR, colorPink);
     // Draw the pacman (a sphere of radius 0.5 at height 0.5)
 
     glPushMatrix();
-    glTranslatef(x, 0.0, z); // position
+    glTranslatef(x, 0.030, z); // position
+    glRotatef(90, 1.0, 0.0, 0.0);
     //gluCylinder(GLUquadric* qobj, GLdouble baseRadius, GLdouble topRadius, GLdouble height, GLint slices, GLint stacks);
     //base at z = 0; top at z = height
-    gluCylinder(quadObj, 0.015, 0.015, 0.015, 100, 100);
+    gluCylinder(quadObj, 0.015, 0.015, 0.030, 100, 100);
+    glPopMatrix(); //every push needs a pop
+
+    glPushMatrix();
+    glTranslatef(x, 0.030, z); // position coin/powerup
+    glRotatef(90, 1.0, 0.0, 0.0);
+    //gluDisk(GLUquadric *qobj, GLdouble innerRadius, GLdouble outerRadius, GLint slices, GLint loops);
+    gluDisk(quadObj, 0.0, 0.015, 100, 100);
     glPopMatrix(); //every push needs a pop
 
 }
@@ -495,6 +599,7 @@ void drawPlayerCylinder(float x, float z)
 ////////////////////////////////////////////////////////////////////////////////
 void drawPlayerSphere(float x, float z)
 {
+
     glColor3f(colorYellow[0], colorYellow[1], colorYellow[2]);
     glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, colorYellow);
@@ -503,7 +608,7 @@ void drawPlayerSphere(float x, float z)
     // Draw the pacman (a sphere of radius 0.5 at height 0.5)
 
     glPushMatrix();
-    glTranslatef(x, 0.0, z); // position
+    glTranslatef(x, 0.015, z); // position
     glutSolidSphere(0.015, 100, 100); // pacman sphere; 100 and 100 are slices and stacks
     glPopMatrix(); //every push needs a pop
 
@@ -605,7 +710,7 @@ void display(void){
             int houses = property->getUpgrades();  //1-4 is a house, >=5 is hotel
             if (1 <= houses && houses <= 4)
             {
-                //draw houses
+                drawHouse(currID, houses);
             }
             else if (houses >= 5)
             {
