@@ -5,3 +5,4 @@ CMakeFiles/
 *.tcl
 CMakeCache.txt
 Makefile
+*.a
