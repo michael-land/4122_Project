@@ -65,25 +65,27 @@ public:
     server() = delete;
     ~server();
     server(unsigned short usPort);
-    void sendToClient(const playerMove& players);
-    void updateBoard(const std::string &strTo, unsigned short usPortNum, const playerMove &players); //Function to send player info the clients
+    
     void addSource(const sockaddr_in &from);
     int sockInit(void);
     int sockQuit(void);
     int sockClose();
     void error(const char *msg);
     int m_sockfd;
-    StateMachine* getSSM();
 
+    StateMachine* getSSM();
+    void updateBoard(const std::string &strTo, unsigned short usPortNum, const playerMove &players); //Function to send player info the clients
+    void sendToClient(const playerMove& players);
     friend void serverReceive(server *socket);
 
 private:
     unsigned short portNum;
-    Board* playingBoard;
+    
     std::thread recieveThread;   //Thread to receive board info
     std::list<sockaddr_in> sources;
     std::mutex currTurn;
     StateMachine *ssm;
+    Board* playingBoard;
 };
 
 //Class defined for each player
