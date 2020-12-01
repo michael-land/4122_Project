@@ -55,14 +55,16 @@ int main(int argc, char** argv) {
 
 	cout << "before client init" << endl;
 
-	client GameClient(PORT, serverIP.c_str() );
+	client *GameClient = new client(PORT, serverIP.c_str() );
 
     cout << "after client initialized" << endl;
-
+    GLRenderShared::cli = GameClient;
     setup(argc, argv); // openGL setup
-    while (GameClient.getSSM()->getCurrentState() != States::GAME_EXIT) {
-        if (GameClient.getSSM()->getCurrentState() != States::GAME_SETUP) {
-            GLRenderShared::board = GameClient.getPlayingBoard();
+    bool gameStarted = false;
+    while (GameClient->getSSM()->getCurrentState() != States::GAME_EXIT) {
+        if (GameClient->getSSM()->getCurrentState() != States::GAME_SETUP && !gameStarted) {
+            GLRenderShared::board = GameClient->getPlayingBoard();
+            gameStarted = true;
         }
     };
 }

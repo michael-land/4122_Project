@@ -7,7 +7,7 @@ Last Date Modified: 11/28/20
 Description:
     This file used OpenGL and GLUT to draw a Gorgia Tech themed "Monopoly board".
     In this version, everything is stationary. However, the user can rotate the scene
-    5 degrees by pressing "r" on their keyboard.
+    5 degrees by pressing "t" on their keyboard.
 
 SPECIAL NOTE:
     Credit goes to Dr. Hurley for the following functions: init(), reshape(), keyboard(), and
@@ -55,6 +55,7 @@ string screenMsg = "You have $1,500\0";
 namespace GLRenderShared
 {
     Board* board;  //pointer to the board that is used for rendering
+    client* cli;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -765,6 +766,7 @@ void keyboard(unsigned char key, int x, int y){
 	switch (key) {
         case 'b':
         case 'B':
+            
             // attempt to buy a property
             // insert function sending 'b' to server
             // server should return success or fail
@@ -823,8 +825,8 @@ void keyboard(unsigned char key, int x, int y){
             // board object should be updated here before being redrawn
             glutPostRedisplay();
             break;
-        case 'r':
-        case 'R':
+        case 't':
+        case 'T':
             // change camera angle
             angle += 5;
             if(angle == 360){
