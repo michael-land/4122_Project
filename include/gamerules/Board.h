@@ -30,6 +30,8 @@ class Board {
     ~Board();
     BoardSpace* findSpace(int);
     BoardSpace* findSpace(std::string);
+    bool checkForStartCond();
+    bool checkForEndCond();
 };
 
 #endif
