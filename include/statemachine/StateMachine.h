@@ -28,6 +28,9 @@ class StateMachine {
     bool execOutputs(playerMove inMsg, bool flag);
 	bool processJoin(playerMove);
     void setIsClient(bool);
+    server* getServer();
+    void setServer(server*);
+    
 
 };
 

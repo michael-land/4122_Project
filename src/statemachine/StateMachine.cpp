@@ -199,4 +199,8 @@ bool StateMachine::execOutputs(playerMove inMsg, bool flag) {  // FIX MESSAGES H
     return true;
 }
 
+server *StateMachine::getServer() { return serv; }
+
+void StateMachine::setServer(server* serv) { this->serv = serv; }
+
 StateMachine::~StateMachine() { };

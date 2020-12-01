@@ -52,7 +52,7 @@ Board* BoardFactory::makeBoard() {
     this->makeProperty("Russ Chandler Stadium", 400);
     this->makeProperty("Tech Towner", 420);
     this->makeProperty("Bobby Dodd Stadium", 400);
-
+    return board;
 }
 
 Board* BoardFactory::getBoard() {
