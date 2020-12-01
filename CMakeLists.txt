@@ -1,8 +1,5 @@
-cmake_minimum_required(VERSION 3.0.0)
-project(techopoly VERSION 0.1.0)
-
-include(CTest)
-enable_testing()
+cmake_minimum_required(VERSION 2.8.12)
+project(buzzopoly)
 
 include_directories(include/
                     include/gamerules
@@ -25,7 +22,3 @@ target_link_libraries(server gamelib pthread GLU GL glut)
 
 add_executable(client Client.cpp)
 target_link_libraries(client gamelib pthread GLU GL glut)
-
-set(CPACK_PROJECT_NAME ${PROJECT_NAME})
-set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
-include(CPack)
