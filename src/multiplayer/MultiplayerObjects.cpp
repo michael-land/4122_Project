@@ -75,7 +75,7 @@ server::server(unsigned short usPort) {
     sockInit();
 
     // Create the socket
-    m_sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    m_sockfd = socket(AF_INET, SOCK_DGRAM, 0);
     // Make sure the socket was created
     if (m_sockfd < 0)
         error("ERROR opening socket");
@@ -125,8 +125,6 @@ void server::updateBoard(const std::string &strTo, unsigned short usPortNum, con
     client_addr.sin_family = AF_INET;
     memmove((char*)&client_addr.sin_addr.s_addr, (char*)client_entity->h_addr, client_entity->h_length);
     client_addr.sin_port = htons(usPortNum);
-    // if (connect(m_sockfd, (struct sockaddr*) &client_addr, sizeof(client_addr)) < 0)
-    //     error("ERROR connecting");
     int n = sendto(m_sockfd, (char*)&players, sizeof(playerMove), 0, (struct sockaddr*) & client_addr, sizeof(client_addr));
     if (n < 0)
         error("ERROR writing to socket");
@@ -226,7 +224,7 @@ client::client(unsigned int usPort, std::string addr)
     cout << "After init"<<endl;
     //playingBoard = Board("Client_Board");
     // Create the socket
-    m_sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    m_sockfd = socket(AF_INET, SOCK_DGRAM, 0);
     // Make sure the socket was created
     cout << "Socket created"<<endl;
     if (m_sockfd < 0)
@@ -273,8 +271,7 @@ void client::submitTurn(const std::string &strTo, unsigned int usPortNum, const 
     memmove((char*)&serv_addr.sin_addr.s_addr, (char *)server_entity->h_addr, server_entity->h_length);
     serv_addr.sin_port = htons(usPortNum);
     fromlen = sizeof(from);
-    if (connect(m_sockfd, (struct sockaddr*) & serv_addr, sizeof(serv_addr)) < 0) // error here
-        error("ERROR connecting");
+    
     int n = sendto(m_sockfd, (char *)&player, sizeof(playerMove), 0, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
     if (n < 0)
         error("ERROR writing to socket");
@@ -339,7 +336,16 @@ void client::error(const char *msg)
 void client::addSource(const sockaddr_in &from)
 {
     bool bIsPresent = false;
-    sources = from;
+    // Iterate through list check is already present
+    for (auto i : sources)
+    {
+        if (memcmp(&i, &from, sizeof(sockaddr_in)) == 0) //Compare blocks of memory
+            bIsPresent = true;                           //If that block of memory contains the sockaddr_in then flip the bool
+    }
+    if (!bIsPresent)
+    {
+        sources.push_back(from); //Insert the sockaddr_in if it is not in the list
+    }
     // Iterate through list check is already present
 }
 
