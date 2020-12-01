@@ -62,6 +62,7 @@ void clientReceive(client* socket)
 server::server(unsigned short usPort) {
     std::cout << "making server board." << std::endl;
     playingBoard = new Board("server_board");
+
     BoardFactory bf(playingBoard, 40);
     bf.makeBoard();
     std::cout << "setting statemachine to board" << std::endl;
@@ -70,20 +71,25 @@ server::server(unsigned short usPort) {
 
     portNum = usPort;
     sockaddr_in serv_addr;
+
     sockInit();
+
     // Create the socket
     m_sockfd = socket(AF_INET, SOCK_STREAM, 0);
     // Make sure the socket was created
     if (m_sockfd < 0)
         error("ERROR opening socket");
+
     // Zero out the variable serv_addr
     memset((char *)&serv_addr, sizeof(serv_addr), 0);
 
     // Initialize the serv_addr
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = INADDR_ANY;
+
     // Convert port number from host to network
     serv_addr.sin_port = htons(usPort);
+
     // Bind the socket to the port number
     if (bind(m_sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
     {

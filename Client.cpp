@@ -10,7 +10,7 @@
 #include <iostream>
 #include <multiplayer/MultiplayerObjects.h>
 #include <statemachine/States.h>
-#include <Player.h>
+#include <gamerules/Player.h>
 #include <statemachine/StateMachine.h>
 #include <render/BoardRenderer.h>
 

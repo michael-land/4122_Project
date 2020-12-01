@@ -5,8 +5,8 @@
 #include <list>
 #include <string>
 #include <mutex>
-#include <Player.h>
-#include <Board.h>
+#include <gamerules/Player.h>
+#include <gamerules/Board.h>
  
 class StateMachine;
 
