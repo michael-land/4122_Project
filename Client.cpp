@@ -13,6 +13,8 @@
 #include <Player.h>
 #include <statemachine/StateMachine.h>
 
+#define PORT 6500
+
 // Driver code
 int main()
 {
@@ -35,8 +37,7 @@ int main()
     // address into ASCII string
     IPbuffer = inet_ntoa(*((struct in_addr*)host_entry->h_addr_list[0]));
     std::cout << IPbuffer << std::endl;
-    */
-    
+    */    
 
     // user inputs the IP address of the server?
     // include port number AND ip address for new player comparison
@@ -48,8 +49,9 @@ int main()
 
     playerMove initMsg;
 
-    initMsg.moveType = X;
+    initMsg.moveType = 'X';
     initMsg.playerID = IPbuffer;
+    initMsg.playerRoll = NULL;
 
     client GameClient(PORT, serverIP);
 
