@@ -93,7 +93,11 @@ public:
     client() = delete;
     ~client();
     client(unsigned int usPort, std::string addr);
+<<<<<<< HEAD
+    void submitTurn(const std::string &strTo, unsigned short usPortNum, const playerMove &player); //Function to send turn decisions to the server
+=======
     void submitTurn(const std::string &strTo, unsigned int usPortNum, const playerMove &player); //Function to send turn decisions to the server
+>>>>>>> origin/Shelby_RandomizePort
     void addSource(const sockaddr_in &from);
     void sendToServer(const playerMove &player);
     int sockInit(void);
