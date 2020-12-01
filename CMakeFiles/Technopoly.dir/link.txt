@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/Technopoly.dir/Technopoly.cpp.o  -o Technopoly  libgamelib.a -lGL -lGLU -lglut 
