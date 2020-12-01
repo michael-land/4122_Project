@@ -3,7 +3,7 @@
 BoardFactory::BoardFactory(Board* board, int maxSpaces) {
     this->board = board;
     this->maxSpaces = maxSpaces;
-    this->numSpaces = 0;
+	this->numSpaces = 0;
 }
 
 BoardFactory& BoardFactory::operator<<(std::string spaceName) {

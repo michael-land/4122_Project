@@ -32,6 +32,8 @@ class Board {
     BoardSpace* findSpace(std::string);
     bool checkForStartCond();
     bool checkForEndCond();
+	void setCurrPlayer(Player* thisPlayer);
+    void swapCurrPlayer();
 };
 
 #endif

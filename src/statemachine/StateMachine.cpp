@@ -106,10 +106,10 @@ bool StateMachine::processRollDice(int numSpaces) {
 }
 
 bool StateMachine::processEndTurn() {
-    
-    // if able to set current player to next player
-    // return true;
-    return false;
+	this->board->swapCurrPlayer(); // swap current player to other player in vector
+	// if able to set current player to next player
+	// return true;
+	return false;
 }
 
 bool StateMachine::processJoin(playerMove inMsg) { // a join is represented by the "J" character, although that isn't necessarily a keyboard option.    
@@ -156,25 +156,15 @@ bool StateMachine::execOutputs(playerMove inMsg, bool flag) {  // FIX MESSAGES H
     playerMove outMsg;
     if (state == States::UPDATE_BOARD) {
         Player *currPlayer = board->getCurrentPlayer();        
-        if (flag) // if flag is true, valid move.  process based on client or server
-        {
+        if (flag) { // if flag is true, valid move.  process based on client or server
             if (isClient) { // if client, redraw frames
                 glutPostRedisplay();
             }
-            else { // if server, send message back to clients		    
-                // outMsg.moveStatus = true;
-                // outMsg.movePosition = currPlayer->getSpace()->getSpaceID();  // currPlayer->getSpace should return a boardspace object, then call getSpaceID() for that boardspace object to get int ID
-                // outMsg.moveType = inMsg.moveType;
-                // outMsg.playerID = currPlayer->getName();
+            else { 
                 this->serv->sendToClient(inMsg);
             }
         }
-        else
-        { // if flag is false, invalid move; send invalid move update to client
-            // outMsg.moveStatus = false;
-            // outMsg.movePosition = NULL;
-            // outMsg.moveType = NULL;
-            // outMsg.playerID = currPlayer->getName();
+        else { 
             inMsg.moveType = 0; // invalid move.
             this->serv->sendToClient(inMsg);
         }
@@ -188,13 +178,10 @@ bool StateMachine::execOutputs(playerMove inMsg, bool flag) {  // FIX MESSAGES H
         } else if (state == States::GAME_SETUP) {
         if (board->checkForStartCond()) {  // need to write check for start conditions function
             state = States::USER_INPUT;
+            board->setCurrPlayer(board->getPlayers().at(0));
         } else {
             state = States::GAME_SETUP;
         }
-        // outMsg.moveStatus = true;
-        // outMsg.movePosition = NULL;  // currPlayer->getSpace should return a boardspace object, then call getSpaceID() for that boardspace object to get int ID
-        // outMsg.moveType = inMsg.moveType;
-        // outMsg.playerID = inMsg.playerID;
         this->serv->sendToClient(outMsg);
     }
     return true;

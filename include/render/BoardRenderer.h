@@ -56,6 +56,7 @@ namespace GLRenderShared
 {
     Board* board;  //pointer to the board that is used for rendering
     client* cli;
+    std::string username;
 }
 
 //Board* boardPointer = GLRenderShared::board;
@@ -766,9 +767,8 @@ void keyboard(unsigned char key, int x, int y){
     Board* boardPointer = GLRenderShared::board;
 	client* cli = GLRenderShared::cli;
     playerMove outMsg;
-    outMsg.playerID = boardPointer->getCurrentPlayer()->getName();
-    outMsg.movePosition = boardPointer->getCurrentPlayer()->getSpace()->getSpaceID();
-
+    outMsg.playerID = GLRenderShared::username;
+    outMsg.movePosition = 0;
     switch (key) {
         case 'b':
         case 'B':
@@ -776,7 +776,7 @@ void keyboard(unsigned char key, int x, int y){
             // insert function sending 'b' to server
             outMsg.moveType = 'b';
             outMsg.playerRoll = 0;
-            cli.sendToSever(outMsg);
+            cli->sendToServer(outMsg);
 
 			break;
         case 's':
@@ -785,7 +785,7 @@ void keyboard(unsigned char key, int x, int y){
             // print success of sale to the screen
             outMsg.moveType = 's';
             outMsg.playerRoll = 0;
-            cli.sendToSever(outMsg);
+            cli->sendToServer(outMsg);
 
             // if there are any hotels/houses, they should recieve their worth back
             // also, houses and hotels should disappear
@@ -800,7 +800,7 @@ void keyboard(unsigned char key, int x, int y){
             // technically a player can buy multiple houses in a row
             outMsg.moveType = 'h';
             outMsg.playerRoll = 0;
-            cli.sendToSever(outMsg);
+            cli->sendToServer(outMsg);
 
 
             glutPostRedisplay();
@@ -811,7 +811,7 @@ void keyboard(unsigned char key, int x, int y){
             // server should return success or fail
             outMsg.moveType = 'j';
             outMsg.playerRoll = 0;
-            cli.sendToSever(outMsg);
+            cli->sendToServer(outMsg);
 
 
             glutPostRedisplay();
@@ -822,7 +822,7 @@ void keyboard(unsigned char key, int x, int y){
             // board object should be updated here before being redrawn
             outMsg.moveType = 'r';
             outMsg.playerRoll = 0;
-            cli.sendToSever(outMsg);
+            cli->sendToServer(outMsg);
 
             glutPostRedisplay();
             break;
@@ -832,7 +832,7 @@ void keyboard(unsigned char key, int x, int y){
             // board object should be updated here before being redrawn
             outMsg.moveType = 'n';
             outMsg.playerRoll = 0;
-            cli.sendToSever(outMsg);
+            cli->sendToServer(outMsg);
 
             glutPostRedisplay();
             break;
@@ -849,7 +849,19 @@ void keyboard(unsigned char key, int x, int y){
             break;
     }   // end of switch
 }////////////////////////////////////////////////////////////////////////////////////////////////
-    std::cout << "Starting openGL display." << std::endl;
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+// Main function - this is where everything is inialized/called
+/////////////////////////////////////////////////////////////////////////////////////////////////
+int setup(int argc, char** argv) {
+    glutInit(&argc, argv);
+
+    // enable depth, doubles, and RGBA mode
+    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+    glutInitWindowPosition(0, 0);   // top left
+    glutInitWindowSize(screenWidth, screenHeight);   // initial window dimensions
+    glutCreateWindow("Buzzopoly - ECE 4122 Final Project"); // name of window
+
     init();                     // initialize scene properties
     glutDisplayFunc(display);   // display the scene
     glutReshapeFunc(reshape);   // reshape the window

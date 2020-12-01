@@ -24,6 +24,7 @@ void serverReceive(server *socket)
             break;
         }
         else {
+            std::cout << "Message from client recieved" << std::endl;
             socket->addSource(from);
             socket->ssm->input(inMsg); //Passes the message through the state machine
         } 
@@ -46,6 +47,7 @@ void clientReceive(client* socket)
         }
         else
         {
+            std::cout << "Message from server recieved" << std::endl;
             socket->ssm->input(inMsg);
         }
     } while (true);
@@ -265,7 +267,7 @@ void client::submitTurn(const std::string &strTo, unsigned int usPortNum, const 
     memmove((char*)&serv_addr.sin_addr.s_addr, (char *)server_entity->h_addr, server_entity->h_length);
     serv_addr.sin_port = htons(usPortNum);
     fromlen = sizeof(from);
-    if (connect(m_sockfd, (struct sockaddr*) & serv_addr, sizeof(serv_addr)) < 0)
+    if (connect(m_sockfd, (struct sockaddr*) & serv_addr, sizeof(serv_addr)) < 0) // error here
         error("ERROR connecting");
     int n = sendto(m_sockfd, (char *)&player, sizeof(playerMove), 0, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
     if (n < 0)

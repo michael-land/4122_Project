@@ -14,17 +14,17 @@
 #include <statemachine/StateMachine.h>
 #include <render/BoardRenderer.h>
 
-#define PORT 20123
+#define PORT 6500
 
 // Driver code
 int main(int argc, char** argv) {
-    char hostbuffer[256];
-    char *IPbuffer;
-    struct hostent *host_entry;
-    int hostname;
-    int turnCounter;
-    hostname = gethostname(hostbuffer, sizeof(hostbuffer));
-    checkHostName(hostname);
+    // char hostbuffer[256];
+    // char *IPbuffer;
+    // struct hostent *host_entry;
+    // int hostname;
+    // int turnCounter;
+    // hostname = gethostname(hostbuffer, sizeof(hostbuffer));
+    // checkHostName(hostname);
     /*  --> IS ANY OF THIS NECESSARY FOR THE CLIENT?
     char hostbuffer[256];
     char* IPbuffer;
@@ -50,9 +50,13 @@ int main(int argc, char** argv) {
     // include port number AND ip address for new player comparison
 
     std::string serverIP;
-
+    std::string username;
     std::cout << "IP address of server: ";
     std::cin >> serverIP;
+
+    std::cout << "Please pick a username";
+    std::cin >> username;
+
 
     playerMove initMsg;
 
@@ -63,7 +67,7 @@ int main(int argc, char** argv) {
 	cout << "before client init" << endl;
 
 	client *GameClient = new client(PORT, serverIP.c_str() );
-
+    GLRenderShared::username = username;
     cout << "after client initialized" << endl;
     GLRenderShared::cli = GameClient;
     setup(argc, argv); // openGL setup

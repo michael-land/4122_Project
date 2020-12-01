@@ -96,3 +96,15 @@ bool Board::checkForStartCond() {
 std::vector<Player*> Board::getPlayers() const {
     return players;
 }
+
+void Board::setCurrPlayer(Player* thisPlayer) {
+	this->currPlayer = thisPlayer;
+} // very nice SICKKKKKKKK
+
+void Board::swapCurrPlayer() {
+	if (currPlayer->getName() == players.at(0)->getName()) {
+        currPlayer = players.at(1);
+    } else {
+        currPlayer = players.at(0);
+    }
+}
