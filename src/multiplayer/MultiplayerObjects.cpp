@@ -58,9 +58,11 @@ void clientReceive(client* socket)
 // Cross-platform socket initialize
 
 server::server(unsigned short usPort) {
+    std::cout << "making server board." << std::endl;
     playingBoard = new Board("server_board");
     BoardFactory bf(playingBoard, 40);
     bf.makeBoard();
+    std::cout << "setting statemachine to board" << std::endl;
     this->ssm = playingBoard->getSSM();
     this->ssm->setIsClient(false);
 
@@ -198,7 +200,7 @@ server::~server() { };
 // Client Implementation
 /////////////////////////////////////////////////
 
-client::client(unsigned short usPort, char *addr)
+client::client(unsigned int usPort, std::string addr)
 {
     //error checking for IP address length here
     portNum = usPort;
@@ -206,16 +208,19 @@ client::client(unsigned short usPort, char *addr)
     playingBoard = new Board("client_board");
     BoardFactory bf(playingBoard, 40);
     bf.makeBoard();
+    
     this->server_address = addr;
     this->ssm = playingBoard->getSSM();
     this->ssm->setIsClient(true); // flag to indicate this is a client 
 
     sockaddr_in client_addr;
     sockInit();
+    cout << "After init"<<endl;
     //playingBoard = Board("Client_Board");
     // Create the socket
     m_sockfd = socket(AF_INET, SOCK_STREAM, 0);
     // Make sure the socket was created
+    cout << "Socket created"<<endl;
     if (m_sockfd < 0)
         error("ERROR opening socket");
     // Zero out the variable serv_addr
@@ -224,12 +229,15 @@ client::client(unsigned short usPort, char *addr)
     client_addr.sin_family = AF_INET;
     client_addr.sin_addr.s_addr = INADDR_ANY;
     // Convert port number from host to network
-    client_addr.sin_port = htons(usPort);
+    //WE NEED A NEW PORT NUMBER
+    client_addr.sin_port = htons(20123);
+    cout<<"Set addresses"<<endl;
     // Bind the socket to the port number
     if (bind(m_sockfd, (struct sockaddr *)&client_addr, sizeof(client_addr)) < 0)
     {
         error("ERROR on binding");
     }
+    cout << "After Binding"<<endl;
     // Start thread that waits for messages
 
     recieveThread = std::thread(clientReceive, this);
@@ -326,6 +334,10 @@ void client::addSource(const sockaddr_in &from)
     bool bIsPresent = false;
     sources = from;
     // Iterate through list check is already present
+}
+
+Board* client::getPlayingBoard() {
+    return playingBoard;
 }
 
 client::~client() { };

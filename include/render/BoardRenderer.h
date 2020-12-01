@@ -25,6 +25,7 @@ SPECIAL NOTE:
 #include "Bitmap.h" // for bitmaps/textures
 #include <string>
 #include <gamerules/Property.h>
+#include <multiplayer/MultiplayerObjects.h>
 
 using namespace std;
 
@@ -89,9 +90,10 @@ void init(void){
 
     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, colorWhite);
-
+    std::cout << "attempting to set board texture" << std::endl;
     // THIS SECTION IS FOR THE BOARD TEXTURE
-    inBitmap.read("../../textures/boardTexture.bmp");          // read in bmp/texture files
+    inBitmap.read("/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/textures/boardTexture.bmp");          // read in bmp/texture files
+    std::cout << "after board texture" << std::endl;
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);      // byte alignment
     glGenTextures(1, texture);                  // initialize the texture
     glBindTexture(GL_TEXTURE_2D, texture[0]);   // bind the texture
@@ -664,60 +666,66 @@ void display(void){
 
         //while loop
         Board* bd = GLRenderShared::board;
-        BoardSpace* curr = bd->getHead();
-        BoardSpace* tail = bd->getTail();
-        std::vector<Player*> players = bd->getPlayers();
+        if (bd != nullptr) {
+            std::cout << "In display loop" << std::endl;
+            
+            std::cout << "set bd" << std::endl;
+            BoardSpace* curr = bd->getHead();
+            BoardSpace* tail = bd->getTail();
+            std::vector<Player*> players = bd->getPlayers();
+            std::cout << "accessing board pointer" << std::endl;
 
-        int p1pos = (players[0])->getSpace()->getSpaceID();
-        float p1x, p1z;
-        spaceIDtoCoord(p1pos, &p1x, &p1z);
-        if (p1pos % 10 % 2 == 0)
-        {
-            p1z += 0.02;
-        }
-        else
-        {
-            p1x -= 0.02;
-        }
-        drawPlayerCylinder(p1x, p1z);
-
-        int p2pos = (players[1])->getSpace()->getSpaceID();
-        float p2x, p2z;
-        spaceIDtoCoord(p2pos, &p2x, &p2z);
-        if (p2pos % 10 % 2 == 0)
-        {
-            p2z -= 0.02;
-        }
-        else
-        {
-            p2x += 0.02;
-        }
-        drawPlayerSphere(p2x, p2z);
-        // Player 1 is a cylinder, Player 2 is a sphere
-        // Board has a vector of player objects called "players"
-        // each Player has a pointer to a BoardSpace object that indicates which space they're on (called boardSpace)
-        // each boardSpace object has a space ID associated with it, there is a get function for each boardSpace objects called "getSpaceID" that returns an integer
-        // so to get the ID of the space that each player is current on, you could use something like:
-        // currPlayer->getSpace()->getSpaceID()  where currPlayer is a pointer to a Player object
-
-        //drawHotel(28);
-        while (curr->getSpaceID() != tail->getSpaceID())
-        {
-            int currID = curr->getSpaceID();
-            float x, z;  //coordinates for center of this space
-            spaceIDtoCoord(currID, &x, &z);
-            Property* property = (Property*) curr;
-            int houses = property->getUpgrades();  //1-4 is a house, >=5 is hotel
-            if (1 <= houses && houses <= 4)
+            int p1pos = (players[0])->getSpace()->getSpaceID();
+            float p1x, p1z;
+            spaceIDtoCoord(p1pos, &p1x, &p1z);
+            if (p1pos % 10 % 2 == 0)
             {
-                drawHouse(currID, houses);
+                p1z += 0.02;
             }
-            else if (houses >= 5)
+            else
             {
-                drawHotel(currID);
+                p1x -= 0.02;
             }
+            drawPlayerCylinder(p1x, p1z);
 
-            curr = curr->getNextSpace();
+            int p2pos = (players[1])->getSpace()->getSpaceID();
+            float p2x, p2z;
+            spaceIDtoCoord(p2pos, &p2x, &p2z);
+            if (p2pos % 10 % 2 == 0)
+            {
+                p2z -= 0.02;
+            }
+            else
+            {
+                p2x += 0.02;
+            }
+            drawPlayerSphere(p2x, p2z);
+            // Player 1 is a cylinder, Player 2 is a sphere
+            // Board has a vector of player objects called "players"
+            // each Player has a pointer to a BoardSpace object that indicates which space they're on (called boardSpace)
+            // each boardSpace object has a space ID associated with it, there is a get function for each boardSpace objects called "getSpaceID" that returns an integer
+            // so to get the ID of the space that each player is current on, you could use something like:
+            // currPlayer->getSpace()->getSpaceID()  where currPlayer is a pointer to a Player object
+
+            //drawHotel(28);
+            while (curr->getSpaceID() != tail->getSpaceID())
+            {
+                int currID = curr->getSpaceID();
+                float x, z;  //coordinates for center of this space
+                spaceIDtoCoord(currID, &x, &z);
+                Property* property = (Property*) curr;
+                int houses = property->getUpgrades();  //1-4 is a house, >=5 is hotel
+                if (1 <= houses && houses <= 4)
+                {
+                    drawHouse(currID, houses);
+                }
+                else if (houses >= 5)
+                {
+                    drawHotel(currID);
+                }
+
+                curr = curr->getNextSpace();
+            }
         }
 
     glPopMatrix();
@@ -753,13 +761,14 @@ void reshape(int w, int h){
 /////////////////////////////////////////////////////////////////////////////////////////////////
 void keyboard(unsigned char key, int x, int y){
     bool success = true;
-    switch (key) {
+	playerMove outMsg;
+	switch (key) {
         case 'b':
         case 'B':
             // attempt to buy a property
             // insert function sending 'b' to server
             // server should return success or fail
-            if(success){
+            if(success) {
                 // print success of purchase to the screen
             }
             else{
@@ -832,14 +841,20 @@ void keyboard(unsigned char key, int x, int y){
 // Main function - this is where everything is inialized/called
 /////////////////////////////////////////////////////////////////////////////////////////////////
 int setup(int argc, char** argv){
-    glutInit(&argc, argv);
+
+	cout << "inside openGL init" << endl;
+
+	glutInit(&argc, argv);
 
     // enable depth, doubles, and RGBA mode
-    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+	cout << "before initdisplay" << endl;
+	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+    cout << "before init window pos" << endl;
     glutInitWindowPosition(0, 0);   // top left
-    glutInitWindowSize(screenWidth, screenHeight);   // initial window dimensions
+	cout << "before init window size" << endl;
+	glutInitWindowSize(screenWidth, screenHeight);   // initial window dimensions
     glutCreateWindow("Buzzopoly - ECE 4122 Final Project"); // name of window
-
+    std::cout << "Starting openGL display." << std::endl;
     init();                     // initialize scene properties
     glutDisplayFunc(display);   // display the scene
     glutReshapeFunc(reshape);   // reshape the window

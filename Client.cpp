@@ -14,7 +14,7 @@
 #include <statemachine/StateMachine.h>
 #include <render/BoardRenderer.h>
 
-#define PORT 6500
+#define PORT 20123
 
 // Driver code
 int main(int argc, char** argv) {
@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
     // user inputs the IP address of the server?
     // include port number AND ip address for new player comparison
 
-    char* serverIP;
+    std::string serverIP;
 
     std::cout << "IP address of server: ";
     std::cin >> serverIP;
@@ -53,7 +53,16 @@ int main(int argc, char** argv) {
     initMsg.playerID = serverIP;
     initMsg.playerRoll = NULL;
 
-    client GameClient(PORT, serverIP);
+	cout << "before client init" << endl;
+
+	client GameClient(PORT, serverIP.c_str() );
+
+    cout << "after client initialized" << endl;
+
     setup(argc, argv); // openGL setup
-    while (GameClient.getSSM()->getCurrentState() != States::GAME_EXIT);
+    while (GameClient.getSSM()->getCurrentState() != States::GAME_EXIT) {
+        if (GameClient.getSSM()->getCurrentState() != States::GAME_SETUP) {
+            GLRenderShared::board = GameClient.getPlayingBoard();
+        }
+    };
 }

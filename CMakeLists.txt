@@ -21,7 +21,7 @@ add_library(gamelib
     src/statemachine/StateMachine.cpp)
 
 add_executable(server Server.cpp)
-target_link_libraries(server gamelib pthread)
+target_link_libraries(server gamelib pthread GLU GL glut)
 
 add_executable(client Client.cpp)
 target_link_libraries(client gamelib pthread GLU GL glut)
