@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/include -I/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/include/gamerules -I/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/include/builder -I/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/include/render -I/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/include/multiplayer -I/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/include/statemachine 
+CXX_INCLUDES = -I/home/ubuntu/useme1120/4122_Project/include -I/home/ubuntu/useme1120/4122_Project/include/gamerules -I/home/ubuntu/useme1120/4122_Project/include/builder -I/home/ubuntu/useme1120/4122_Project/include/render -I/home/ubuntu/useme1120/4122_Project/include/multiplayer -I/home/ubuntu/useme1120/4122_Project/include/statemachine 
 

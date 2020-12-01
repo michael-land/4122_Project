@@ -1,4 +1,4 @@
-# Install script for directory: /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project
+# Install script for directory: /home/ubuntu/useme1120/4122_Project
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/ubuntu/useme1120/4122_Project/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

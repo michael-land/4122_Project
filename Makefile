@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project
+CMAKE_SOURCE_DIR = /home/ubuntu/useme1120/4122_Project
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project
+CMAKE_BINARY_DIR = /home/ubuntu/useme1120/4122_Project
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -81,7 +81,7 @@ test/fast: test
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	/usr/bin/cpack --config ./CPackSourceConfig.cmake /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CPackSourceConfig.cmake
+	/usr/bin/cpack --config ./CPackSourceConfig.cmake /home/ubuntu/useme1120/4122_Project/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -113,9 +113,9 @@ package/fast: package
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/useme1120/4122_Project/CMakeFiles /home/ubuntu/useme1120/4122_Project/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/useme1120/4122_Project/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -560,32 +560,32 @@ Server.cpp.s:
 	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Server.cpp.s
 .PHONY : Server.cpp.s
 
-src/builder/BoardBuilder.o: src/builder/BoardBuilder.cpp.o
+src/builder/BoardFactory.o: src/builder/BoardFactory.cpp.o
 
-.PHONY : src/builder/BoardBuilder.o
+.PHONY : src/builder/BoardFactory.o
 
 # target to build an object file
-src/builder/BoardBuilder.cpp.o:
-	$(MAKE) -f CMakeFiles/gamelib.dir/build.make CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.o
-.PHONY : src/builder/BoardBuilder.cpp.o
+src/builder/BoardFactory.cpp.o:
+	$(MAKE) -f CMakeFiles/gamelib.dir/build.make CMakeFiles/gamelib.dir/src/builder/BoardFactory.cpp.o
+.PHONY : src/builder/BoardFactory.cpp.o
 
-src/builder/BoardBuilder.i: src/builder/BoardBuilder.cpp.i
+src/builder/BoardFactory.i: src/builder/BoardFactory.cpp.i
 
-.PHONY : src/builder/BoardBuilder.i
+.PHONY : src/builder/BoardFactory.i
 
 # target to preprocess a source file
-src/builder/BoardBuilder.cpp.i:
-	$(MAKE) -f CMakeFiles/gamelib.dir/build.make CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.i
-.PHONY : src/builder/BoardBuilder.cpp.i
+src/builder/BoardFactory.cpp.i:
+	$(MAKE) -f CMakeFiles/gamelib.dir/build.make CMakeFiles/gamelib.dir/src/builder/BoardFactory.cpp.i
+.PHONY : src/builder/BoardFactory.cpp.i
 
-src/builder/BoardBuilder.s: src/builder/BoardBuilder.cpp.s
+src/builder/BoardFactory.s: src/builder/BoardFactory.cpp.s
 
-.PHONY : src/builder/BoardBuilder.s
+.PHONY : src/builder/BoardFactory.s
 
 # target to generate assembly for a file
-src/builder/BoardBuilder.cpp.s:
-	$(MAKE) -f CMakeFiles/gamelib.dir/build.make CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.s
-.PHONY : src/builder/BoardBuilder.cpp.s
+src/builder/BoardFactory.cpp.s:
+	$(MAKE) -f CMakeFiles/gamelib.dir/build.make CMakeFiles/gamelib.dir/src/builder/BoardFactory.cpp.s
+.PHONY : src/builder/BoardFactory.cpp.s
 
 src/gamerules/Board.o: src/gamerules/Board.cpp.o
 
@@ -793,9 +793,9 @@ help:
 	@echo "... Server.o"
 	@echo "... Server.i"
 	@echo "... Server.s"
-	@echo "... src/builder/BoardBuilder.o"
-	@echo "... src/builder/BoardBuilder.i"
-	@echo "... src/builder/BoardBuilder.s"
+	@echo "... src/builder/BoardFactory.o"
+	@echo "... src/builder/BoardFactory.i"
+	@echo "... src/builder/BoardFactory.s"
 	@echo "... src/gamerules/Board.o"
 	@echo "... src/gamerules/Board.i"
 	@echo "... src/gamerules/Board.s"

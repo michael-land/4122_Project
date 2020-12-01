@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project
+CMAKE_SOURCE_DIR = /home/ubuntu/useme1120/4122_Project
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project
+CMAKE_BINARY_DIR = /home/ubuntu/useme1120/4122_Project
 
 # Utility rule file for NightlyTest.
 
@@ -71,6 +71,6 @@ CMakeFiles/NightlyTest.dir/clean:
 .PHONY : CMakeFiles/NightlyTest.dir/clean
 
 CMakeFiles/NightlyTest.dir/depend:
-	cd /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles/NightlyTest.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/useme1120/4122_Project && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/useme1120/4122_Project /home/ubuntu/useme1120/4122_Project /home/ubuntu/useme1120/4122_Project /home/ubuntu/useme1120/4122_Project /home/ubuntu/useme1120/4122_Project/CMakeFiles/NightlyTest.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/NightlyTest.dir/depend
 

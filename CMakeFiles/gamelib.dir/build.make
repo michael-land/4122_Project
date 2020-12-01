@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project
+CMAKE_SOURCE_DIR = /home/ubuntu/useme1120/4122_Project
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project
+CMAKE_BINARY_DIR = /home/ubuntu/useme1120/4122_Project
 
 # Include any dependencies generated for this target.
 include CMakeFiles/gamelib.dir/depend.make
@@ -59,94 +59,94 @@ include CMakeFiles/gamelib.dir/flags.make
 
 CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.o: CMakeFiles/gamelib.dir/flags.make
 CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.o: src/gamerules/BoardSpace.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.o -c /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/BoardSpace.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/useme1120/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.o -c /home/ubuntu/useme1120/4122_Project/src/gamerules/BoardSpace.cpp
 
 CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/BoardSpace.cpp > CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/useme1120/4122_Project/src/gamerules/BoardSpace.cpp > CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.i
 
 CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/BoardSpace.cpp -o CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/useme1120/4122_Project/src/gamerules/BoardSpace.cpp -o CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.s
 
 CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.o: CMakeFiles/gamelib.dir/flags.make
 CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.o: src/gamerules/Property.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.o -c /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Property.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/useme1120/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.o -c /home/ubuntu/useme1120/4122_Project/src/gamerules/Property.cpp
 
 CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Property.cpp > CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/useme1120/4122_Project/src/gamerules/Property.cpp > CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.i
 
 CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Property.cpp -o CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/useme1120/4122_Project/src/gamerules/Property.cpp -o CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.s
 
 CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.o: CMakeFiles/gamelib.dir/flags.make
 CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.o: src/gamerules/Board.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.o -c /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Board.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/useme1120/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.o -c /home/ubuntu/useme1120/4122_Project/src/gamerules/Board.cpp
 
 CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Board.cpp > CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/useme1120/4122_Project/src/gamerules/Board.cpp > CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.i
 
 CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Board.cpp -o CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/useme1120/4122_Project/src/gamerules/Board.cpp -o CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.s
 
 CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o: CMakeFiles/gamelib.dir/flags.make
 CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o: src/gamerules/Player.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o -c /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Player.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/useme1120/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o -c /home/ubuntu/useme1120/4122_Project/src/gamerules/Player.cpp
 
 CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Player.cpp > CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/useme1120/4122_Project/src/gamerules/Player.cpp > CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.i
 
 CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/gamerules/Player.cpp -o CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/useme1120/4122_Project/src/gamerules/Player.cpp -o CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.s
 
-CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.o: CMakeFiles/gamelib.dir/flags.make
-CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.o: src/builder/BoardBuilder.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.o -c /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/builder/BoardBuilder.cpp
+CMakeFiles/gamelib.dir/src/builder/BoardFactory.cpp.o: CMakeFiles/gamelib.dir/flags.make
+CMakeFiles/gamelib.dir/src/builder/BoardFactory.cpp.o: src/builder/BoardFactory.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/useme1120/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/gamelib.dir/src/builder/BoardFactory.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gamelib.dir/src/builder/BoardFactory.cpp.o -c /home/ubuntu/useme1120/4122_Project/src/builder/BoardFactory.cpp
 
-CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/builder/BoardBuilder.cpp > CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.i
+CMakeFiles/gamelib.dir/src/builder/BoardFactory.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gamelib.dir/src/builder/BoardFactory.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/useme1120/4122_Project/src/builder/BoardFactory.cpp > CMakeFiles/gamelib.dir/src/builder/BoardFactory.cpp.i
 
-CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/builder/BoardBuilder.cpp -o CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.s
+CMakeFiles/gamelib.dir/src/builder/BoardFactory.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gamelib.dir/src/builder/BoardFactory.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/useme1120/4122_Project/src/builder/BoardFactory.cpp -o CMakeFiles/gamelib.dir/src/builder/BoardFactory.cpp.s
 
 CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.o: CMakeFiles/gamelib.dir/flags.make
 CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.o: src/multiplayer/MultiplayerObjects.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.o -c /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/multiplayer/MultiplayerObjects.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/useme1120/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.o -c /home/ubuntu/useme1120/4122_Project/src/multiplayer/MultiplayerObjects.cpp
 
 CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/multiplayer/MultiplayerObjects.cpp > CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/useme1120/4122_Project/src/multiplayer/MultiplayerObjects.cpp > CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.i
 
 CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/multiplayer/MultiplayerObjects.cpp -o CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/useme1120/4122_Project/src/multiplayer/MultiplayerObjects.cpp -o CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.s
 
 CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.o: CMakeFiles/gamelib.dir/flags.make
 CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.o: src/statemachine/StateMachine.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.o -c /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/statemachine/StateMachine.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/useme1120/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.o -c /home/ubuntu/useme1120/4122_Project/src/statemachine/StateMachine.cpp
 
 CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/statemachine/StateMachine.cpp > CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/useme1120/4122_Project/src/statemachine/StateMachine.cpp > CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.i
 
 CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/statemachine/StateMachine.cpp -o CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/useme1120/4122_Project/src/statemachine/StateMachine.cpp -o CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.s
 
 # Object files for target gamelib
 gamelib_OBJECTS = \
@@ -154,7 +154,7 @@ gamelib_OBJECTS = \
 "CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.o" \
 "CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.o" \
 "CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o" \
-"CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.o" \
+"CMakeFiles/gamelib.dir/src/builder/BoardFactory.cpp.o" \
 "CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.o" \
 "CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.o"
 
@@ -165,12 +165,12 @@ libgamelib.a: CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.o
 libgamelib.a: CMakeFiles/gamelib.dir/src/gamerules/Property.cpp.o
 libgamelib.a: CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.o
 libgamelib.a: CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o
-libgamelib.a: CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.o
+libgamelib.a: CMakeFiles/gamelib.dir/src/builder/BoardFactory.cpp.o
 libgamelib.a: CMakeFiles/gamelib.dir/src/multiplayer/MultiplayerObjects.cpp.o
 libgamelib.a: CMakeFiles/gamelib.dir/src/statemachine/StateMachine.cpp.o
 libgamelib.a: CMakeFiles/gamelib.dir/build.make
 libgamelib.a: CMakeFiles/gamelib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX static library libgamelib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/useme1120/4122_Project/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX static library libgamelib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/gamelib.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gamelib.dir/link.txt --verbose=$(VERBOSE)
 
@@ -184,6 +184,6 @@ CMakeFiles/gamelib.dir/clean:
 .PHONY : CMakeFiles/gamelib.dir/clean
 
 CMakeFiles/gamelib.dir/depend:
-	cd /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles/gamelib.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/useme1120/4122_Project && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/useme1120/4122_Project /home/ubuntu/useme1120/4122_Project /home/ubuntu/useme1120/4122_Project /home/ubuntu/useme1120/4122_Project /home/ubuntu/useme1120/4122_Project/CMakeFiles/gamelib.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/gamelib.dir/depend
 

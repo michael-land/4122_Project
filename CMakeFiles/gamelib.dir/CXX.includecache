@@ -6,11 +6,37 @@
 
 #IncludeRegexTransform: 
 
-/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/builder/BoardBuilder.cpp
+/home/ubuntu/useme1120/4122_Project/src/builder/BoardFactory.cpp
 builder/BoardFactory.h
 -
 
-/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/multiplayer/MultiplayerObjects.cpp
+/home/ubuntu/useme1120/4122_Project/src/gamerules/Board.cpp
+gamerules/Board.h
+-
+statemachine/StateMachine.h
+-
+
+/home/ubuntu/useme1120/4122_Project/src/gamerules/BoardSpace.cpp
+gamerules/BoardSpace.h
+-
+gamerules/Player.h
+-
+
+/home/ubuntu/useme1120/4122_Project/src/gamerules/Player.cpp
+gamerules/BoardSpace.h
+-
+gamerules/Player.h
+-
+gamerules/Board.h
+-
+gamerules/Property.h
+-
+
+/home/ubuntu/useme1120/4122_Project/src/gamerules/Property.cpp
+gamerules/Property.h
+-
+
+/home/ubuntu/useme1120/4122_Project/src/multiplayer/MultiplayerObjects.cpp
 iostream
 -
 string.h
@@ -20,7 +46,7 @@ multiplayer/MultiplayerObjects.h
 statemachine/StateMachine.h
 -
 
-/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/src/statemachine/StateMachine.cpp
+/home/ubuntu/useme1120/4122_Project/src/statemachine/StateMachine.cpp
 statemachine/StateMachine.h
 -
 gamerules/Board.h
@@ -48,8 +74,6 @@ include/gamerules/BoardSpace.h
 string
 -
 vector
--
-render/Colors.h
 -
 
 include/gamerules/Player.h

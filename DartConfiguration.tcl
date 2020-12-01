@@ -4,14 +4,14 @@
 
 
 # Configuration directories and files
-SourceDirectory: /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project
-BuildDirectory: /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project
+SourceDirectory: /home/ubuntu/useme1120/4122_Project
+BuildDirectory: /home/ubuntu/useme1120/4122_Project
 
 # Where to place the cost data store
 CostDataFile: 
 
 # Site is something like machine.domain, i.e. pragmatic.crd
-Site: voodooxps
+Site: SS-Atlanta-II
 
 # Build name is osname-revision-compiler, i.e. Linux-2.4.2-2smp-c++
 BuildName: Linux-c++
@@ -26,7 +26,7 @@ SubmitURL: http://
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "/usr/bin/cmake" "/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project"
+ConfigureCommand: "/usr/bin/cmake" "/home/ubuntu/useme1120/4122_Project"
 MakeCommand: /usr/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}" -- -i
 DefaultCTestConfigurationType: Release
 
@@ -71,7 +71,7 @@ ValgrindCommand:
 ValgrindCommandOptions: 
 MemoryCheckType: 
 MemoryCheckSanitizerOptions: 
-MemoryCheckCommand: MEMORYCHECK_COMMAND-NOTFOUND
+MemoryCheckCommand: /usr/bin/valgrind
 MemoryCheckCommandOptions: 
 MemoryCheckSuppressionFile: 
 

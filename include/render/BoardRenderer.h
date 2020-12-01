@@ -16,13 +16,13 @@ SPECIAL NOTE:
     his examples from lectures. Thank you!
     Credit goes to Anton Gerdelan of antongerdelan.net for the code to parse .obj files
 */
-
+#include <gamerules/Board.h>
 #include <GL/glut.h>
 #include <cmath>
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
-#include "ECE_Bitmap.h" // for bitmaps/textures
+#include "Bitmap.h" // for bitmaps/textures
 #include <string>
 
 using namespace std;
@@ -38,7 +38,6 @@ BMP inBitmap;       // for eyes of ghost and Pac Man
 
 // color and material properties
 float colorWhite[4] = { 0.60, 0.60, 0.60, 1.0f };
-float angle = 0.0;              // angle of the camera (0.0 == south of maze)
 float colorRed[4] = { 1.0, 0.0, 0.0, 1.0f };
 float colorCyan[4] = { 0.0, 1.0, 1.0, 1.0f };
 float colorPink[4] = { 1.0, 0.7529, 0.7861, 1.0f };
@@ -50,6 +49,11 @@ float colorGreen[4] = { 0.0, 1.0, 0.0, 1.0f };
 GLfloat shininess[] = { 5 };
 
 string screenMsg = "You have $1,500\0";
+
+namespace GLRenderShared
+{
+    Board* board;  //pointer to the board that is used for rendering
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Used to initialize the background and overall scene
@@ -86,7 +90,7 @@ void init(void){
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, colorWhite);
 
     // THIS SECTION IS FOR THE BOARD TEXTURE
-    inBitmap.read("boardTexture.bmp");          // read in bmp/texture files
+    inBitmap.read("../../textures/boardTexture.bmp");          // read in bmp/texture files
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);      // byte alignment
     glGenTextures(1, texture);                  // initialize the texture
     glBindTexture(GL_TEXTURE_2D, texture[0]);   // bind the texture
@@ -291,6 +295,93 @@ void drawHotel(float xx, float zz){ // instead it will pass the board position (
 }   // end of drawHouse()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
+// Used to draw a red hotel on a property
+/////////////////////////////////////////////////////////////////////////////////////////////////
+void drawHotel(int boardSpace){ // instead it will pass the board position (0-39)
+    unsigned int rotations = boardSpace / 10;   // int will truncate
+    unsigned int sideSpace = boardSpace % 10;   // offset for the space on the side
+
+    glColor3f(1.0, 0.0, 0.0);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, colorRed);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, colorRed);
+
+    glPushMatrix();
+
+        // this section rotates the required amount of times
+        if(rotations > 0){
+            for(int ii = 0; ii < rotations; ++ii){
+                glTranslatef(1.04, 0.0, 0.0);
+                glRotatef(-90, 0.0, 1.0, 0.0);
+            }
+        }
+
+        // this larger section draws the house
+        glPushMatrix();
+
+        glTranslatef(((float)(sideSpace - 1))*0.083 + 0.144 + 0.0115, 0.0, 0.144);
+        glRotatef(90, 0.0, 1.0, 0.0);
+
+        // front and back face
+        glBegin(GL_POLYGON);
+            glVertex3f(0.0, 0.0, 0.0);
+            glVertex3f(0.0, 0.03, 0.0);
+            glVertex3f(-0.005, 0.03, 0.0);
+            glVertex3f(0.015, 0.045, 0.0);
+            glVertex3f(0.035, 0.03, 0.0);
+            glVertex3f(0.03, 0.03, 0.0);
+            glVertex3f(0.03, 0.0, 0.0);
+        glEnd();
+        glBegin(GL_POLYGON);
+            glVertex3f(0.0, 0.0, 0.06);
+            glVertex3f(0.0, 0.03, 0.06);
+            glVertex3f(-0.005, 0.03, 0.06);
+            glVertex3f(0.015, 0.045, 0.06);
+            glVertex3f(0.035, 0.03, 0.06);
+            glVertex3f(0.03, 0.03, 0.06);
+            glVertex3f(0.03, 0.0, 0.06);
+        glEnd();
+
+        // floor
+        glBegin(GL_QUADS);
+            glVertex3f(0.0, 0.0, 0.0);
+            glVertex3f(0.03, 0.0, 0.0);
+            glVertex3f(0.03, 0.0, 0.06);
+            glVertex3f(0.0, 0.0, 0.06);
+        glEnd();
+
+        // walls
+        glBegin(GL_QUADS);
+            glVertex3f(0.0, 0.0, 0.0);
+            glVertex3f(0.0, 0.03, 0.0);
+            glVertex3f(0.0, 0.03, 0.06);
+            glVertex3f(0.0, 0.0, 0.06);
+        glEnd();
+        glBegin(GL_QUADS);
+            glVertex3f(0.03, 0.0, 0.0);
+            glVertex3f(0.03, 0.03, 0.0);
+            glVertex3f(0.03, 0.03, 0.06);
+            glVertex3f(0.03, 0.0, 0.06);
+        glEnd();
+
+        // roof
+        glBegin(GL_QUADS);
+            glVertex3f(-0.005, 0.03, 0.0);
+            glVertex3f(-0.005, 0.03, 0.06);
+            glVertex3f(0.015, 0.045, 0.06);
+            glVertex3f(0.015, 0.045, 0.0);
+        glEnd();
+        glBegin(GL_QUADS);
+            glVertex3f(0.035, 0.03, 0.0);
+            glVertex3f(0.035, 0.03, 0.06);
+            glVertex3f(0.015, 0.045, 0.06);
+            glVertex3f(0.015, 0.045, 0.0);
+        glEnd();
+
+        glPopMatrix();
+    glPopMatrix();
+}   // end of drawHotel()
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
 // Used to display the current message on the screen
 /////////////////////////////////////////////////////////////////////////////////////////////////
 void displayMsg(string& message){
@@ -318,11 +409,103 @@ void displayMsg(string& message){
     glMatrixMode(GL_MODELVIEW);
 }   // end of displayMsg()
 
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
-// Used to set up the lighting and material properties
+// Used to Get the board coordinates from the space ID.
 /////////////////////////////////////////////////////////////////////////////////////////////////
-void lightAndMaterials(void){
-    //
+// corners are .17 by .17
+// others are .11 by .17
+// X by Z
+void spaceIDtoCoord(const int spaceID, float* x, float* z)
+{
+    const float corner = 0.144;
+    const float space = 0.083;
+    const float hc = corner/2;
+    const float hs = space/2;
+    if (spaceID == 0)
+    {
+        *x = hc;
+        *z = hc;
+    }
+    else if (1 <= spaceID && spaceID <= 9)
+    {
+        *x = corner + hs + space * (spaceID - 1);
+        *z = hc;
+    }
+    else if (spaceID == 10)
+    {
+        *x = corner + 9 * space + hc;
+        *z = hc;
+    }
+    else if (11 <= spaceID && spaceID <= 19)
+    {
+        *x = corner + 9 * space + hc;
+        *z = corner + hs + space * (spaceID % 10 - 1);
+    }
+    else if (spaceID == 20)
+    {
+        *x = corner + 9 * space + hc;
+        *z = corner + 9 * space + hc;
+    }
+    else if (21 <= spaceID && spaceID <= 29)
+    {
+        *x = corner + hs + (9 - spaceID % 10) * space;
+        *z = corner + 9 * space + hc;
+    }
+    else if (spaceID == 30)
+    {
+        *x = hc;
+        *z = corner + 9 * space + hc;
+    }
+    else if (31 <= spaceID && spaceID <= 39)
+    {
+        *x = hc;
+        *z = corner + hs + (9 - spaceID % 10) * space;
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// draws a player as a cylinder
+////////////////////////////////////////////////////////////////////////////////
+void drawPlayerCylinder(float x, float z)
+{
+    GLUquadricObj *quadObj;
+    quadObj = gluNewQuadric();
+
+
+    //glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, colorPink);
+    glMaterialfv(GL_FRONT, GL_AMBIENT, colorPink);
+    //glMaterialfv(GL_FRONT, GL_SPECULAR, colorPink);
+    // Draw the pacman (a sphere of radius 0.5 at height 0.5)
+
+    glPushMatrix();
+    glTranslatef(x, 0.0, z); // position
+    //gluCylinder(GLUquadric* qobj, GLdouble baseRadius, GLdouble topRadius, GLdouble height, GLint slices, GLint stacks);
+    //base at z = 0; top at z = height
+    gluCylinder(quadObj, 0.015, 0.015, 0.015, 100, 100);
+    glPopMatrix(); //every push needs a pop
+
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+// draws a player as a sphere
+////////////////////////////////////////////////////////////////////////////////
+void drawPlayerSphere(float x, float z)
+{
+    glColor3f(colorYellow[0], colorYellow[1], colorYellow[2]);
+    glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, colorYellow);
+    //glMaterialfv(GL_FRONT, GL_AMBIENT, colorYellow);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, colorYellow);
+    // Draw the pacman (a sphere of radius 0.5 at height 0.5)
+
+    glPushMatrix();
+    glTranslatef(x, 0.0, z); // position
+    glutSolidSphere(0.015, 100, 100); // pacman sphere; 100 and 100 are slices and stacks
+    glPopMatrix(); //every push needs a pop
+
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -346,12 +529,12 @@ void display(void){
         glLoadIdentity();
 
         displayMsg(screenMsg);  // display the current message on the screen
- 
+
         // set the camera position, where it is looking, and its up vector
         // Note: the angle is incremented by 5 degrees to rotate the camera
         // around the center of the maze
-        gluLookAt(1.25*sin(angle*PI / 180.0) + 0.65, 1.25, 1.25*cos(angle*PI / 180.0) + 0.65,
-                0.65, 0.0, 0.65,    // where the camera is looking (center of maze)
+        gluLookAt(1.25*sin(angle*PI / 180.0) + 0.52, 1.25, 1.25*cos(angle*PI / 180.0) + 0.52,
+                0.52, 0.0, 0.52,    // where the camera is looking (center of maze)
                 0.0, 1.0, 0.0);     // up vector
 
         glEnable(GL_TEXTURE_2D);
@@ -361,17 +544,75 @@ void display(void){
             glTexCoord2f(1, 0);
             glVertex3f(0.0f, 0.0f, 0.0f);
             glTexCoord2f(0, 0);
-            glVertex3f(1.3f, 0.0f, 0.0f);
+            glVertex3f(1.04f, 0.0f, 0.0f);
             glTexCoord2f(0, 1);
-            glVertex3f(1.3f, 0.0f, 1.3f);
+            glVertex3f(1.04f, 0.0f, 1.04f);
             glTexCoord2f(1, 1);
-            glVertex3f(0.0f, 0.0f, 1.3f);
+            glVertex3f(0.0f, 0.0f, 1.04f);
         glEnd();
         // glBindTexture(GL_TEXTURE_2D, 0);
         glDisable(GL_TEXTURE_2D);
 
         // drawHouse(0.17,0.17);   // the corner spaces are 0.17 by 0.17 units
-        drawHotel(0.17,0.17);
+        //drawHotel(0.17,0.17);
+
+        //while loop
+        Board* bd = GLRender::board;
+        BoardSpace* curr = bd->getHead();
+        BoardSpace* tail = bd->getTail();
+        std::vector<Player*> players = bd->getPlayers();
+
+        int p1pos = (players[0])->getSpace()->getSpaceID();
+        float p1x, p1z;
+        spaceIDtoCoord(p1pos, &p1x, &p1z);
+        if (p1pos % 10 % 2 == 0)
+        {
+            p1z += 0.02;
+        }
+        else
+        {
+            p1x -= 0.02;
+        }
+        drawPlayerCylinder(p1x, p1z);
+
+        int p2pos = (players[1])->getSpace()->getSpaceID();
+        float p2x, p2z;
+        spaceIDtoCoord(p2pos, &p2x, &p2z);
+        if (p2pos % 10 % 2 == 0)
+        {
+            p2z -= 0.02;
+        }
+        else
+        {
+            p2x += 0.02;
+        }
+        drawPlayerSphere(p2x, p2z);
+        // Player 1 is a cylinder, Player 2 is a sphere
+        // Board has a vector of player objects called "players"
+        // each Player has a pointer to a BoardSpace object that indicates which space they're on (called boardSpace)
+        // each boardSpace object has a space ID associated with it, there is a get function for each boardSpace objects called "getSpaceID" that returns an integer
+        // so to get the ID of the space that each player is current on, you could use something like:
+        // currPlayer->getSpace()->getSpaceID()  where currPlayer is a pointer to a Player object
+
+        //drawHotel(28);
+        while (curr->getSpaceID() != tail->getSpaceID())
+        {
+            int currID = curr->getSpaceID;
+            float x, z;  //coordinates for center of this space
+            spaceIDtoCoord(currID, &x, &z);
+            Property* property = (Property*) curr;
+            int houses = property.getUpgrades();  //1-4 is a house, >=5 is hotel
+            if (1 <= houses && houses <= 4)
+            {
+                //draw houses
+            }
+            else if (houses >= 5)
+            {
+                drawHotel(currID);
+            }
+
+            curr = curr->getNextSpace();
+        }
 
     glPopMatrix();
 
@@ -396,8 +637,8 @@ void reshape(int w, int h){
     // set the camera position, where it is looking, and its up vector
     // Note: the angle is incremented by 5 degrees to rotate the camera
     // around the center of the maze
-    gluLookAt(1.25*sin(angle*PI / 180.0) + 0.65, 1.25, 1.25*cos(angle*PI / 180.0) + 0.65,
-            0.65, 0.0, 0.65,    // where the camera is looking (center of maze)
+    gluLookAt(1.25*sin(angle*PI / 180.0) + 0.52, 1.25, 1.25*cos(angle*PI / 180.0) + 0.52,
+            0.52, 0.0, 0.52,    // where the camera is looking (center of maze)
             0.0, 1.0, 0.0);     // up vector
 }
 

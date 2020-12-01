@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/gamelib.dir/src/builder/BoardBuilder.cpp.o"
+  "CMakeFiles/gamelib.dir/src/builder/BoardFactory.cpp.o"
   "CMakeFiles/gamelib.dir/src/gamerules/Board.cpp.o"
   "CMakeFiles/gamelib.dir/src/gamerules/BoardSpace.cpp.o"
   "CMakeFiles/gamelib.dir/src/gamerules/Player.cpp.o"
