@@ -18,3 +18,4 @@ rm *.o
 
 g++ -c -Iinclude -lpthread -lGL -lGLU -lglut src/gamerules/Player.cpp src/gamerules/Board.cpp src/gamerules/BoardSpace.cpp src/gamerules/Property.cpp src/builder/BoardFactory.cpp src/multiplayer/MultiplayerObjects.cpp src/statemachine/StateMachine.cpp Client.cpp 
 g++ -o client Board.o BoardFactory.o BoardSpace.o MultiplayerObjects.o Player.o Property.o StateMachine.o Client.o -lGL -lGLU -lglut -lpthread
+rm *.o
