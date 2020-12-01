@@ -92,8 +92,8 @@ class client
 public:
     client() = delete;
     ~client();
-    client(unsigned short usPort, char *addr);
-    void submitTurn(const std::string &strTo, unsigned short usPortNum, const playerMove &player); //Function to send turn decisions to the server
+    client(unsigned int usPort, std::string addr);
+    void submitTurn(const std::string &strTo, unsigned int usPortNum, const playerMove &player); //Function to send turn decisions to the server
     void addSource(const sockaddr_in &from);
     void sendToServer(const playerMove &player);
     int sockInit(void);
@@ -101,12 +101,12 @@ public:
     int sockClose();
     void error(const char *msg);
     int m_sockfd;
-    char* server_address;
+    std::string server_address;
     StateMachine* getSSM();
     friend void clientReceive(client* socket);
 
 private:
-    unsigned short portNum;
+    unsigned int portNum;
     Board* playingBoard;
     std::thread recieveThread;
     sockaddr_in sources;

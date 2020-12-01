@@ -3,7 +3,7 @@
 #include <multiplayer/MultiplayerObjects.h>
 #include <statemachine/StateMachine.h>
 #include <builder/BoardFactory.h>
-
+#include <stdlib.h>
 //Implementation for Multiplayer Classes
 
 //Function that recieves player moves from
@@ -198,7 +198,7 @@ server::~server() { };
 // Client Implementation
 /////////////////////////////////////////////////
 
-client::client(unsigned short usPort, char *addr)
+client::client(unsigned int usPort, std::string addr)
 {
     //error checking for IP address length here
     portNum = usPort;
@@ -226,10 +226,12 @@ client::client(unsigned short usPort, char *addr)
     // Convert port number from host to network
     client_addr.sin_port = htons(usPort);
     // Bind the socket to the port number
-    if (bind(m_sockfd, (struct sockaddr *)&client_addr, sizeof(client_addr)) < 0)
+    do
     {
-        error("ERROR on binding");
-    }
+        int randSocket = rand() % 30000 + 20000;
+        client_addr.sin_port = htons(randSocket);
+    } while (bind(m_sockfd, (struct sockaddr*)&client_addr, sizeof(client_addr)) < 0);
+
     // Start thread that waits for messages
 
     recieveThread = std::thread(clientReceive, this);
@@ -240,7 +242,7 @@ void client::sendToServer(const playerMove &player)
     submitTurn(server_address, portNum, player);
 }
 //Function to send turn decisions to the server
-void client::submitTurn(const std::string &strTo, unsigned short usPortNum, const playerMove &player)
+void client::submitTurn(const std::string &strTo, unsigned int usPortNum, const playerMove &player)
 {
     //Send playermove to server
     //THIS IS TCP, so in init, change SOCK_DGRAM to SOCK_STREAM
