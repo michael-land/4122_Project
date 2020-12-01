@@ -24,6 +24,7 @@ SPECIAL NOTE:
 #include <iostream>
 #include "Bitmap.h" // for bitmaps/textures
 #include <string>
+#include <gamerules/Property.h>
 
 using namespace std;
 
@@ -557,7 +558,7 @@ void display(void){
         //drawHotel(0.17,0.17);
 
         //while loop
-        Board* bd = GLRender::board;
+        Board* bd = GLRenderShared::board;
         BoardSpace* curr = bd->getHead();
         BoardSpace* tail = bd->getTail();
         std::vector<Player*> players = bd->getPlayers();
@@ -597,11 +598,11 @@ void display(void){
         //drawHotel(28);
         while (curr->getSpaceID() != tail->getSpaceID())
         {
-            int currID = curr->getSpaceID;
+            int currID = curr->getSpaceID();
             float x, z;  //coordinates for center of this space
             spaceIDtoCoord(currID, &x, &z);
             Property* property = (Property*) curr;
-            int houses = property.getUpgrades();  //1-4 is a house, >=5 is hotel
+            int houses = property->getUpgrades();  //1-4 is a house, >=5 is hotel
             if (1 <= houses && houses <= 4)
             {
                 //draw houses

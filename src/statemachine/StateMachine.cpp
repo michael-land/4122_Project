@@ -175,7 +175,7 @@ bool StateMachine::execOutputs(playerMove inMsg, bool flag) {
         if (board->checkForEndCond()) { // need to write check for end conditions function
             state = States::GAME_EXIT;
         } else {
-            state = States::USER_INPUT
+            state = States::USER_INPUT;
         }
 
         } else if (state == States::GAME_SETUP) {

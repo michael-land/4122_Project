@@ -75,4 +75,21 @@ BoardSpace* Board::findSpace(std::string name) {
 Player* Board::getCurrentPlayer() {
     return currPlayer;
 }
+
+bool Board::checkForEndCond() {
+    bool flag = false;
+    if (players.size() < 2) {
+        flag = true;
+    }
+    for (std::vector<Player*>::iterator it = players.begin(); it < players.end(); it++) {
+        if ((*it)->getMoney() < 0) {
+            flag = true;
+        }
+    }
+    return flag;
+}
+
+bool Board::checkForEndCond() {
+    return players.size() > 1;
+}
  
