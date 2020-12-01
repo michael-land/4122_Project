@@ -58,6 +58,8 @@ namespace GLRenderShared
     client* cli;
 }
 
+//Board* boardPointer = GLRenderShared::board;
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Used to initialize the background and overall scene
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -761,27 +763,29 @@ void reshape(int w, int h){
 // Used to detect keyboard inputs; used here to rotate the camera around the maze
 /////////////////////////////////////////////////////////////////////////////////////////////////
 void keyboard(unsigned char key, int x, int y){
-    bool success = true;
-	playerMove outMsg;
-	switch (key) {
+    Board* boardPointer = GLRenderShared::board;
+	client* cli = GLRenderShared::cli;
+    playerMove outMsg;
+    outMsg.playerID = boardPointer->getCurrentPlayer()->getName();
+    outMsg.movePosition = boardPointer->getCurrentPlayer()->getSpace()->getSpaceID();
+
+    switch (key) {
         case 'b':
         case 'B':
-            
             // attempt to buy a property
             // insert function sending 'b' to server
-            // server should return success or fail
-            if(success) {
-                // print success of purchase to the screen
-            }
-            else{
-                // print failure of purchase to the screen
-            }
-            break;
+            outMsg.moveType = 'b';
+            outMsg.playerRoll = 0;
+            cli.sendToSever(outMsg);
+
+			break;
         case 's':
         case 'S':
             // send message that you want to sell a property to the bank
-            // insert function sending 's' to server
             // print success of sale to the screen
+            outMsg.moveType = 's';
+            outMsg.playerRoll = 0;
+            cli.sendToSever(outMsg);
 
             // if there are any hotels/houses, they should recieve their worth back
             // also, houses and hotels should disappear
@@ -794,35 +798,42 @@ void keyboard(unsigned char key, int x, int y){
         case 'H':
             // send message that you want to buy a house
             // technically a player can buy multiple houses in a row
+            outMsg.moveType = 'h';
+            outMsg.playerRoll = 0;
+            cli.sendToSever(outMsg);
 
-            // insert function sending 'h' to server
-            // server should return success or fail
-            if(success){
-                // print success of purchase to the screen
-            }
-            else{
-                // print failure of purchase to the screen
-            }        // board object should be updated here before being redrawn
+
             glutPostRedisplay();
             break;
         case 'j':
         case 'J':
             // send message that you want to buy a hotel
-            // insert function sending 'j' to server
             // server should return success or fail
-            if(success){            // success if they have enough money AND they have 4 houses
-                // print success of purchase to the screen
-            }
-            else{
-                // print failure of purchase to the screen
-            }        // board object should be updated here before being redrawn
+            outMsg.moveType = 'j';
+            outMsg.playerRoll = 0;
+            cli.sendToSever(outMsg);
+
+
+            glutPostRedisplay();
+            break;
+        case 'r':
+        case 'R':
+            // send message that your turn is over
+            // board object should be updated here before being redrawn
+            outMsg.moveType = 'r';
+            outMsg.playerRoll = 0;
+            cli.sendToSever(outMsg);
+
             glutPostRedisplay();
             break;
         case 'n':
         case 'N':
             // send message that your turn is over
-            // insert function sending n'' to server
             // board object should be updated here before being redrawn
+            outMsg.moveType = 'n';
+            outMsg.playerRoll = 0;
+            cli.sendToSever(outMsg);
+
             glutPostRedisplay();
             break;
         case 't':
@@ -836,26 +847,8 @@ void keyboard(unsigned char key, int x, int y){
             break;
         default:
             break;
-    }
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////////
-// Main function - this is where everything is inialized/called
-/////////////////////////////////////////////////////////////////////////////////////////////////
-int setup(int argc, char** argv){
-
-	cout << "inside openGL init" << endl;
-
-	glutInit(&argc, argv);
-
-    // enable depth, doubles, and RGBA mode
-	cout << "before initdisplay" << endl;
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-    cout << "before init window pos" << endl;
-    glutInitWindowPosition(0, 0);   // top left
-	cout << "before init window size" << endl;
-	glutInitWindowSize(screenWidth, screenHeight);   // initial window dimensions
-    glutCreateWindow("Buzzopoly - ECE 4122 Final Project"); // name of window
+    }   // end of switch
+}////////////////////////////////////////////////////////////////////////////////////////////////
     std::cout << "Starting openGL display." << std::endl;
     init();                     // initialize scene properties
     glutDisplayFunc(display);   // display the scene

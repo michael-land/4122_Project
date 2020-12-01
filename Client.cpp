@@ -18,6 +18,13 @@
 
 // Driver code
 int main(int argc, char** argv) {
+    char hostbuffer[256];
+    char *IPbuffer;
+    struct hostent *host_entry;
+    int hostname;
+    int turnCounter;
+    hostname = gethostname(hostbuffer, sizeof(hostbuffer));
+    checkHostName(hostname);
     /*  --> IS ANY OF THIS NECESSARY FOR THE CLIENT?
     char hostbuffer[256];
     char* IPbuffer;
@@ -50,7 +57,7 @@ int main(int argc, char** argv) {
     playerMove initMsg;
 
     initMsg.moveType = 'X';
-    initMsg.playerID = serverIP;
+    initMsg.playerID = serverIP; // needs to be client's IP address
     initMsg.playerRoll = NULL;
 
 	cout << "before client init" << endl;

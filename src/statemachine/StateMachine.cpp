@@ -2,6 +2,7 @@
 #include <gamerules/Board.h>
 #include <gamerules/Property.h>
 #include <multiplayer/MultiplayerObjects.h>
+#include <GL/glut.h>
 
 StateMachine::StateMachine() {
     this->state = States::GAME_SETUP;
@@ -158,7 +159,7 @@ bool StateMachine::execOutputs(playerMove inMsg, bool flag) {  // FIX MESSAGES H
         if (flag) // if flag is true, valid move.  process based on client or server
         {
             if (isClient) { // if client, redraw frames
-                // redisplay frames (openGL)
+                glutPostRedisplay();
             }
             else { // if server, send message back to clients		    
                 // outMsg.moveStatus = true;
