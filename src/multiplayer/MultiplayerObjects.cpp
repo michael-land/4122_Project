@@ -119,8 +119,8 @@ void server::updateBoard(const std::string &strTo, unsigned short usPortNum, con
     client_addr.sin_family = AF_INET;
     memmove((char*)&client_addr.sin_addr.s_addr, (char*)client_entity->h_addr, client_entity->h_length);
     client_addr.sin_port = htons(usPortNum);
-    if (connect(m_sockfd, (struct sockaddr*) &client_addr, sizeof(client_addr)) < 0)
-        error("ERROR connecting");
+    // if (connect(m_sockfd, (struct sockaddr*) &client_addr, sizeof(client_addr)) < 0)
+    //     error("ERROR connecting");
     int n = sendto(m_sockfd, (char*)&players, sizeof(playerMove), 0, (struct sockaddr*) & client_addr, sizeof(client_addr));
     if (n < 0)
         error("ERROR writing to socket");

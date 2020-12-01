@@ -96,7 +96,7 @@ void init(void){
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, colorWhite);
     std::cout << "attempting to set board texture" << std::endl;
     // THIS SECTION IS FOR THE BOARD TEXTURE
-    inBitmap.read("/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/textures/boardTexture.bmp");          // read in bmp/texture files
+    inBitmap.read("/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/textures/offwhiteboardTexture.bmp");          // read in bmp/texture files
     std::cout << "after board texture" << std::endl;
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);      // byte alignment
     glGenTextures(1, texture);                  // initialize the texture
@@ -620,6 +620,8 @@ void drawPlayerSphere(float x, float z)
 
 }
 
+void displayManual();
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Used to draw the entire scene; this will get recalled when the scene or window changes
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -641,6 +643,7 @@ void display(void){
         glLoadIdentity();
 
         displayMsg(screenMsg);  // display the current message on the screen
+        displayManual(); // display the menu of options
 
         // set the camera position, where it is looking, and its up vector
         // Note: the angle is incremented by 5 degrees to rotate the camera
@@ -848,7 +851,49 @@ void keyboard(unsigned char key, int x, int y){
         default:
             break;
     }   // end of switch
-}////////////////////////////////////////////////////////////////////////////////////////////////
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+// Used to display the button functions on the screen
+/////////////////////////////////////////////////////////////////////////////////////////////////
+void displayManual(void){
+    std::string message[] ={"Keyboard Functions",
+                            "B: Buy a property\0",
+                            "S: Sell your property\0",
+                            "H: Build a house\0",
+                            "J: Build a Hotel\0",
+                            "R: Roll the dice\0",
+                            "N: End your turn\0",
+                            "T: Rotate the board\0"};
+
+    glMatrixMode(GL_PROJECTION);
+
+    glPushMatrix();
+        glLoadIdentity();
+        glOrtho(0, screenWidth, 0, screenHeight, 0, 10);    // display in ortho/flat 2D space
+        glMatrixMode(GL_MODELVIEW);
+
+        glPushMatrix();
+            glLoadIdentity();
+            glColor3f(1.0, 1.0, 1.0);   // white text
+            float offset = 0.0;
+            for(const std::string line : message){
+                glRasterPos2i(0.75 * screenWidth, 0.40 * screenHeight - offset*screenHeight); // bottom right of screen
+                offset += 0.03;
+
+                for(const char character : line){
+                    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, character);   // loop through all chars in message
+                }
+            }
+        glPopMatrix();
+
+        glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+
+    glMatrixMode(GL_MODELVIEW);
+}   // end of displayManual()
+
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Main function - this is where everything is inialized/called
