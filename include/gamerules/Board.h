@@ -23,7 +23,7 @@ class Board {
     void addPlayer(Player*);
     int rollDice() const;
     Player* getCurrentPlayer();
-    std::vector<Player*> getPlayers();
+    std::vector<Player*> getPlayers() const;
     BoardSpace* getHead() const;
     StateMachine* getSSM();
     BoardSpace* getTail() const;

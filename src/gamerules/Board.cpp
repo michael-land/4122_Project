@@ -89,7 +89,10 @@ bool Board::checkForEndCond() {
     return flag;
 }
 
-bool Board::checkForEndCond() {
+bool Board::checkForStartCond() {
     return players.size() > 1;
 }
  
+std::vector<Player*> Board::getPlayers() const {
+    return players;
+}

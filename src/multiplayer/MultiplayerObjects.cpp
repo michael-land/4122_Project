@@ -188,6 +188,9 @@ void server::addSource(const sockaddr_in &from)
     }
 }
 
+// definition of destructor needed ?? for some reason
+server::~server() { };
+
 /////////////////////////////////////////////////
 // Client Implementation
 /////////////////////////////////////////////////
@@ -198,6 +201,7 @@ client::client(unsigned short usPort, char *addr)
     portNum = usPort;
 
     playingBoard = new Board("client_board");
+    //add boardfactory
     this->server_address = addr;
     this->ssm = playingBoard->getSSM();
     this->ssm->setIsClient(true); // flag to indicate this is a client 
@@ -319,6 +323,8 @@ void client::addSource(const sockaddr_in &from)
     sources = from;
     // Iterate through list check is already present
 }
+
+client::~client() { };
 
 StateMachine* server::getSSM() {
     return ssm;

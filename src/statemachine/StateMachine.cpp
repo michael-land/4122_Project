@@ -42,7 +42,12 @@ bool StateMachine::input(playerMove inMsg) { // pass message in here
         case 'N':
         flag = processEndTurn();
         break;
-        default:
+
+        case 'X':
+		flag = processJoin(inMsg);
+
+		default:
+        flag = false;
         break;
     }
 	execOutputs(inMsg, flag);
@@ -146,8 +151,8 @@ bool StateMachine::processUpgrade() {
     return false;
 }
 
-bool StateMachine::execOutputs(playerMove inMsg, bool flag) {
-    boardInfo outMsg;
+bool StateMachine::execOutputs(playerMove inMsg, bool flag) {  // FIX MESSAGES HERE (playerMove)
+    playerMove outMsg;
     if (state == States::UPDATE_BOARD) {
         Player *currPlayer = board->getCurrentPlayer();        
         if (flag) // if flag is true, valid move.  process based on client or server
@@ -156,20 +161,21 @@ bool StateMachine::execOutputs(playerMove inMsg, bool flag) {
                 // redisplay frames (openGL)
             }
             else { // if server, send message back to clients		    
-                outMsg.moveStatus = true;
-                outMsg.movePosition = currPlayer->getSpace()->getSpaceID();  // currPlayer->getSpace should return a boardspace object, then call getSpaceID() for that boardspace object to get int ID
-                outMsg.moveType = inMsg.moveType;
-                outMsg.playerID = currPlayer->getName();
-                this->serv->sendToClient(outMsg);
+                // outMsg.moveStatus = true;
+                // outMsg.movePosition = currPlayer->getSpace()->getSpaceID();  // currPlayer->getSpace should return a boardspace object, then call getSpaceID() for that boardspace object to get int ID
+                // outMsg.moveType = inMsg.moveType;
+                // outMsg.playerID = currPlayer->getName();
+                this->serv->sendToClient(inMsg);
             }
         }
         else
         { // if flag is false, invalid move; send invalid move update to client
-            outMsg.moveStatus = false;
-            outMsg.movePosition = NULL;
-            outMsg.moveType = NULL;
-            outMsg.playerID = currPlayer->getName();
-            this->serv->sendToClient(outMsg);
+            // outMsg.moveStatus = false;
+            // outMsg.movePosition = NULL;
+            // outMsg.moveType = NULL;
+            // outMsg.playerID = currPlayer->getName();
+            inMsg.moveType = 0; // invalid move.
+            this->serv->sendToClient(inMsg);
         }
            
         if (board->checkForEndCond()) { // need to write check for end conditions function
@@ -184,11 +190,13 @@ bool StateMachine::execOutputs(playerMove inMsg, bool flag) {
         } else {
             state = States::GAME_SETUP;
         }
-        outMsg.moveStatus = true;
-        outMsg.movePosition = NULL;  // currPlayer->getSpace should return a boardspace object, then call getSpaceID() for that boardspace object to get int ID
-        outMsg.moveType = inMsg.moveType;
-        outMsg.playerID = inMsg.playerID;
+        // outMsg.moveStatus = true;
+        // outMsg.movePosition = NULL;  // currPlayer->getSpace should return a boardspace object, then call getSpaceID() for that boardspace object to get int ID
+        // outMsg.moveType = inMsg.moveType;
+        // outMsg.playerID = inMsg.playerID;
         this->serv->sendToClient(outMsg);
     }
     return true;
 }
+
+StateMachine::~StateMachine() { };

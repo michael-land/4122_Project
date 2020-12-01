@@ -12,12 +12,12 @@
 #include <statemachine/States.h>
 #include <Player.h>
 #include <statemachine/StateMachine.h>
+#include <render/BoardRenderer.h>
 
 #define PORT 6500
 
 // Driver code
-int main()
-{
+int main(int argc, char** argv) {
     /*  --> IS ANY OF THIS NECESSARY FOR THE CLIENT?
     char hostbuffer[256];
     char* IPbuffer;
@@ -44,16 +44,16 @@ int main()
 
     char* serverIP;
 
-    cout << "IP address of server: ";
-    cin >> serverIP;
+    std::cout << "IP address of server: ";
+    std::cin >> serverIP;
 
     playerMove initMsg;
 
     initMsg.moveType = 'X';
-    initMsg.playerID = IPbuffer;
+    initMsg.playerID = serverIP;
     initMsg.playerRoll = NULL;
 
     client GameClient(PORT, serverIP);
-
-    while (GameServer.getSSM()->getCurrentState() != States::GAME_EXIT);
+    setup(argc, argv); // openGL setup
+    while (GameClient.getSSM()->getCurrentState() != States::GAME_EXIT);
 }

@@ -45,7 +45,8 @@ struct playerMove // CLIENT TO SERVER
 {
     std::string playerID; //ID that tells the server which turn is which
     // unsigned char moveChoice;    //Selects which move
-    unsigned char moveType;  //Determines the move type
+	int movePosition;  // space ID
+	unsigned char moveType;  //Determines the move type
     unsigned int playerRoll; // the number that the player rolled
 };
 

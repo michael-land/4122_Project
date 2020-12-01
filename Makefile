@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/mnt/c/Users/charl/OneDrive/Documents/GA Tech/SEMESTERS/Fall 2020/ECE4122/Final project/4122_Project"
+CMAKE_SOURCE_DIR = /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/mnt/c/Users/charl/OneDrive/Documents/GA Tech/SEMESTERS/Fall 2020/ECE4122/Final project/4122_Project"
+CMAKE_BINARY_DIR = /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -81,7 +81,7 @@ test/fast: test
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	/usr/bin/cpack --config ./CPackSourceConfig.cmake /mnt/c/Users/charl/OneDrive/Documents/GA\ Tech/SEMESTERS/Fall\ 2020/ECE4122/Final\ project/4122_Project/CPackSourceConfig.cmake
+	/usr/bin/cpack --config ./CPackSourceConfig.cmake /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -113,9 +113,9 @@ package/fast: package
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/mnt/c/Users/charl/OneDrive/Documents/GA Tech/SEMESTERS/Fall 2020/ECE4122/Final project/4122_Project/CMakeFiles" "/mnt/c/Users/charl/OneDrive/Documents/GA Tech/SEMESTERS/Fall 2020/ECE4122/Final project/4122_Project/CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/mnt/c/Users/charl/OneDrive/Documents/GA Tech/SEMESTERS/Fall 2020/ECE4122/Final project/4122_Project/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -326,6 +326,19 @@ ContinuousCoverage/fast:
 .PHONY : ContinuousCoverage/fast
 
 #=============================================================================
+# Target rules for targets named client
+
+# Build rule for target.
+client: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 client
+.PHONY : client
+
+# fast build rule for target.
+client/fast:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/build
+.PHONY : client/fast
+
+#=============================================================================
 # Target rules for targets named ExperimentalConfigure
 
 # Build rule for target.
@@ -532,6 +545,33 @@ ContinuousSubmit: cmake_check_build_system
 ContinuousSubmit/fast:
 	$(MAKE) -f CMakeFiles/ContinuousSubmit.dir/build.make CMakeFiles/ContinuousSubmit.dir/build
 .PHONY : ContinuousSubmit/fast
+
+Client.o: Client.cpp.o
+
+.PHONY : Client.o
+
+# target to build an object file
+Client.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/Client.cpp.o
+.PHONY : Client.cpp.o
+
+Client.i: Client.cpp.i
+
+.PHONY : Client.i
+
+# target to preprocess a source file
+Client.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/Client.cpp.i
+.PHONY : Client.cpp.i
+
+Client.s: Client.cpp.s
+
+.PHONY : Client.s
+
+# target to generate assembly for a file
+Client.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/Client.cpp.s
+.PHONY : Client.cpp.s
 
 Server.o: Server.cpp.o
 
@@ -773,6 +813,7 @@ help:
 	@echo "... ExperimentalSubmit"
 	@echo "... Experimental"
 	@echo "... ContinuousCoverage"
+	@echo "... client"
 	@echo "... ExperimentalConfigure"
 	@echo "... Continuous"
 	@echo "... Nightly"
@@ -790,6 +831,9 @@ help:
 	@echo "... ContinuousMemCheck"
 	@echo "... ContinuousTest"
 	@echo "... ContinuousSubmit"
+	@echo "... Client.o"
+	@echo "... Client.i"
+	@echo "... Client.s"
 	@echo "... Server.o"
 	@echo "... Server.i"
 	@echo "... Server.s"

@@ -17,6 +17,7 @@ class StateMachine {
     bool isClient;
     public:
     StateMachine();
+    ~StateMachine();
     States getCurrentState() const;
     bool input(playerMove inMsg);
     bool processBuy();

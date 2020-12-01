@@ -1,6 +1,9 @@
 #include <gamerules/Board.h>
 #include <gamerules/Property.h>
 
+#ifndef BOARDFACTORY_H
+#define BOARDFACTORY_H
+
 class BoardFactory {
     private:
     Board* board;
@@ -14,3 +17,5 @@ class BoardFactory {
     Board* makeBoard();
     Board* getBoard();
 };
+
+#endif

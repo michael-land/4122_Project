@@ -53,8 +53,7 @@ void checkIPbuffer(char *IPbuffer)
 }
 
 // Driver code
-int main()
-{
+int main(){
     char hostbuffer[256];
     char *IPbuffer;
     struct hostent *host_entry;
@@ -74,6 +73,5 @@ int main()
     IPbuffer = inet_ntoa(*((struct in_addr *)host_entry->h_addr_list[0]));
     std::cout << IPbuffer << std::endl;
     server GameServer(PORT);
-
     while( GameServer.getSSM()->getCurrentState() != States::GAME_EXIT );
 }

@@ -40,7 +40,11 @@ void BoardSpace::setSpaceID(const int& id) {
 
 BoardSpace::~BoardSpace() {
 
-}
+};
+
+void BoardSpace::placeholder() {
+
+};
 
 
 

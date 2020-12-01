@@ -23,6 +23,9 @@ add_library(gamelib
 add_executable(server Server.cpp)
 target_link_libraries(server gamelib pthread)
 
+add_executable(client Client.cpp)
+target_link_libraries(client gamelib pthread GLU GL glut)
+
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
