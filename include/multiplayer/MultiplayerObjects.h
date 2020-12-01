@@ -102,6 +102,7 @@ public:
     int m_sockfd;
     char* server_address;
     StateMachine* getSSM();
+    void clientReceive(client* socket);
 
 private:
     unsigned short portNum;

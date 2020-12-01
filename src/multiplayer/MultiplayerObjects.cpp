@@ -2,8 +2,6 @@
 #include <string.h>
 #include <multiplayer/MultiplayerObjects.h>
 #include <statemachine/StateMachine.h>
-#include <builder/BoardFactory.h>
-
 
 //Implementation for Multiplayer Classes
 
@@ -31,7 +29,7 @@ void serverReceive(server *socket)
     } while (true);
 }
 //Function that recieves board info from server
-void clientReceive(client *socket)
+void clientReceive(client* socket)
 {
     // Loop that waits on incoming messages
     boardInfo inMsg;
@@ -47,7 +45,7 @@ void clientReceive(client *socket)
         }
         else
         {
-            //socket->
+            socket->ssm->input(inMsg);
         }
     } while (true);
 }
@@ -60,10 +58,9 @@ void clientReceive(client *socket)
 
 server::server(unsigned short usPort) {
     playingBoard = new Board("server_board");
-    BoardFactory bf(playingBoard, 40);
-    playingBoard = bf.makeBoard();
     this->ssm = playingBoard->getSSM();
     this->ssm->setIsClient(false);
+
     portNum = usPort;
     sockaddr_in serv_addr;
     sockInit();
@@ -199,11 +196,12 @@ client::client(unsigned short usPort, char *addr)
 {
     //error checking for IP address length here
     portNum = usPort;
+
     playingBoard = new Board("client_board");
     this->server_address = addr;
     this->ssm = playingBoard->getSSM();
-    this->ssm->setIsClient(true);
-    string address = addr;  //Define the 
+    this->ssm->setIsClient(true); // flag to indicate this is a client 
+
     sockaddr_in client_addr;
     sockInit();
     //playingBoard = Board("Client_Board");
