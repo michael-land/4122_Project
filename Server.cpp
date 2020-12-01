@@ -16,6 +16,8 @@
 #include <statemachine/States.h>
 #include <Player.h>
 #include <statemachine/StateMachine.h>
+#include <builder/BoardFactory.h>
+
 
 #define PORT 6500
 

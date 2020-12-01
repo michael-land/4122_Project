@@ -2,6 +2,8 @@
 #include <string.h>
 #include <multiplayer/MultiplayerObjects.h>
 #include <statemachine/StateMachine.h>
+#include <builder/BoardFactory.h>
+
 
 //Implementation for Multiplayer Classes
 
@@ -58,6 +60,8 @@ void clientReceive(client *socket)
 
 server::server(unsigned short usPort) {
     playingBoard = new Board("server_board");
+    BoardFactory bf(playingBoard, 40);
+    playingBoard = bf.makeBoard();
     this->ssm = playingBoard->getSSM();
     this->ssm->setIsClient(false);
     portNum = usPort;
