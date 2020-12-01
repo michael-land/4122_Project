@@ -71,4 +71,8 @@ BoardSpace* Board::findSpace(std::string name) {
     }
     return nullptr;
 }
+
+Player* Board::getCurrentPlayer() {
+    return currPlayer;
+}
  

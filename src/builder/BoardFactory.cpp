@@ -46,7 +46,12 @@ Board* BoardFactory::makeBoard() {
     this->makeProperty("Tech Express", 400);
     this->makeProperty("College of Computing", 400);
     this->makeProperty("Klaus Advanced Computing Building", 400);
-    this->makeProperty("Campus Dining", 400);
+    this->makeProperty("McCamish Pavilion", 400);
+    this->makeProperty("Van Leer", 400);
+    this->makeProperty("The Hive", 400);
+    this->makeProperty("Russ Chandler Stadium", 400);
+    this->makeProperty("Tech Towner", 420);
+    this->makeProperty("Bobby Dodd Stadium", 400);
 
 }
 
