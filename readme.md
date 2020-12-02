@@ -85,3 +85,51 @@ void foo::doSomething(bar* b) {
 ```
 
 A similar method is used in bar.h and bar.cpp, not shown.
+
+
+## How to Build on Pace-ICE
+- Environment: Ubuntu Linux
+- Packages Required: OpenGL/freeglut and Core/mesa
+
+- Run the Following Commands for Pace-ICE
+
+```
+module purge
+module load gcc/9.2.0
+module use /storage/home/hcocice1/shared-classes/modules/ lmod/linux-rhel7-x86_64/
+module load Core/mesa Core/mesa-glu
+```
+
+1. Build the Software: Open a Terminal and Run 
+```
+./build.sh
+```
+2. Run the server
+```
+./server
+```
+
+3. Open a new Terminal, Run the client for the first player
+```
+./client
+```
+4. Input the name of the first player as prompted
+
+5. Open a new Terminal, Run the client of the second player
+```
+./client
+```
+
+6. Input the name of the second player as prompted
+
+7. Play the game by pressing the keys described by the menu on the screen
+    - The Menus are as below:
+    ```
+    B: Buy a property
+    S: Sell a property
+    H: Build a house/hotel
+    J: Join a game
+    R: Roll the dice
+    N: End your turn
+    T: Rotate the board
+    ```

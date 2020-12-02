@@ -300,6 +300,7 @@ void drawHotel(int boardSpace)
 /////////////////////////////////////////////////////////////////////////////////////////////////
 void displayMsg(int playerMoney, int spacePrice, std::string &spaceName, std::string &playerID)
 {
+    std::string playIDmsg = GLRenderShared::username + "\n";
     std::string playerTurnMsg = playerID + ", it is your turn";
     std::string playerMsg = "You have $" + std::to_string(playerMoney);
     std::string spaceNameMsg = "You are visiting \"" + spaceName + "\"";
@@ -314,7 +315,7 @@ void displayMsg(int playerMoney, int spacePrice, std::string &spaceName, std::st
         spacePriceMsg += "N/A - cannot own this space";
     }
 
-    std::string fullMsg[] = {playerTurnMsg, playerMsg, spaceNameMsg, spacePriceMsg};
+    std::string fullMsg[] = {playIDmsg, playerTurnMsg, playerMsg, spaceNameMsg, spacePriceMsg};
 
     glMatrixMode(GL_PROJECTION);
 

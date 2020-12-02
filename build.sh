@@ -12,10 +12,10 @@
 
 # g++  -Iinclude/ -lpthread -lGL -lGLU -lglut build/Client.o build/Player.o build/Board.o build/BoardSpace.o build/Property.o build/StateMachine.o build/MultiplayerObjects.o build/BoardFactory.o -o client
 
-g++ -c -Iinclude -lpthread -lGL -lGLU -lglut src/gamerules/Player.cpp src/gamerules/Board.cpp src/gamerules/BoardSpace.cpp src/gamerules/Property.cpp src/builder/BoardFactory.cpp src/multiplayer/MultiplayerObjects.cpp src/statemachine/StateMachine.cpp Server.cpp 
+g++ -c -g -Iinclude -lpthread -lGL -lGLU -lglut src/gamerules/Player.cpp src/gamerules/Board.cpp src/gamerules/BoardSpace.cpp src/gamerules/Property.cpp src/builder/BoardFactory.cpp src/multiplayer/MultiplayerObjects.cpp src/statemachine/StateMachine.cpp Server.cpp 
 g++ -o server Board.o BoardFactory.o BoardSpace.o MultiplayerObjects.o Player.o Property.o StateMachine.o Server.o -lGL -lGLU -lglut -lpthread
 rm *.o
 
-g++ -c -Iinclude -lpthread -lGL -lGLU -lglut src/gamerules/Player.cpp src/gamerules/Board.cpp src/gamerules/BoardSpace.cpp src/gamerules/Property.cpp src/builder/BoardFactory.cpp src/multiplayer/MultiplayerObjects.cpp src/statemachine/StateMachine.cpp Client.cpp 
+g++ -c -g -Iinclude -lpthread -lGL -lGLU -lglut src/gamerules/Player.cpp src/gamerules/Board.cpp src/gamerules/BoardSpace.cpp src/gamerules/Property.cpp src/builder/BoardFactory.cpp src/multiplayer/MultiplayerObjects.cpp src/statemachine/StateMachine.cpp Client.cpp 
 g++ -o client Board.o BoardFactory.o BoardSpace.o MultiplayerObjects.o Player.o Property.o StateMachine.o Client.o -lGL -lGLU -lglut -lpthread
 rm *.o
