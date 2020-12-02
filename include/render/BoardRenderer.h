@@ -2,7 +2,7 @@
 Author: Ruben Quiros
 Additional Author: Zhou Lu
 Class: ECE 4122
-Last Date Modified: 11/28/20
+Last Date Modified: 12/1/20
 
 Description:
     This file used OpenGL and GLUT to draw a Gorgia Tech themed "Monopoly board".
@@ -71,9 +71,6 @@ void init(void){
     glShadeModel(GL_SMOOTH);
     glDepthFunc(GL_LESS);
 
-    // glColor3f(0.0,1.0,0.0);
-    // glutSolidSphere(0.5,20,20);
-
     // THIS SECTION IS FOR THE LIGHTING AND MATERIAL PROPERTIES
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
@@ -85,16 +82,15 @@ void init(void){
     GLfloat light_ambient[] = { 0.6, 0.6, 0.6, 1.0 };
     GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
     GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-    // GLfloat light_position[] = { 0.65, 0.65, 0.65, 0.0 };
 
     glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
     glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-    // glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, colorWhite);
     std::cout << "attempting to set board texture" << std::endl;
+
     // THIS SECTION IS FOR THE BOARD TEXTURE
     inBitmap.read("/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/textures/offwhiteboardTexture.bmp");          // read in bmp/texture files
     std::cout << "after board texture" << std::endl;
@@ -112,111 +108,91 @@ void init(void){
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 
     glBindTexture(GL_TEXTURE_2D, 0);   // unbind the texture
-
-    // glEnable(GL_TEXTURE_2D);
-    //     glBindTexture(GL_TEXTURE_2D, texture[0]);
-
-    //     glBegin(GL_QUADS);
-    //         glTexCoord2f(1, 0);
-    //         glVertex3f(0.0f, 0.0f, 0.0f);
-    //         glTexCoord2f(0, 0);
-    //         glVertex3f(1.3f, 0.0f, 0.0f);
-    //         glTexCoord2f(0, 1);
-    //         glVertex3f(1.3f, 0.0f, 1.3f);
-    //         glTexCoord2f(1, 1);
-    //         glVertex3f(0.0f, 0.0f, 1.3f);
-    //     glEnd();
-
-    // glDisable(GL_TEXTURE_2D);
-
-    // // SET UP PROPERTIES FOR 3D OBJECTS
-    // GLUquadricObj *quadObj;
-    // quadObj = gluNewQuadric();
-    // gluQuadricDrawStyle(quadObj, GLU_FILL);
-    // gluQuadricTexture(quadObj, GL_TRUE);
-    // gluQuadricNormals(quadObj, GLU_SMOOTH);
-
 }   // end of init()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Used to draw a green house on a property
 /////////////////////////////////////////////////////////////////////////////////////////////////
-void drawHouse(float xx, float zz){ // instead it will pass the board position (0-39)
+void drawHouse(int boardSpace, int numHouses){
+    unsigned int rotations = boardSpace / 10;   // int will truncate
+    unsigned int sideSpace = boardSpace % 10;   // offset for the space on the side
+
     glColor3f(0.0, 1.0, 0.0);
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, colorGreen);
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, colorGreen);
 
-    GLUquadricObj *quadObj;
-    quadObj = gluNewQuadric();
-    gluQuadricDrawStyle(quadObj, GLU_FILL);
-    gluQuadricTexture(quadObj, GL_TRUE);
-    gluQuadricNormals(quadObj, GLU_SMOOTH);
-
     glPushMatrix();
-    // glLoadIdentity(); /////////////////////////////// THIS IS THE PROBLEM
-    // glTranslatef(0.65,0.0,0.65);
-    // glutSolidSphere(0.5, 20, 20);
-    // gluCylinder(quadObj, 0.5, 0.5, 0.5, 20, 20);
-    glTranslatef(xx,0.0,zz);
 
-    // glScalef(1.0, 1.0, 3000.0);
-    // glTranslatef(xx,0.0,zz);
+        // this section rotates the required amount of times
+        if(rotations > 0){
+            for(int ii = 0; ii < rotations; ++ii){
+                glTranslatef(1.04, 0.0, 0.0);
+                glRotatef(-90, 0.0, 1.0, 0.0);
+            }
+        }
 
-    // front and back face
-    glBegin(GL_POLYGON);
-        glVertex3f(0.0, 0.0, 0.0);
-        glVertex3f(0.0, 0.03, 0.0);
-        glVertex3f(-0.005, 0.03, 0.0);
-        glVertex3f(0.015, 0.045, 0.0);
-        glVertex3f(0.035, 0.03, 0.0);
-        glVertex3f(0.03, 0.03, 0.0);
-        glVertex3f(0.03, 0.0, 0.0);
-    glEnd();
-    glBegin(GL_POLYGON);
-        glVertex3f(0.0, 0.0, 0.03);
-        glVertex3f(0.0, 0.03, 0.03);
-        glVertex3f(-0.005, 0.03, 0.03);
-        glVertex3f(0.015, 0.045, 0.03);
-        glVertex3f(0.035, 0.03, 0.03);
-        glVertex3f(0.03, 0.03, 0.03);
-        glVertex3f(0.03, 0.0, 0.03);
-    glEnd();
+        for(int offset = 0; offset < numHouses; ++offset){
+            glPushMatrix();
+            glTranslatef(((float)(sideSpace - 1))*0.083 + 0.144 + (((float)offset)*0.022), 0.0, 0.144 - 0.03);
 
-    // floor
-    glBegin(GL_QUADS);
-        glVertex3f(0.0, 0.0, 0.0);
-        glVertex3f(0.03, 0.0, 0.0);
-        glVertex3f(0.03, 0.0, 0.03);
-        glVertex3f(0.0, 0.0, 0.03);
-    glEnd();
+            // front and back face
+            glBegin(GL_POLYGON);
+                glVertex3f(0.0, 0.0, 0.0);
+                glVertex3f(0.0, 0.02, 0.0);
+                glVertex3f(-0.0025, 0.02, 0.0);
+                glVertex3f(0.0075, 0.03, 0.0);
+                glVertex3f(0.0175, 0.02, 0.0);
+                glVertex3f(0.015, 0.02, 0.0);
+                glVertex3f(0.015, 0.0, 0.0);
+            glEnd();
+            glBegin(GL_POLYGON);
+                glVertex3f(0.0, 0.0, 0.03);
+                glVertex3f(0.0, 0.02, 0.03);
+                glVertex3f(-0.0025, 0.02, 0.03);
+                glVertex3f(0.0075, 0.03, 0.03);
+                glVertex3f(0.0175, 0.02, 0.03);
+                glVertex3f(0.015, 0.02, 0.03);
+                glVertex3f(0.015, 0.0, 0.03);
+            glEnd();
 
-    // walls
-    glBegin(GL_QUADS);
-        glVertex3f(0.0, 0.0, 0.0);
-        glVertex3f(0.0, 0.03, 0.0);
-        glVertex3f(0.0, 0.03, 0.03);
-        glVertex3f(0.0, 0.0, 0.03);
-    glEnd();
-    glBegin(GL_QUADS);
-        glVertex3f(0.03, 0.0, 0.0);
-        glVertex3f(0.03, 0.03, 0.0);
-        glVertex3f(0.03, 0.03, 0.03);
-        glVertex3f(0.03, 0.0, 0.03);
-    glEnd();
+            // floor
+            glBegin(GL_QUADS);
+                glVertex3f(0.0, 0.0, 0.0);
+                glVertex3f(0.015, 0.0, 0.0);
+                glVertex3f(0.015, 0.0, 0.03);
+                glVertex3f(0.0, 0.0, 0.03);
+            glEnd();
 
-    // roof
-    glBegin(GL_QUADS);
-        glVertex3f(-0.005, 0.03, 0.0);
-        glVertex3f(-0.005, 0.03, 0.03);
-        glVertex3f(0.015, 0.045, 0.03);
-        glVertex3f(0.015, 0.045, 0.0);
-    glEnd();
-    glBegin(GL_QUADS);
-        glVertex3f(0.035, 0.03, 0.0);
-        glVertex3f(0.035, 0.03, 0.03);
-        glVertex3f(0.015, 0.045, 0.03);
-        glVertex3f(0.015, 0.045, 0.0);
-    glEnd();
+            // walls
+            glBegin(GL_QUADS);
+                glVertex3f(0.0, 0.0, 0.0);
+                glVertex3f(0.0, 0.02, 0.0);
+                glVertex3f(0.0, 0.02, 0.03);
+                glVertex3f(0.0, 0.0, 0.03);
+            glEnd();
+            glBegin(GL_QUADS);
+                glVertex3f(0.015, 0.0, 0.0);
+                glVertex3f(0.015, 0.02, 0.0);
+                glVertex3f(0.015, 0.02, 0.03);
+                glVertex3f(0.015, 0.0, 0.03);
+            glEnd();
+
+            // roof
+            glBegin(GL_QUADS);
+                glVertex3f(-0.0025, 0.02, 0.0);
+                glVertex3f(-0.0025, 0.02, 0.03);
+                glVertex3f(0.0075, 0.03, 0.03);
+                glVertex3f(0.0075, 0.03, 0.0);
+            glEnd();
+            glBegin(GL_QUADS);
+                glVertex3f(0.0175, 0.02, 0.0);
+                glVertex3f(0.0175, 0.02, 0.03);
+                glVertex3f(0.0075, 0.03, 0.03);
+                glVertex3f(0.0075, 0.03, 0.0);
+            glEnd();
+
+            glPopMatrix();
+        }   // end of for loop
 
     glPopMatrix();
 }   // end of drawHouse()
@@ -224,88 +200,7 @@ void drawHouse(float xx, float zz){ // instead it will pass the board position (
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Used to draw a red hotel on a property
 /////////////////////////////////////////////////////////////////////////////////////////////////
-void drawHotel(float xx, float zz){ // instead it will pass the board position (0-39)
-    glColor3f(1.0, 0.0, 0.0);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, colorRed);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, colorRed);
-
-    GLUquadricObj *quadObj;
-    quadObj = gluNewQuadric();
-
-    glPushMatrix();
-    // glLoadIdentity(); /////////////////////////////// THIS IS THE PROBLEM
-    // glTranslatef(0.65,0.0,0.65);
-    // glutSolidSphere(0.5, 20, 20);
-    // gluCylinder(quadObj, 0.5, 0.5, 0.5, 20, 20);
-    glTranslatef(xx,0.0,zz);
-
-    // glScalef(1.0, 1.0, 3000.0);
-    // glTranslatef(xx,0.0,zz);
-
-    // front and back face
-    glBegin(GL_POLYGON);
-        glVertex3f(0.0, 0.0, 0.0);
-        glVertex3f(0.0, 0.03, 0.0);
-        glVertex3f(-0.005, 0.03, 0.0);
-        glVertex3f(0.015, 0.045, 0.0);
-        glVertex3f(0.035, 0.03, 0.0);
-        glVertex3f(0.03, 0.03, 0.0);
-        glVertex3f(0.03, 0.0, 0.0);
-    glEnd();
-    glBegin(GL_POLYGON);
-        glVertex3f(0.0, 0.0, 0.06);
-        glVertex3f(0.0, 0.03, 0.06);
-        glVertex3f(-0.005, 0.03, 0.06);
-        glVertex3f(0.015, 0.045, 0.06);
-        glVertex3f(0.035, 0.03, 0.06);
-        glVertex3f(0.03, 0.03, 0.06);
-        glVertex3f(0.03, 0.0, 0.06);
-    glEnd();
-
-    // floor
-    glBegin(GL_QUADS);
-        glVertex3f(0.0, 0.0, 0.0);
-        glVertex3f(0.03, 0.0, 0.0);
-        glVertex3f(0.03, 0.0, 0.06);
-        glVertex3f(0.0, 0.0, 0.06);
-    glEnd();
-
-    // walls
-    glBegin(GL_QUADS);
-        glVertex3f(0.0, 0.0, 0.0);
-        glVertex3f(0.0, 0.03, 0.0);
-        glVertex3f(0.0, 0.03, 0.06);
-        glVertex3f(0.0, 0.0, 0.06);
-    glEnd();
-    glBegin(GL_QUADS);
-        glVertex3f(0.03, 0.0, 0.0);
-        glVertex3f(0.03, 0.03, 0.0);
-        glVertex3f(0.03, 0.03, 0.06);
-        glVertex3f(0.03, 0.0, 0.06);
-    glEnd();
-
-    // roof
-    glBegin(GL_QUADS);
-        glVertex3f(-0.005, 0.03, 0.0);
-        glVertex3f(-0.005, 0.03, 0.06);
-        glVertex3f(0.015, 0.045, 0.06);
-        glVertex3f(0.015, 0.045, 0.0);
-    glEnd();
-    glBegin(GL_QUADS);
-        glVertex3f(0.035, 0.03, 0.0);
-        glVertex3f(0.035, 0.03, 0.06);
-        glVertex3f(0.015, 0.045, 0.06);
-        glVertex3f(0.015, 0.045, 0.0);
-    glEnd();
-
-    glPopMatrix();
-}   // end of drawHouse()
-
-/////////////////////////////////////////////////////////////////////////////////////////////////
-// Used to draw a red hotel on a property
-/////////////////////////////////////////////////////////////////////////////////////////////////
-void drawHotel(int boardSpace)
-{
+void drawHotel(int boardSpace){
     unsigned int rotations = boardSpace / 10;   // int will truncate
     unsigned int sideSpace = boardSpace % 10;   // offset for the space on the side
 
@@ -389,103 +284,23 @@ void drawHotel(int boardSpace)
     glPopMatrix();
 }   // end of drawHotel()
 
-
-/////////////////////////////////////////////////////////////////////////////////////////////////
-// Used to draw a green house on a property
-/////////////////////////////////////////////////////////////////////////////////////////////////
-void drawHouse(int boardSpace, int numHouses){
-    unsigned int rotations = boardSpace / 10;   // int will truncate
-    unsigned int sideSpace = boardSpace % 10;   // offset for the space on the side
-
-    glColor3f(0.0, 1.0, 0.0);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, colorGreen);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, colorGreen);
-
-    glPushMatrix();
-
-        // this section rotates the required amount of times
-        if(rotations > 0){
-            for(int ii = 0; ii < rotations; ++ii){
-                glTranslatef(1.04, 0.0, 0.0);
-                glRotatef(-90, 0.0, 1.0, 0.0);
-            }
-        }
-
-        //this section draws the required number of houses, 1 - 4
-        for(int offset = 0; offset < numHouses; ++offset){
-
-            glPushMatrix();
-
-            glTranslatef(((float)(sideSpace - 1))*0.083 + 0.144 + (((float)offset)*0.022), 0.0, 0.144 - 0.03);
-
-            // front and back face
-            glBegin(GL_POLYGON);
-                glVertex3f(0.0, 0.0, 0.0);
-                glVertex3f(0.0, 0.02, 0.0);
-                glVertex3f(-0.0025, 0.02, 0.0);
-                glVertex3f(0.0075, 0.03, 0.0);
-                glVertex3f(0.0175, 0.02, 0.0);
-                glVertex3f(0.015, 0.02, 0.0);
-                glVertex3f(0.015, 0.0, 0.0);
-            glEnd();
-            glBegin(GL_POLYGON);
-                glVertex3f(0.0, 0.0, 0.03);
-                glVertex3f(0.0, 0.02, 0.03);
-                glVertex3f(-0.0025, 0.02, 0.03);
-                glVertex3f(0.0075, 0.03, 0.03);
-                glVertex3f(0.0175, 0.02, 0.03);
-                glVertex3f(0.015, 0.02, 0.03);
-                glVertex3f(0.015, 0.0, 0.03);
-            glEnd();
-
-            // floor
-            glBegin(GL_QUADS);
-                glVertex3f(0.0, 0.0, 0.0);
-                glVertex3f(0.015, 0.0, 0.0);
-                glVertex3f(0.015, 0.0, 0.03);
-                glVertex3f(0.0, 0.0, 0.03);
-            glEnd();
-
-            // walls
-            glBegin(GL_QUADS);
-                glVertex3f(0.0, 0.0, 0.0);
-                glVertex3f(0.0, 0.02, 0.0);
-                glVertex3f(0.0, 0.02, 0.03);
-                glVertex3f(0.0, 0.0, 0.03);
-            glEnd();
-            glBegin(GL_QUADS);
-                glVertex3f(0.015, 0.0, 0.0);
-                glVertex3f(0.015, 0.02, 0.0);
-                glVertex3f(0.015, 0.02, 0.03);
-                glVertex3f(0.015, 0.0, 0.03);
-            glEnd();
-
-            // roof
-            glBegin(GL_QUADS);
-                glVertex3f(-0.0025, 0.02, 0.0);
-                glVertex3f(-0.0025, 0.02, 0.03);
-                glVertex3f(0.0075, 0.03, 0.03);
-                glVertex3f(0.0075, 0.03, 0.0);
-            glEnd();
-            glBegin(GL_QUADS);
-                glVertex3f(0.0175, 0.02, 0.0);
-                glVertex3f(0.0175, 0.02, 0.03);
-                glVertex3f(0.0075, 0.03, 0.03);
-                glVertex3f(0.0075, 0.03, 0.0);
-            glEnd();
-
-            glPopMatrix();
-        }   // end of for loop
-
-    glPopMatrix();
-}   // end of drawHouse()
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Used to display the current message on the screen
 /////////////////////////////////////////////////////////////////////////////////////////////////
-void displayMsg(string& message){
-    screenMsg = message;    // update the global message
+void displayMsg(int playerMoney, int spacePrice, std::string& spaceName){
+    std::string playerMsg = "You have $" + std::to_string(playerMoney);
+    std::string spaceNameMsg = "You are visiting \"" + spaceName + "\"";
+    std::string spacePriceMsg = "Cost of this space: $";
+
+    if(spacePrice > 0){
+        spacePriceMsg += std::to_string(spacePrice);
+    }
+    else{
+        spacePriceMsg += "N/A - cannot own this space";
+    }
+
+    std::string fullMsg[] = {playerMsg, spaceNameMsg, spacePriceMsg};
+
     glMatrixMode(GL_PROJECTION);
 
     glPushMatrix();
@@ -496,10 +311,14 @@ void displayMsg(string& message){
         glPushMatrix();
             glLoadIdentity();
             glColor3f(1.0, 1.0, 1.0);   // white text
-            glRasterPos2i(0.45*screenWidth, 0.85*screenHeight); // this is approximately top/center of the screen
+            float offset = 0.0;
+            for(const std::string line : fullMsg){
+                glRasterPos2i(0.45*screenWidth, 0.80*screenHeight - offset*screenHeight); // this is approximately top/center of the screen
+                offset += 0.03;
 
-            for(const char character : message){
-                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, character);   // loop through all chars in message
+                for(const char character : line){
+                    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, character);   // loop through all chars in message
+                }
             }
         glPopMatrix();
 
@@ -508,7 +327,6 @@ void displayMsg(string& message){
 
     glMatrixMode(GL_MODELVIEW);
 }   // end of displayMsg()
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Used to Get the board coordinates from the space ID.
@@ -769,9 +587,11 @@ void reshape(int w, int h){
 void keyboard(unsigned char key, int x, int y){
     Board* boardPointer = GLRenderShared::board;
 	client* cli = GLRenderShared::cli;
+
     playerMove outMsg;
     outMsg.playerID = GLRenderShared::username;
     outMsg.movePosition = 0;
+    std::cout << "username: " << GLRenderShared::username << std::endl;
     switch (key) {
         case 'b':
         case 'B':
@@ -797,9 +617,10 @@ void keyboard(unsigned char key, int x, int y){
             // because houses/hotels might disappear
             glutPostRedisplay();
             break;
+
         case 'h':
         case 'H':
-            // send message that you want to buy a house
+            // send message that you want to upgrade
             // technically a player can buy multiple houses in a row
             outMsg.moveType = 'h';
             outMsg.playerRoll = 0;
@@ -808,6 +629,7 @@ void keyboard(unsigned char key, int x, int y){
 
             glutPostRedisplay();
             break;
+
         case 'j':
         case 'J':
             // send message that you want to buy a hotel
@@ -816,10 +638,10 @@ void keyboard(unsigned char key, int x, int y){
             outMsg.playerRoll = 0;
             cli->sendToServer(outMsg);
 
-
             glutPostRedisplay();
             break;
-        case 'r':
+
+        case 'r': // roll dice
         case 'R':
             // send message that your turn is over
             // board object should be updated here before being redrawn
@@ -829,6 +651,7 @@ void keyboard(unsigned char key, int x, int y){
 
             glutPostRedisplay();
             break;
+
         case 'n':
         case 'N':
             // send message that your turn is over
@@ -839,6 +662,7 @@ void keyboard(unsigned char key, int x, int y){
 
             glutPostRedisplay();
             break;
+
         case 't':
         case 'T':
             // change camera angle

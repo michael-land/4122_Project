@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
 
     initMsg.moveType = 'X';
     initMsg.playerID = serverIP; // needs to be client's IP address
-    initMsg.playerRoll = NULL;
+    initMsg.playerRoll = 0;
 
 	cout << "before client init" << endl;
 

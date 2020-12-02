@@ -19,6 +19,7 @@ void StateMachine::setIsClient(bool isClient) {
 
 bool StateMachine::input(playerMove inMsg) { // pass message in here
     bool flag;
+    std::cout << "inputs" << std::endl;
     switch(inMsg.moveType) {
         case 'b':
         case 'B':
@@ -49,7 +50,7 @@ bool StateMachine::input(playerMove inMsg) { // pass message in here
         case 'J':
 		flag = processJoin(inMsg);
         break;
-        
+
 		default:
         flag = false;
         break;

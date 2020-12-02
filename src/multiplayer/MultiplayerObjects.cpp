@@ -27,7 +27,15 @@ void serverReceive(server *socket)
             std::cout << "Message from client recieved" << std::endl;
             socket->addSource(from);
             std::cout << "adding to source!" << std::endl;
-            socket->ssm->input(inMsg); //Passes the message through the state machine
+            StateMachine* sm = socket->ssm;
+            std::cout << "got the sm" << std::endl;
+            if (!sm) {
+                std::cout << "nullptr" << std::endl;
+            }
+			cout << "move pos " <<  inMsg.movePosition << endl;
+			cout << "username: " << inMsg.playerID << endl;
+
+			// sm->input(inMsg); //Passes the message through the state machine
             std::cout << "updated statemachine" << std::endl;
         } 
     } while (true);
