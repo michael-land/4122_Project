@@ -3,6 +3,7 @@
 #include <gamerules/Property.h>
 #include <multiplayer/MultiplayerObjects.h>
 #include <GL/glut.h>
+#include <iostream>
 
 StateMachine::StateMachine() {
     this->state = States::GAME_SETUP;
@@ -44,9 +45,11 @@ bool StateMachine::input(playerMove inMsg) { // pass message in here
         flag = processEndTurn();
         break;
 
-        case 'X':
+        case 'j':
+        case 'J':
 		flag = processJoin(inMsg);
-
+        break;
+        
 		default:
         flag = false;
         break;
@@ -112,7 +115,8 @@ bool StateMachine::processEndTurn() {
 	return false;
 }
 
-bool StateMachine::processJoin(playerMove inMsg) { // a join is represented by the "J" character, although that isn't necessarily a keyboard option.    
+bool StateMachine::processJoin(playerMove inMsg) { // a join is represented by the "J" character, although that isn't necessarily a keyboard option.
+    std::cout << "Player Joining!" << std::endl;    
     if (state != States::GAME_SETUP) {
         return false;
     }

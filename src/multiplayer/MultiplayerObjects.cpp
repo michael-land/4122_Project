@@ -26,7 +26,9 @@ void serverReceive(server *socket)
         else {
             std::cout << "Message from client recieved" << std::endl;
             socket->addSource(from);
+            std::cout << "adding to source!" << std::endl;
             socket->ssm->input(inMsg); //Passes the message through the state machine
+            std::cout << "updated statemachine" << std::endl;
         } 
     } while (true);
 }
