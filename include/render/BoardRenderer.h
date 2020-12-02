@@ -28,6 +28,7 @@ SPECIAL NOTE:
 #include <gamerules/Property.h>
 #include <multiplayer/MultiplayerObjects.h>
 #include <random>
+#include <chrono>
 
 using namespace std;
 
@@ -616,12 +617,16 @@ void keyboard(unsigned char key, int x, int y)
     Board *boardPointer = GLRenderShared::board;
     client *cli = GLRenderShared::cli;
     uniform_int_distribution<int> dice_distro(1, 12);  // distribution of ints from 1 to 12
-	default_random_engine generator; // RNG engine 
+    unsigned int seed = chrono::high_resolution_clock::now().time_since_epoch().count();
+	default_random_engine generator(seed); // RNG engine
 
     playerMove outMsg;
-    // outMsg.playerID = GLRenderShared::username.c_str();
-    outMsg.movePosition = 0;
-    std::cout << "username: " << GLRenderShared::username << std::endl;
+    if (!boardPointer) {
+        outMsg.movePosition = 0;
+    } else {
+        outMsg.movePosition = boardPointer->getCurrentPlayer()->getSpace()->getSpaceID();
+    }
+    // std::cout << "username: " << GLRenderShared::username << std::endl;
     strcpy(outMsg.playerID, GLRenderShared::username.c_str());
     switch (key)
     {

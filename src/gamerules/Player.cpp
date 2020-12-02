@@ -36,7 +36,7 @@ void Player::takeMoney(long loss)
 //Moves the players position by numSpaces
 void Player::movePlayer(int numSpaces)
 {
-    BoardSpace *tmp;
+    BoardSpace *tmp = this->boardSpace;
     for (int i = 0; i < numSpaces; i++)
     {
         tmp = tmp->getNextSpace();

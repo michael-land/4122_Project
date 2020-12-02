@@ -135,8 +135,11 @@ bool StateMachine::processRollDice(int numSpaces)
     {
         return false;
     }
+    std::cout << "rolling the dice" << std::endl;
     Player *currPlayer = board->getCurrentPlayer();
-    currPlayer->movePlayer(numSpaces);
+	std::cout << "got current player" << std::endl;
+	currPlayer->movePlayer(numSpaces);
+	std::cout << "moved player" << std::endl;
     state = States::UPDATE_BOARD;
     return true;
 }
@@ -231,6 +234,7 @@ bool StateMachine::execOutputs(playerMove inMsg, bool flag)
     if (state == States::UPDATE_BOARD)
     {
         Player *currPlayer = board->getCurrentPlayer();
+        std::cout << "got current player" << std::endl;
         if (flag)
         { // if flag is true, valid move.  process based on client or server
             if (isClient)
