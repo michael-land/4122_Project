@@ -336,16 +336,7 @@ void client::error(const char *msg)
 void client::addSource(const sockaddr_in &from)
 {
     bool bIsPresent = false;
-    // Iterate through list check is already present
-    for (auto i : sources)
-    {
-        if (memcmp(&i, &from, sizeof(sockaddr_in)) == 0) //Compare blocks of memory
-            bIsPresent = true;                           //If that block of memory contains the sockaddr_in then flip the bool
-    }
-    if (!bIsPresent)
-    {
-        sources.push_back(from); //Insert the sockaddr_in if it is not in the list
-    }
+    sources = from;
     // Iterate through list check is already present
 }
 
