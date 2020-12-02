@@ -1,3 +1,10 @@
+/*
+Authors: Christopher Kennedy, Jackson Stanhope, Jim O'Donnell, Michael Zhou Lu, Ruben Quiros, and Shelby Crisp 
+Class: ECE 4122
+Last Date Modified: 12/1/20
+Description:
+This is the header file the lcient state machine. 
+*/
 #include <statemachine/States.h>
 
 #ifndef CSM_H
@@ -5,12 +12,12 @@
 
 class ClientStateMachine {
     private:
-    States state;
+    States state;   //Holds a state for the client state machine
 
     public:
-    States getCurrentState();
-    void input(int);
-    void execOutputs();
+    States getCurrentState();   //Returns the current state for that client
+    void input(int);    //Adds an int input to the state
+    void execOutputs(); //Executes the outputs for that state
 };
 
 #endif
