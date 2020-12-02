@@ -3,13 +3,14 @@ Authors: Christopher Kennedy, Jackson Stanhope, Jim O'Donnell, Michael Zhou Lu, 
 Class: ECE 4122
 Last Date Modified: 12/1/20
 Description:
-This is the header file the lcient state machine. 
+This is the header file the client state machine. 
 */
 #include <statemachine/States.h>
 
 #ifndef CSM_H
 #define CSM_H
 
+//Clients state machine 
 class ClientStateMachine {
     private:
     States state;   //Holds a state for the client state machine

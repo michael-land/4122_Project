@@ -1,3 +1,11 @@
+/*
+Authors: Christopher Kennedy, Jackson Stanhope, Jim O'Donnell, Michael Zhou Lu, Ruben Quiros, and Shelby Crisp 
+Class: ECE 4122
+Last Date Modified: 12/1/20
+
+Description:
+This is the file that defines the functionality for the client main program.
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -19,67 +27,43 @@
 
 // Driver code
 int main(int argc, char** argv) {
-    // char hostbuffer[256];
-    // char *IPbuffer;
-    // struct hostent *host_entry;
-    // int hostname;
-    // int turnCounter;
-    // hostname = gethostname(hostbuffer, sizeof(hostbuffer));
-    // checkHostName(hostname);
-    /*  --> IS ANY OF THIS NECESSARY FOR THE CLIENT?
-    char hostbuffer[256];
-    char* IPbuffer;
-    struct hostent* host_entry;
-    int hostname;
-    int turnCounter;
-
-    // To retrieve hostname
-    hostname = gethostname(hostbuffer, sizeof(hostbuffer));
-    checkHostName(hostname);
-
-    // To retrieve host information
-    host_entry = gethostbyname(hostbuffer);
-    checkHostEntry(host_entry);
-
-    // To convert an Internet network
-    // address into ASCII string
-    IPbuffer = inet_ntoa(*((struct in_addr*)host_entry->h_addr_list[0]));
-    std::cout << IPbuffer << std::endl;
-    */    
-
-    // user inputs the IP address of the server?
-    // include port number AND ip address for new player comparison
 
     std::string serverIP;
-    std::string username;
+    std::string un;
     std::cout << "IP address of server: ";
     std::cin >> serverIP;
 
     std::cout << "Please pick a 4 digit username: ";
-    std::cin >> username;
+    std::cin >> un;
 
-    while (username.length() > 4) {
+    while (un.length() > 4) {
 		cout << "Incorrect length.  Please pick a 4 digit username.";
-		cin >> username;
+		cin >> un;
 	}
 
-    playerMove initMsg;
-    strcpy(initMsg.playerID, username.c_str());
-    initMsg.moveType = 'J';
-    initMsg.playerRoll = 0;
+    // playerMove initMsg;
+    // strcpy(initMsg.playerID, username.c_str());
+    // initMsg.moveType = 'J';
+    // initMsg.playerRoll = 0;
 
-	cout << "before client init" << endl;
-
+	// cout << "before client init" << endl;
+    GLRenderShared::username = un;
 	client *GameClient = new client(PORT, serverIP.c_str() );
     // GLRenderShared::username = username;
-    cout << "after client initialized" << endl;
+    // cout << "after client initialized" << endl;
     GLRenderShared::cli = GameClient;
-    setup(argc, argv); // openGL setup
+    // setup(argc, argv); // openGL setup
+    std::thread openGLThread(setup, argc, argv);
     bool gameStarted = false;
     while (GameClient->getSSM()->getCurrentState() != States::GAME_EXIT) {
-        if (GameClient->getSSM()->getCurrentState() != States::GAME_SETUP && !gameStarted) {
+        // std::cout << "in whileloop" << std::endl;
+        // std::cout << GameClient->getSSM()->getCurrentState() << std::endl;
+        if ((GameClient->getSSM()->getCurrentState() != States::GAME_SETUP) & !gameStarted) {
+            // std::cout << "client game started" << std::endl;
             GLRenderShared::board = GameClient->getPlayingBoard();
+            glutPostRedisplay();
             gameStarted = true;
         }
-    };
+    }
+    std::cout << "Client exited" << std::endl;
 }

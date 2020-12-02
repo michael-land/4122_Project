@@ -1,11 +1,18 @@
+/*
+Authors: Christopher Kennedy, Jackson Stanhope, Jim O'Donnell, Michael Zhou Lu, Ruben Quiros, and Shelby Crisp 
+Class: ECE 4122
+Last Date Modified: 12/1/20
+Description:
+This is the implementation for the client and server classes function. A lot of the core of our code was taken from the skeleton code provided in lab 5. 
+*/
 #include <iostream>
 #include <string.h>
 #include <multiplayer/MultiplayerObjects.h>
 #include <statemachine/StateMachine.h>
 #include <builder/BoardFactory.h>
 #include <stdlib.h>
-//Implementation for Multiplayer Classes
 
+//Implementation for Multiplayer Classes
 //Function that recieves player moves from
 
 using namespace std;
@@ -210,6 +217,14 @@ void server::addSource(const sockaddr_in &from)
     if (!bIsPresent)
     {
         sources.push_back(from); //Insert the sockaddr_in if it is not in the list
+    }
+}
+
+void server::retroJoin() {
+    std::cout << "sending a retro join msg" << std::endl;
+    for (std::vector<playerMove>::iterator it = joinedPlayersMsg.begin(); it < joinedPlayersMsg.end(); it++) {
+        std::cout << "here" << std::endl;
+        sendToClient(*it);
     }
 }
 

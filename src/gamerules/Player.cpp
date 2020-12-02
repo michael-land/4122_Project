@@ -16,7 +16,7 @@ This is the file that defines the functionality for the Player class.
 Player::Player(std::string name, Board *board)
 {
     this->name = name;
-    this->money = 2000;
+    this->money = 1500;
     this->board = board;
     this->boardSpace = board->getHead();
 }

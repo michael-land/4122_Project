@@ -52,19 +52,9 @@ struct playerInfo
 struct playerMove // CLIENT TO SERVER
 {
     char playerID[5]; //ID that tells the server which turn is which
-    // unsigned char moveChoice;    //Selects which move
 	int movePosition;  // space ID
 	unsigned char moveType;  //Determines the move type
     unsigned int playerRoll; // the number that the player rolled
-};
-
-//Message sent to the player
-struct boardInfo // SERVER TO CLIENT
-{
-    bool moveStatus;       //If move is feasible or not  (true or false)
-    std::string playerID; //Identifier for the player IP
-    int movePosition;     //Identifer for where this player moved to
-    unsigned char moveType;         //The type of move that was selected(ex: Buy, Next turn, etc.)
 };
 
 //Class defined for each player
@@ -82,6 +72,8 @@ public:
     void error(const char *msg);	//Used for error handling 
     int m_sockfd; //Integer that stores the socket num
     StateMachine* getSSM();	//Returns a pointer to the statemachine
+    std::vector<playerMove> joinedPlayersMsg;
+    void retroJoin();
 
     friend void serverReceive(server *socket);	//Friend function to recieve server info
 
