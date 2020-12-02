@@ -51,7 +51,7 @@ struct playerInfo
 //Determines the move that each player makes
 struct playerMove // CLIENT TO SERVER
 {
-    std::string playerID; //ID that tells the server which turn is which
+    char playerID[5]; //ID that tells the server which turn is which
     // unsigned char moveChoice;    //Selects which move
 	int movePosition;  // space ID
 	unsigned char moveType;  //Determines the move type

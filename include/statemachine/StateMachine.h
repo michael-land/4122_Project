@@ -38,6 +38,7 @@ class StateMachine {
     void setIsClient(bool);	//Tells the statemachine whether it is a client or not
     server* getServer();	//Returns a pointer to the server
     void setServer(server*);	//Sets the server based on a pointer input
+    void setBoard(Board*);
     
 
 };

@@ -1,3 +1,11 @@
+/*
+Authors: Christopher Kennedy, Jackson Stanhope, Jim O'Donnell, Michael Zhou Lu, Ruben Quiros, and Shelby Crisp 
+Class: ECE 4122
+Last Date Modified: 12/1/20
+
+Description:
+This is the file that defines the functionality for the basic state machine class.
+*/
 #include <statemachine/StateMachine.h>
 #include <gamerules/Board.h>
 #include <gamerules/Property.h>
@@ -5,18 +13,22 @@
 #include <GL/glut.h>
 #include <iostream>
 
+//Default constructor for the statemachine 
 StateMachine::StateMachine() {
     this->state = States::GAME_SETUP;
 }
 
+//Returns the current state of the state machine 
 States StateMachine::getCurrentState() const {
     return this->state;
 }
 
+//Sets the statemachine to handle a client
 void StateMachine::setIsClient(bool isClient) {
     this->isClient = isClient;
 }
 
+//Handles input and returns false if it fails to handle an input message
 bool StateMachine::input(playerMove inMsg) { // pass message in here
     bool flag;
     std::cout << "inputs" << std::endl;
@@ -121,17 +133,31 @@ bool StateMachine::processJoin(playerMove inMsg) { // a join is represented by t
     if (state != States::GAME_SETUP) {
         return false;
     }
+    
     auto playerVec = board->getPlayers();
-    std::string str(inMsg.playerID);
+    std::cout << "got players" << std::endl;
+    // std::string str(inMsg.playerID);
     bool exists;
-    for (std::vector<Player*>::iterator it = playerVec.begin(); it < playerVec.end(); it++) {        
-        if ((*it)->getName() == str){
-            exists = true;
-        }
-    }    
+    if (playerVec.size() != 0) {
+        for (std::vector<Player*>::iterator it = playerVec.begin(); it < playerVec.end(); it++) {        
+            if ((*it)->getName() == inMsg.playerID){
+                exists = true;
+            }
+            else {
+				exists = false;
+			 }
+		}
+    } else {
+        exists = false;
+    }
     if (!exists) {
-        Player* newPlayer = new Player(str, this->board);
+        std::cout << "new player sent a message" << std::endl;
+        Player* newPlayer = new Player(inMsg.playerID, this->board);
         this->board->addPlayer(newPlayer);
+        std::cout << "player joined the battle" << std::endl;
+        if (playerVec.size() == 1) {
+            board->setCurrPlayer(newPlayer);
+        }
         return true;
     }
     return false;
@@ -158,7 +184,7 @@ bool StateMachine::processUpgrade() {
 }
 
 bool StateMachine::execOutputs(playerMove inMsg, bool flag) {  // FIX MESSAGES HERE (playerMove)
-    playerMove outMsg;
+    
     if (state == States::UPDATE_BOARD) {
         Player *currPlayer = board->getCurrentPlayer();        
         if (flag) { // if flag is true, valid move.  process based on client or server
@@ -166,10 +192,12 @@ bool StateMachine::execOutputs(playerMove inMsg, bool flag) {  // FIX MESSAGES H
                 glutPostRedisplay();
             }
             else { 
+                std::cout << "valid move" << std::endl;
                 this->serv->sendToClient(inMsg);
             }
         }
         else { 
+            std::cout << "invalid move" << std::endl;
             inMsg.moveType = 0; // invalid move.
             this->serv->sendToClient(inMsg);
         }
@@ -180,14 +208,18 @@ bool StateMachine::execOutputs(playerMove inMsg, bool flag) {  // FIX MESSAGES H
             state = States::USER_INPUT;
         }
 
-        } else if (state == States::GAME_SETUP) {
+    } else if (state == States::GAME_SETUP) {
         if (board->checkForStartCond()) {  // need to write check for start conditions function
+            std::cout << "starting game" << std::endl;
             state = States::USER_INPUT;
             board->setCurrPlayer(board->getPlayers().at(0));
         } else {
             state = States::GAME_SETUP;
         }
-        this->serv->sendToClient(outMsg);
+        if (!isClient) {
+            std::cout << "sending same message" << std::endl;
+            this->serv->sendToClient(inMsg);
+        }   
     }
     return true;
 }
@@ -195,5 +227,7 @@ bool StateMachine::execOutputs(playerMove inMsg, bool flag) {  // FIX MESSAGES H
 server *StateMachine::getServer() { return serv; }
 
 void StateMachine::setServer(server* serv) { this->serv = serv; }
+
+void StateMachine::setBoard(Board* board) { this->board = board;}
 
 StateMachine::~StateMachine() { };

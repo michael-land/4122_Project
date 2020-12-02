@@ -1,50 +1,74 @@
+/*
+Authors: Christopher Kennedy, Jackson Stanhope, Jim O'Donnell, Michael Zhou Lu, Ruben Quiros, and Shelby Crisp 
+Class: ECE 4122
+Last Date Modified: 12/1/20
+
+Description:
+This is the file that is used to implement the boardspace object.
+*/
+
 #include <gamerules/BoardSpace.h>
 #include <gamerules/Player.h>
 
-BoardSpace::BoardSpace(std::string name) {
+//This is the constructor for the board space
+BoardSpace::BoardSpace(std::string name)
+{
     this->name = name;
 }
 
-std::string BoardSpace::getName() const {
+//This function returns the name for that board
+std::string BoardSpace::getName() const
+{
     return name;
 }
 
-void BoardSpace::setName(const std::string& name) {
-    this-> name = name;
+//This function is passed a string that sets the name for that board space
+void BoardSpace::setName(const std::string &name)
+{
+    this->name = name;
 }
 
-BoardSpace* BoardSpace::getNextSpace() const {
+//Returns the next board space
+BoardSpace *BoardSpace::getNextSpace() const
+{
     return nextSpace;
 }
 
-BoardSpace* BoardSpace::getPrevSpace() const {
+//Returns the previous space from the current board space
+BoardSpace *BoardSpace::getPrevSpace() const
+{
     return prevSpace;
 }
 
-void BoardSpace::setNextSpace(BoardSpace* nextSpace) {
+//Sets the next space with the boardspace pointer being passed
+void BoardSpace::setNextSpace(BoardSpace *nextSpace)
+{
     this->nextSpace = nextSpace;
 }
 
-void BoardSpace::setPrevSpace(BoardSpace* prevSpace) {
+//Sets the previous space with the board space pointer
+void BoardSpace::setPrevSpace(BoardSpace *prevSpace)
+{
     this->prevSpace = prevSpace;
 }
 
-int BoardSpace::getSpaceID() const {
+//Returns the space ID for a given boardspace
+int BoardSpace::getSpaceID() const
+{
     return spaceID;
 }
 
-void BoardSpace::setSpaceID(const int& id) {
+//Sets the space ID for a give Space
+void BoardSpace::setSpaceID(const int &id)
+{
     spaceID = id;
 }
 
-
-BoardSpace::~BoardSpace() {
-
-};
-
-void BoardSpace::placeholder() {
+//Destructor for the boardspace object
+BoardSpace::~BoardSpace(){
 
 };
 
+void BoardSpace::placeholder(){
 
-
+};

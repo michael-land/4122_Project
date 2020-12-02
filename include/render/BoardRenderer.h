@@ -460,7 +460,9 @@ void display(void){
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
-        displayMsg(screenMsg);  // display the current message on the screen
+        std::string msg = "Tech Green";
+
+        displayMsg(0, 0, msg);  // display the current message on the screen
         displayManual(); // display the menu of options
 
         // set the camera position, where it is looking, and its up vector
@@ -589,7 +591,7 @@ void keyboard(unsigned char key, int x, int y){
 	client* cli = GLRenderShared::cli;
 
     playerMove outMsg;
-    outMsg.playerID = GLRenderShared::username;
+    // outMsg.playerID = GLRenderShared::username.c_str();
     outMsg.movePosition = 0;
     std::cout << "username: " << GLRenderShared::username << std::endl;
     switch (key) {
@@ -625,7 +627,6 @@ void keyboard(unsigned char key, int x, int y){
             outMsg.moveType = 'h';
             outMsg.playerRoll = 0;
             cli->sendToServer(outMsg);
-
 
             glutPostRedisplay();
             break;
