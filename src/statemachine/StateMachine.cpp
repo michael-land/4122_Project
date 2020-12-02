@@ -35,33 +35,34 @@ void StateMachine::setIsClient(bool isClient)
 //Handles input and returns false if it fails to handle an input message
 bool StateMachine::input(playerMove inMsg)
 { // pass message in here
-    bool flag;
-    std::cout << "inputs" << std::endl;
+	bool flag;
+
+	std::cout << "inputs" << std::endl;
     switch (inMsg.moveType)
     {
     case 'b':
     case 'B':
-        flag = processBuy();
-        break;
+		flag = processBuy(inMsg);
+		break;
 
-    case 's':
+	case 's':
     case 'S':
-        flag = processSell();
+        flag = processSell(inMsg);
         break;
 
     case 'r':
     case 'R':
-        flag = processRollDice(inMsg.playerRoll);
+        flag = processRollDice(inMsg);
         break;
 
     case 'h':
     case 'H':
-        flag = processUpgrade();
+        flag = processUpgrade(inMsg);
         break;
 
     case 'n':
     case 'N':
-        flag = processEndTurn();
+        flag = processEndTurn(inMsg);
         break;
 
     case 'j':
@@ -79,9 +80,12 @@ bool StateMachine::input(playerMove inMsg)
 }
 
 //Returns whether a buy or sell is possible
-bool StateMachine::processBuy()
+bool StateMachine::processBuy(playerMove inMsg)
 {
     Player *currPlayer = board->getCurrentPlayer();
+    if (currPlayer->getName() != inMsg.playerID) {
+        return false;
+    }
     BoardSpace *space = currPlayer->getSpace();
     Property *prop;
     if (state == States::USER_INPUT)
@@ -102,9 +106,13 @@ bool StateMachine::processBuy()
 }
 
 //Returns true if the sell is possible else it returns false
-bool StateMachine::processSell()
+bool StateMachine::processSell(playerMove inMsg)
 {
+    
     Player *currPlayer = board->getCurrentPlayer();
+    if (currPlayer->getName() != inMsg.playerID) {
+        return false;
+    }
     BoardSpace *space = currPlayer->getSpace();
     Property *prop;
     if (state == States::USER_INPUT)
@@ -125,29 +133,42 @@ bool StateMachine::processSell()
 }
 
 //If the state does not allow the user to roll dice return false else return true
-bool StateMachine::processRollDice(int numSpaces)
+bool StateMachine::processRollDice(playerMove inMsg)
 {
-    if (state != States::USER_INPUT)
-    {
-        return false;
-    }
-    if (numSpaces > 12)
-    {
-        return false;
-    }
-    std::cout << "rolling the dice" << std::endl;
     Player *currPlayer = board->getCurrentPlayer();
-	std::cout << "got current player" << std::endl;
-	currPlayer->movePlayer(numSpaces);
-	std::cout << "moved player" << std::endl;
-    state = States::UPDATE_BOARD;
-    return true;
+    if (currPlayer->getName() != inMsg.playerID) {
+        return false;
+    }
+    int numSpaces = inMsg.playerRoll;
+    if (!rollBool) {
+        if (state != States::USER_INPUT)
+        {
+            return false;
+        }
+        if (numSpaces > 12)
+        {
+            return false;
+        }
+
+        std::cout << "rolling the dice" << std::endl;
+	    std::cout << "got current player" << std::endl;
+	    currPlayer->movePlayer(numSpaces);
+	    std::cout << "moved player" << std::endl;
+        state = States::UPDATE_BOARD;
+        rollBool = true;
+        return true;
+    }
+    else { return false; }
 }
 //Handles the end of a turn
-bool StateMachine::processEndTurn()
-{
-    this->board->swapCurrPlayer(); // swap current player to other player in vector
-    return true;
+bool StateMachine::processEndTurn(playerMove inMsg) {
+    if (inMsg.playerID == board->getCurrentPlayer()->getName()) {
+        this->board->swapCurrPlayer(); // swap current player to other player in vector
+        rollBool = false;
+        return true;
+    } else {
+        return false;
+    }
 }
 
 //Processes a player join action. It allows clients to join the game
@@ -202,7 +223,7 @@ bool StateMachine::processJoin(playerMove inMsg)
 }
 
 // Handles the upgrade of a property
-bool StateMachine::processUpgrade()
+bool StateMachine::processUpgrade(playerMove inMsg)
 {
     if (state != States::USER_INPUT)
     {
@@ -235,21 +256,17 @@ bool StateMachine::execOutputs(playerMove inMsg, bool flag)
     {
         Player *currPlayer = board->getCurrentPlayer();
         std::cout << "got current player" << std::endl;
-        if (flag)
-        { // if flag is true, valid move.  process based on client or server
-            if (isClient)
-            { // if client, redraw frames
+        if (flag) { // if flag is true, valid move.  process based on client or server
+            if (isClient) { // if client, redraw frames
+                std::cout << "posting redisplay" << std::endl;
                 glutPostRedisplay();
-            } else
-            {
+            } else {
                 std::cout << "valid move" << std::endl;
                 
                 this->serv->sendToClient(inMsg);
                 
             }
-        }
-        else
-        {
+        } else {
             std::cout << "invalid move" << std::endl;
             inMsg.moveType = 0; // invalid move.
             this->serv->sendToClient(inMsg);

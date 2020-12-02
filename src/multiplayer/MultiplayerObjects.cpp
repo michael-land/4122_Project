@@ -69,7 +69,9 @@ void clientReceive(client *socket)
         else
         {
             std::cout << "Message from server recieved" << std::endl;
+            socket->ssm->ssmMutex.lock();
             socket->ssm->input(inMsg);
+            socket->ssm->ssmMutex.unlock();
         }
     } while (true);
 }

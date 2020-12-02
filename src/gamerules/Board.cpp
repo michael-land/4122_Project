@@ -9,6 +9,7 @@ This is the file that defines the functionality for the board class.
 
 #include <gamerules/Board.h>
 #include <statemachine/StateMachine.h>
+#include <iostream>
 
 //Constructor for the board object that uses a string to define the boards name
 Board::Board(std::string name)
@@ -34,6 +35,7 @@ void Board::addSpace(BoardSpace *boardSpace)
     tail->setNextSpace(boardSpace);
     this->tail = boardSpace;
     this->tail->setPrevSpace(tmpPtr);
+    this->tail->setNextSpace(this->head);
 }
 
 //Adds a player object to the board
@@ -116,6 +118,7 @@ Player *Board::getCurrentPlayer()
 //Searches for the ending condition
 bool Board::checkForEndCond()
 {
+    std::cout << "getting end conds" << std::endl;
     bool flag = false;
     if (players.size() < 2)
     {
@@ -124,11 +127,12 @@ bool Board::checkForEndCond()
     //Iterates through the vector returning true if the money is less than 0
     for (std::vector<Player *>::iterator it = players.begin(); it < players.end(); it++)
     {
-        if ((*it)->getMoney() < 0)
+        if ((*it)->getMoney() <= 0)
         {
             flag = true;
         }
     }
+    std::cout << "got end conds" << std::endl;
     return flag;
 }
 

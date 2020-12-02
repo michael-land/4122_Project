@@ -14,7 +14,6 @@ SPECIAL NOTE:
     main(). These functions were inspired by his in-class examples. There are other snippets
     of code for coloring, lighting, buffering, and depth perception that were also taken from
     his examples from lectures. Thank you!
-    Credit goes to Anton Gerdelan of antongerdelan.net for the code to parse .obj files
 */
 #include <gamerules/Board.h>
 #include <gamerules/Property.h>
@@ -38,8 +37,8 @@ float PI = 3.141592653589793; // PI for angle calculations
 int screenWidth = 500;
 int screenHeight = 500;
 
-GLuint texture[1]; // for eyes of ghost and Pac Man
-BMP inBitmap;      // for eyes of ghost and Pac Man
+GLuint texture[1];
+BMP inBitmap;
 
 // color and material properties
 float colorWhite[4] = {0.60, 0.60, 0.60, 1.0f};
@@ -52,8 +51,6 @@ float colorYellow[4] = {1.0, 1.0, 0.0, 1.0f};
 float colorGreen[4] = {0.0, 1.0, 0.0, 1.0f};
 
 GLfloat shininess[] = {5};
-
-string screenMsg = "You have $1,500\0";
 
 namespace GLRenderShared
 {
@@ -96,7 +93,7 @@ void init(void)
     std::cout << "attempting to set board texture" << std::endl;
 
     // THIS SECTION IS FOR THE BOARD TEXTURE
-    inBitmap.read("/home/jstanhope3/Dropbox/school_notes/ece4122/4122_Project/textures/offwhiteboardTexture.bmp"); // read in bmp/texture files
+    inBitmap.read("offwhiteboardTexture.bmp"); // read in bmp/texture files
     std::cout << "after board texture" << std::endl;
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);    // byte alignment
     glGenTextures(1, texture);                // initialize the texture
@@ -349,9 +346,6 @@ void displayMsg(int playerMoney, int spacePrice, std::string &spaceName, std::st
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Used to Get the board coordinates from the space ID.
 /////////////////////////////////////////////////////////////////////////////////////////////////
-// corners are .17 by .17
-// others are .11 by .17
-// X by Z
 void spaceIDtoCoord(const int spaceID, float *x, float *z)
 {
     const float corner = 0.144;
@@ -412,24 +406,15 @@ void drawPlayerCylinder(float x, float z)
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, colorCyan);
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, colorCyan);
 
-    //glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-    //glMaterialfv(GL_FRONT, GL_DIFFUSE, colorPink);
-    //glMaterialfv(GL_FRONT, GL_AMBIENT, colorPink);
-    //glMaterialfv(GL_FRONT, GL_SPECULAR, colorPink);
-    // Draw the pacman (a sphere of radius 0.5 at height 0.5)
-
     glPushMatrix();
     glTranslatef(x, 0.030, z); // position
     glRotatef(90, 1.0, 0.0, 0.0);
-    //gluCylinder(GLUquadric* qobj, GLdouble baseRadius, GLdouble topRadius, GLdouble height, GLint slices, GLint stacks);
-    //base at z = 0; top at z = height
     gluCylinder(quadObj, 0.015, 0.015, 0.030, 100, 100);
     glPopMatrix(); //every push needs a pop
 
     glPushMatrix();
-    glTranslatef(x, 0.030, z); // position coin/powerup
+    glTranslatef(x, 0.030, z);
     glRotatef(90, 1.0, 0.0, 0.0);
-    //gluDisk(GLUquadric *qobj, GLdouble innerRadius, GLdouble outerRadius, GLint slices, GLint loops);
     gluDisk(quadObj, 0.0, 0.015, 100, 100);
     glPopMatrix(); //every push needs a pop
 }
@@ -439,18 +424,15 @@ void drawPlayerCylinder(float x, float z)
 ////////////////////////////////////////////////////////////////////////////////
 void drawPlayerSphere(float x, float z)
 {
-
     glColor3f(colorYellow[0], colorYellow[1], colorYellow[2]);
     glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, colorYellow);
-    //glMaterialfv(GL_FRONT, GL_AMBIENT, colorYellow);
     glMaterialfv(GL_FRONT, GL_SPECULAR, colorYellow);
-    // Draw the pacman (a sphere of radius 0.5 at height 0.5)
 
     glPushMatrix();
     glTranslatef(x, 0.015, z);        // position
-    glutSolidSphere(0.015, 100, 100); // pacman sphere; 100 and 100 are slices and stacks
-    glPopMatrix();                    //every push needs a pop
+    glutSolidSphere(0.015, 100, 100); // sphere - 100 and 100 are slices and stacks
+    glPopMatrix();                    // every push needs a pop
 }
 
 void displayManual();
@@ -503,8 +485,10 @@ void display(void)
     glDisable(GL_TEXTURE_2D);
 
     //while loop
+    
     if (bd != nullptr)
     {
+        // bd->getSSM()->ssmMutex.lock();
         Property* prop = dynamic_cast<Property*>(bd->getCurrentPlayer()->getSpace());
         std::string currSpaceName = bd->getCurrentPlayer()->getSpace()->getName();
         std::string currPlayerName = bd->getCurrentPlayer()->getName();
@@ -557,7 +541,6 @@ void display(void)
         // so to get the ID of the space that each player is current on, you could use something like:
         // currPlayer->getSpace()->getSpaceID()  where currPlayer is a pointer to a Player object
 
-        //drawHotel(28);
         while (curr->getSpaceID() != tail->getSpaceID())
         {
             int currID = curr->getSpaceID();
@@ -575,6 +558,7 @@ void display(void)
             }
 
             curr = curr->getNextSpace();
+            // bd->getSSM()->ssmMutex.unlock();
         }
         
     } else {
@@ -629,6 +613,7 @@ void keyboard(unsigned char key, int x, int y)
     }
     // std::cout << "username: " << GLRenderShared::username << std::endl;
     strcpy(outMsg.playerID, GLRenderShared::username.c_str());
+    // boardPointer->getSSM()->ssmMutex.lock();
     switch (key)
     {
     case 'b':
@@ -637,7 +622,8 @@ void keyboard(unsigned char key, int x, int y)
         // insert function sending 'b' to server
         outMsg.moveType = 'b';
         outMsg.playerRoll = 0;
-        cli->sendToServer(outMsg);
+		
+		cli->sendToServer(outMsg);
 
         break;
     case 's':
@@ -672,8 +658,9 @@ void keyboard(unsigned char key, int x, int y)
         // send message that you want to join a game
         outMsg.moveType = 'j';
         outMsg.playerRoll = 0;
-        cli->sendToServer(outMsg);
 
+        cli->sendToServer(outMsg);
+        std::cout << "sending to client" << std::endl;
         glutPostRedisplay();
         break;
 
@@ -713,6 +700,7 @@ void keyboard(unsigned char key, int x, int y)
     default:
         break;
     } // end of switch
+    //boardPointer->getSSM()->ssmMutex.unlock();
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////

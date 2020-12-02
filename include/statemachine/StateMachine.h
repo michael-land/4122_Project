@@ -9,6 +9,7 @@ This is the header file for Statemachine
 #include <statemachine/States.h>
 #include <statemachine/Decision.h>
 #include <gamerules/Player.h>
+#include <mutex>
 
 class Board;
 class server;
@@ -28,17 +29,19 @@ class StateMachine {
     ~StateMachine();	//Default destructor
     States getCurrentState() const;	//Returns the current state 
     bool input(playerMove inMsg);	//Accepts an input and handles the message accordingly
-    bool processBuy();	//Handles a buy
-    bool processSell();	//Handles a sell
-    bool processUpgrade();	//Processes an upgrade
-    bool processRollDice(int numSpaces);	//Does the roll dice
-    bool processEndTurn();	//Handles the end turn
+    bool processBuy(playerMove);	//Handles a buy
+    bool processSell(playerMove);	//Handles a sell
+    bool processUpgrade(playerMove);	//Processes an upgrade
+    bool processRollDice(playerMove);	//Does the roll dice
+    bool processEndTurn(playerMove);	//Handles the end turn
     bool execOutputs(playerMove inMsg, bool flag);	//Handles a player move input message and executes them depending on the flag
 	bool processJoin(playerMove);	//Handles when a new player joins
     void setIsClient(bool);	//Tells the statemachine whether it is a client or not
     server* getServer();	//Returns a pointer to the server
     void setServer(server*);	//Sets the server based on a pointer input
     void setBoard(Board*);
+	bool rollBool;
+	std::mutex ssmMutex;
     
 
 };
